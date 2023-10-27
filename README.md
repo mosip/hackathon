@@ -1,2 +1,2 @@
 # hackathon
-Repository where all hackathon problem statements of MOSIP 
+This repository contains all the hackathon problem statements of MOSIP 
