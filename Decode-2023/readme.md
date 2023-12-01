@@ -4,6 +4,6 @@ As an open source project for national digital identity systems, we are committe
 
 Being a globally recognised Digital Public Good, MOSIP strives to create inclusive and trustworthy digital identity systems for rapidly developing countries. Our team works tirelessly with local experts to customise our technology to suit a population’s requirements, but these needs are diverse and have endless potential for solutions.
 
-This is where <h2>MOSIP Decode</h2> comes in.
+This is where <b>MOSIP Decode</b> comes in.
 
 Our hackathon gives you the opportunity to contribute solutions for national digital infrastructure that is currently being implemented in over 10 countries. Develop code that aligns with MOSIP’s guiding principles of modularity, scalability, security, privacy, and open standards, and join our mission of empowering lives around the world, one unique ID at a time.
