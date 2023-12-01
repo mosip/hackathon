@@ -1,4 +1,4 @@
-<h1>Welcome to MOSIP Decode — the first edition of MOSIP’s virtual hackathon!<h1>
+<h1>Welcome to MOSIP Decode — the first edition of MOSIP’s virtual hackathon!</h1>
 
 As an open source project for national digital identity systems, we are committed to creating space for contributions from software developers around the world. We invite you to join the larger initiative driving digital transformation, and engage in problem solving for one of the world's most critical issues — the lack of legal, verifiable digital identity and its application for equitable access to rights and services.
 
