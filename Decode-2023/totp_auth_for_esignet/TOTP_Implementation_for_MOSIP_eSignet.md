@@ -95,8 +95,8 @@ Implement TOTP feature as per RFC 6238 in MOSP eSignet as explained below.
   - You may refer to this document to understand the flow and UI
   - We would require email ID as Essential claims
 - Generate Unique Token
-- On click of generate_totp_token_link, generate a random unique key , encode in base64 , generate a QR code which embedd this key, and present in the page.
-- Resident will scan the QR code from authentication App to register in authenticator App
+  - On click of generate_totp_token_link, generate a random unique key , encode in base64 , generate a QR code which embedd this key, and present in the page.
+  - Resident will scan the QR code from authentication App to register in authenticator App
 
 - Confirm binding above Token with eSignet
   - Call the new TOTP-binding API passing the eSignet access token, TOTP Random Key and other required parameters
@@ -127,180 +127,136 @@ id
 - Provide a **verify** button (verify_link), and on click of this , call modified Authenticate API
 - On return from this API, implement the consent flow as usual
 
-#### 4.2.3.2 Authenticate End point ( Authentication Endpoint V2 | Identity Provider
+#### 4.2.3.2 Authenticate End point ( [Authentication Endpoint V2 | Identity Provider](https://mosip.stoplight.io/docs/identity-provider/fyrtfdg35t4zs-authentication-endpoint-v2) )
 
-```
-Follow the flow and modify the parameters to add/modify if required
-Mock implementation in esginet-mock-services , in method kycAuth of AuthentionServiceImpl class, default implementation fetches
-already generated with otp and compares with passed otp value.
-Need to change the above logic to implement TOTP validation, by calling OTPManager API.
-Invoke otpvalidator API from OTP Manager.
-```
-**4.2.3.3 Changes in OTP Manager**
+![image info](./flow.jpeg)
 
-**4.2.3.3.1 Enhance OTP Manager**
-Enhance OTPValidator API to support protocol selection ( OTP/TOTP), and addtional required parameters
-Enhance validateOtp method in OtpValidatorServiceImple class to support protocol selection and additional required parmeters if any
-Implement the logic of generating TOTP against the passed key and comparing it with the passed TOTP value and return
-success/failure
-Implement validations such as TTL, Once use etc
+| Class Name |      Repo      |
+|----------|:-------------|
+| AuthorizationServiceImpl |  [https://github.com/mosip/esignet/tree/v1.2.0/oidc-service-impl](https://github.com/mosip/esignet/tree/v1.2.0/oidc-service-impl) |
+| AuthorizationHelperService |    [https://github.com/mosip/esignet/tree/v1.2.0/oidc-service-impl](https://github.com/mosip/esignet/tree/v1.2.0/oidc-service-impl)   |
+| Authenticator - Interface | [https://github.com/mosip/esignet/tree/v1.2.0/esignet-integration-api](https://github.com/mosip/esignet/tree/v1.2.0/esignet-integration-api) |
+| MockAuthenticationService | [https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl](https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl) |
+| MockHelperService | [https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl](https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl)  |
+| AuthenticationServiceImpl | [https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl](https://github.com/mosip/esignet-mock-services/tree/v0.9.1/mock-esignet-integration-impl)  |
+
+
+- Follow the flow and modify the parameters to add/modify if required
+  - Mock implementation in esginet-mock-services , in method kycAuth of AuthentionServiceImpl class, default implementation fetches
+  - already generated with otp and compares with passed otp value.
+  - Need to change the above logic to implement TOTP validation, by calling OTPManager API.
+  - Invoke otpvalidator API from OTP Manager.
+
+#### 4.2.3.3 Changes in OTP Manager
+
+##### 4.2.3.3.1 Enhance OTP Manager
+
+- Enhance OTPValidator API to support protocol selection ( OTP/TOTP), and addtional required parameters
+- Enhance validateOtp method in OtpValidatorServiceImple class to support protocol selection and additional required parmeters if any
+- Implement the logic of generating TOTP against the passed key and comparing it with the passed TOTP value and return success/failure
+- Implement validations such as TTL, Once use etc
 
 ## 4.4 Development Environment
 
-```
-Developers could fork from MOSIP gitrepo, all required Repos of specified branch and develop/debug locally
-```
-```
-AuthorizationServiceImpl https://github.com/mosip/oidc-service-impl/
-```
-```
-AuthorizationHelperService https://github.com/mosip/oidc-service-impl/
-```
-```
-Authenticator - Interface https://github.com/mosip/esignet/tree/1bc5ea2d4e8912dd
-782bcb79cfe40f2d1b5806ac/esignet-integration-api
-```
-```
-MockAuthenticationService https://github.com/mosip/esignet-mock-services/tree/mast
-er/mock-esignet-integration-impl
-```
-```
-MockHelperService https://github.com/mosip/esignet-mock-
-services/blob/master/mock-esignet-integration-impl
-AuthController https://github.com/mosip/esignet-mock-services/tree/mast
-er/mock-identity-system
-AuthenticationServiceImpl https://github.com/mosip/esignet-mock-services/tree/mas
-ter/mock-identity-system
-```
-```
-Class Name Repo
-Connect your
-Github account
-Connect your
-Github account
-```
-```
-Connect your Github account
-```
-```
-Connect your Github
-account
-```
-```
-Connect your Github account
-```
-```
-Connect your Github account
-```
+- Developers could fork from MOSIP gitrepo, all required Repos of specified branch and develop/debug locally
+- Refer to Local Deployment guide for more details, which also covers how to insert test data ( identity, partner details etc) using curl command.
+- One could run the all necessary apps locally with custom implementation of TOTP and test locally
+- To test locally , one could use Google Authenticator
+- Prepare test data & scripts to import into local database as per Local Deployment Guide
 
-```
-Refer to Local Deployment guide for more details, which also covers how to insert test data ( identity, partner details etc) using curl
-command.
-One could run the all necessary apps locally with custom implementation of TOTP and test locally
-To test locally , one could use Google Authenticator
-Prepare test data & scripts to import into local database as per Local Deployment Guide
-```
 ## 4.5 Deployment , Testing & Submission
 
-```
-Submission shall be done by committing artefacts into the forked respective repo and raising pull request
-MOSIP Dev-ops team will verify, build and deploy to test sandbox and provide access to dev team
-Dev Team runs the tests and provides the report
-```
+
+- Submission shall be done by committing artefacts into the forked respective repo and raising pull request
+- MOSIP Dev-ops team will verify, build and deploy to test sandbox and provide access to dev team
+- Dev Team runs the tests and provides the report
+
 # 5. DELIVERABLES
 
-```
-All required Repos are forked from MOSIP Git Repo
-Raise pull request for all the customised code
-Check in the test scripts/cases, test reports
-Demo videos showcasing the working use-cases
-Any relevant documentation
-Deployment Script
-Develop Docker composer scripts for local deployment of all services and running test scripts if any
-Submit the same as part of deliverables
-Test data & scripts
-```
+
+- All required Repos are forked from MOSIP Git Repo
+- Raise pull request for all the customised code
+- Check in the test scripts/cases, test reports
+- Demo videos showcasing the working use-cases
+- Any relevant documentation
+- Deployment Script
+  - Develop Docker composer scripts for local deployment of all services and running test scripts if any
+  - Submit the same as part of deliverables
+- Test data & scripts
+
 # 6. APPENDIX
 
 ## 6.1 Reference Repos & URLS
 
 ### 6.1.1 MOSIP github
 
-### https://github.com/mosip/
+#### [https://github.com/mosip/](https://github.com/mosip/)
 
 ### 6.1.2 MOSIP OTP Manager Repo
 
-```
-GitHub - mosip/otp-manager
-```
+[GitHub - mosip/otp-manager](https://github.com/mosip/otp-manager)
+
 ### 6.1.3 OTP Manager Service : version release-1.2.0.1-B
 
 OTP Generation and Validation service
 
-```
-https://github.com/mosip/otp-manager/tree/1.2.0-rc2/kernel/kernel-otpmanager-serviceConnect your Github account
-```
+[https://github.com/mosip/otp-manager/tree/develop/kernel/kernel-otpmanager-service](https://github.com/mosip/otp-manager/tree/develop/kernel/kernel-otpmanager-service)
+
 
 ### 6.1.4 eSignet github
 
-### GitHub - mosip/esignet at release-1.2.x
+#### [GitHub - mosip/esignet at release-1.2.x](https://github.com/mosip/esignet/tree/v1.2.0)
 
 ### 6.1.5 eSignet Mock Implementations Repo
 
-```
-GitHub - mosip/esignet-mock-services: Repository contains mock implementation of auth for e-signet
-```
+[GitHub - mosip/esignet-mock-services: Repository contains mock implementation of auth for e-signet](https://github.com/mosip/esignet-mock-services)
+
 ### 6.1.6 Mock Relying Party Application
 
 **Back end**
 
-```
-https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-service
-```
+
+[https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-service](https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-service)
+
 **Web User Interface**
 
-```
-https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-ui
-```
+
+[https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-ui](https://github.com/mosip/esignet-mock-services/tree/master/mock-relying-party-ui)
+
 ## 6.2 eSIGNET API Reference
 
 ### 6.2.1 MOSIP Stoplight
 
-```
-e-Signet | Identity Provider
-```
+
+[e-Signet | Identity Provider](https://mosip.stoplight.io/docs/identity-provider/jlmszj6dlxigw-e-signet)
+
 ### 6.2.2 eSignet Wallet Binding API
 
-```
-Wallet Binding Endpoint | Identity Provider
-```
+
+[Wallet Binding Endpoint | Identity Provider](https://mosip.stoplight.io/docs/identity-provider/j4rvet323vah4-wallet-binding-endpoint)
+
 New API to be created here
 
-11:
 
-https://github.com/mosip/esignet/blob/master/esignet-service/src/main/java/io/mosip/esignet/controllers/KeyBindingController.java
-
-https://github.com/mosip/esignet/blob/master/binding-service-impl/src/main/java/io/mosip/esignet/services/KeyBindingServiceImpl.java
-
-https://github.com/mosip/esignet/blob/master/esignet-core/src/main/java/io/mosip/esignet/core/spi/KeyBindingService.java
-
+[https://github.com/mosip/esignet/tree/v1.2.0/esignet-service/src/main/java/io/mosip/esignet/controllers/KeyBindingController.java
+](https://github.com/mosip/esignet/tree/v1.2.0/esignet-service/src/main/java/io/mosip/esignet/controllers/KeyBindingController.java
+)
+[https://github.com/mosip/esignet/tree/v1.2.0/binding-service-impl/src/main/java/io/mosip/esignet/services/KeyBindingServiceImpl.java
+](https://github.com/mosip/esignet/tree/v1.2.0/binding-service-impl/src/main/java/io/mosip/esignet/services/KeyBindingServiceImpl.java
+)
+[https://github.com/mosip/esignet/tree/v1.2.0/esignet-core/src/main/java/io/mosip/esignet/core/spi/KeyBindingService.java
+](https://github.com/mosip/esignet/tree/v1.2.0/esignet-core/src/main/java/io/mosip/esignet/core/spi/KeyBindingService.java
+)
 reference Application
 
-```
-Health Services
-```
+
+[Health Services](https://healthservices-esignet.collab.mosip.net/)
+
 ## 6.3 TOTP References
 
-RFC 6238 RFC 6238: TOTP: Time-Based One-Time Password Algorithm
+[RFC 6238 RFC 6238: TOTP: Time-Based One-Time Password Algorithm](https://datatracker.ietf.org/doc/html/rfc6238)
 
-```
-Time-based One-time Passwords (TOTP)
-Key Uri Format
-```
-```
-Connect your Github account
-```
-```
-Connect your Github account
-```
+[Time-based One-time Passwords (TOTP)](https://medium.com/identity-beyond-borders/time-based-one-time-passwords-totp-9e7506a9a928)https://medium.com/identity-beyond-borders/time-based-one-time-passwords-totp-9e7506a9a928
+
+[Key Uri Format](https://github.com/google/google-authenticator/wiki/Key-Uri-Format)https://github.com/google/google-authenticator/wiki/Key-Uri-Format
 
