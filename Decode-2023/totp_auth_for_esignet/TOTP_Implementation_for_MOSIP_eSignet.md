@@ -247,8 +247,8 @@ New API to be created here
 [https://github.com/mosip/esignet/tree/v1.2.0/esignet-core/src/main/java/io/mosip/esignet/core/spi/KeyBindingService.java
 ](https://github.com/mosip/esignet/tree/v1.2.0/esignet-core/src/main/java/io/mosip/esignet/core/spi/KeyBindingService.java
 )
-reference Application
 
+reference Application
 
 [Health Services](https://healthservices-esignet.collab.mosip.net/)
 
