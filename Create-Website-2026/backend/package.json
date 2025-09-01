@@ -1,0 +1,18 @@
+{
+  "name": "mosip-create-web-service",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node index.js",
+    "devstart": "node index.js && nodemon ."
+  },
+  "keywords": [],
+  "author": "MOSIP",
+  "license": "MPL",
+  "description": "",
+  "dependencies": {
+    "@aws-sdk/client-secrets-manager": "^3.879.0",
+    "googleapis": "^159.0.0"
+  }
+}
