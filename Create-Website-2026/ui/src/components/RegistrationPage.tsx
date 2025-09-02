@@ -62,13 +62,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     "Credential Facilitation for Empowerment",
   ];
 
-  const teamSizes = [
-    "1 member",
-    "2-3 members",
-    "4-5 members",
-    "6-7 members",
-    "8-10 members",
-  ];
+  const teamSizes = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   const countries = [
     "Afghanistan",
@@ -189,7 +183,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all required fields");
+      toast.error("Please fill in all mandatory fields");
       return false;
     }
 
@@ -226,7 +220,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
       if (res.ok) {
         toast.success(
-          "Registration submitted successfully! Check your email for confirmation."
+          "Thank you for registering for MOSIP Create. Continue building your solution and stay tuned for more updates."
         );
       } else {
         toast.error("Registration failed. Please try again.");
@@ -276,7 +270,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 register">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -487,8 +481,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     className="bg-gray-50 border-gray-200 focus:border-[#007aff]"
                   />
                   <p className="text-xs text-gray-500">
-                    Remember this name - use the exact same name during solution
-                    submission.
+                    Please remember your team name and use the exact same name
+                    during solution submission.
                   </p>
                 </div>
               </div>

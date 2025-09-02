@@ -127,7 +127,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all required fields");
+      toast.error("Please fill in all mandatory fields");
       return false;
     }
 
@@ -168,9 +168,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         body: JSON.stringify(formData),
       });
 
-      toast.success(
-        "Solution submitted successfully! You will receive a confirmation email shortly."
-      );
+      if (res.ok) {
+        toast.success(
+          "Your solution has been successfully submitted. Our team will review and get back to you soon!"
+        );
+      } else {
+        toast.error("Submission failed. Please try again.");
+      }
 
       // Reset form
       setFormData({
@@ -216,10 +220,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 submission">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[4em] lg:pt-[7em]">
           <div className="flex items-center justify-between h-16">
             <Button
               variant="ghost"
