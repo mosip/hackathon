@@ -12,7 +12,7 @@ import {
   ExternalLink,
   Home,
   FileText,
-  Send
+  Send,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -30,6 +30,7 @@ interface NavigationProps {
   onNavigateToSubmission?: () => void;
   onNavigateToProgramDetails?: () => void;
   onNavigateToSubmissionAccordion?: () => void;
+  onNavigateToFAQs?: () => void;
   onNavigateToContactUs?: () => void;
   currentPage?: "home" | "registration" | "submission";
 }
@@ -40,6 +41,7 @@ const Navigation = ({
   onNavigateToSubmission,
   onNavigateToProgramDetails,
   onNavigateToSubmissionAccordion,
+  onNavigateToFAQs,
   onNavigateToContactUs,
   currentPage = "home",
 }: NavigationProps) => {
@@ -113,10 +115,19 @@ const Navigation = ({
     setOpenDropdowns({ help: false, pastEditions: false });
   };
 
-  const toggleMobileDropdown = (dropdown: 'help' | 'pastEditions') => {
-    setOpenDropdowns(prev => ({
+  const handleFAQsClick = () => {
+    // Use the proper accordion control function for contact us accordion
+    if (onNavigateToFAQs) {
+      onNavigateToFAQs();
+    }
+    setIsMobileMenuOpen(false);
+    setOpenDropdowns({ help: false, pastEditions: false });
+  };
+
+  const toggleMobileDropdown = (dropdown: "help" | "pastEditions") => {
+    setOpenDropdowns((prev) => ({
       ...prev,
-      [dropdown]: !prev[dropdown]
+      [dropdown]: !prev[dropdown],
     }));
   };
 
@@ -142,9 +153,11 @@ const Navigation = ({
   ];
 
   return (
-    <nav className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
-      isScrolled ? 'bg-white/95 backdrop-blur-md shadow-lg' : 'bg-white'
-    }`}>
+    <nav
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+        isScrolled ? "bg-white/95 backdrop-blur-md shadow-lg" : "bg-white"
+      }`}
+    >
       {/* Top utility bar */}
       <div className="hidden lg:block border-b border-gray-100 bg-gray-50/50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -159,7 +172,9 @@ const Navigation = ({
               >
                 {item.icon}
                 <span>{item.label}</span>
-                {item.external && <ExternalLink className="w-3 h-3 opacity-60" />}
+                {item.external && (
+                  <ExternalLink className="w-3 h-3 opacity-60" />
+                )}
               </a>
             ))}
           </div>
@@ -189,7 +204,7 @@ const Navigation = ({
               <button
                 onClick={handleHomeClick}
                 className={`nav-item-hover px-3 py-2 text-sm font-medium ${
-                  currentPage === 'home' ? 'text-blue-600' : 'text-gray-700'
+                  currentPage === "home" ? "text-blue-600" : "text-gray-700"
                 }`}
               >
                 Home
@@ -216,15 +231,18 @@ const Navigation = ({
                     <ChevronDown className="ml-1 h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 mt-2 border-gray-200 shadow-lg">
-                  <DropdownMenuItem 
-                    onClick={handleHelpClick}
+                <DropdownMenuContent
+                  align="start"
+                  className="w-48 mt-2 border-gray-200 shadow-lg"
+                >
+                  <DropdownMenuItem
+                    onClick={handleFAQsClick}
                     className="nav-dropdown-hover px-4 py-3 cursor-pointer"
                   >
                     <BookOpen className="w-4 h-4 mr-3" />
                     FAQs
                   </DropdownMenuItem>
-                  <DropdownMenuItem 
+                  <DropdownMenuItem
                     onClick={handleContactUsClick}
                     className="nav-dropdown-hover px-4 py-3 cursor-pointer"
                   >
@@ -241,15 +259,26 @@ const Navigation = ({
                     <ChevronDown className="ml-1 h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-48 mt-2 border-gray-200 shadow-lg">
-                  <DropdownMenuItem className="nav-dropdown-hover px-4 py-3 cursor-pointer">
-                    <Users className="w-4 h-4 mr-3" />
-                    MOSIP Create 2024
+                <DropdownMenuContent
+                  align="start"
+                  className="w-48 mt-2 border-gray-200 shadow-lg"
+                >
+                  <DropdownMenuItem
+                    asChild
+                    className="nav-dropdown-hover px-4 py-3 cursor-pointer"
+                  >
+                    <a
+                      href="https://www.hackerearth.com/challenges/hackathon/mosip-create/rules/#rules"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="flex items-center"
+                    >
+                      <Users className="w-4 h-4 mr-3" />
+                      MOSIP Create 2024
+                    </a>
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
-
-
             </div>
 
             {/* Register Now Button & MOSIP Logo */}
@@ -260,9 +289,15 @@ const Navigation = ({
               >
                 Register Now
               </Button>
-              
-              <button 
-                onClick={() => window.open('https://www.mosip.io', '_blank', 'noopener,noreferrer')}
+
+              <button
+                onClick={() =>
+                  window.open(
+                    "https://www.mosip.io",
+                    "_blank",
+                    "noopener,noreferrer"
+                  )
+                }
                 className="nav-icon-hover p-2 rounded-md overflow-hidden transition-all duration-300"
                 title="Visit MOSIP Website"
                 aria-label="Visit MOSIP Website"
@@ -314,7 +349,9 @@ const Navigation = ({
                   >
                     {item.icon}
                     <span>{item.label}</span>
-                    {item.external && <ExternalLink className="w-3 h-3 opacity-60 ml-auto" />}
+                    {item.external && (
+                      <ExternalLink className="w-3 h-3 opacity-60 ml-auto" />
+                    )}
                   </a>
                 ))}
               </div>
@@ -325,13 +362,15 @@ const Navigation = ({
               <button
                 onClick={handleHomeClick}
                 className={`flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium w-full text-left rounded-md ${
-                  currentPage === 'home' ? 'text-blue-600 bg-blue-50' : 'text-gray-700'
+                  currentPage === "home"
+                    ? "text-blue-600 bg-blue-50"
+                    : "text-gray-700"
                 }`}
               >
                 <Home className="w-5 h-5" />
                 <span>Home</span>
               </button>
-              
+
               <button
                 onClick={handleProgramDetailsClick}
                 className="flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
@@ -339,7 +378,7 @@ const Navigation = ({
                 <FileText className="w-5 h-5" />
                 <span>Program Details</span>
               </button>
-              
+
               <button
                 onClick={handleSubmissionClick}
                 className="flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
@@ -347,26 +386,28 @@ const Navigation = ({
                 <Send className="w-5 h-5" />
                 <span>Submission</span>
               </button>
-              
+
               {/* Help dropdown for mobile */}
               <div>
                 <button
-                  onClick={() => toggleMobileDropdown('help')}
+                  onClick={() => toggleMobileDropdown("help")}
                   className="flex items-center justify-between nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
                 >
                   <div className="flex items-center space-x-3">
                     <BookOpen className="w-5 h-5" />
                     <span>Help</span>
                   </div>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                    openDropdowns.help ? 'rotate-180' : ''
-                  }`} />
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      openDropdowns.help ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
-                
+
                 {openDropdowns.help && (
                   <div className="ml-8 mt-2 space-y-1">
                     <button
-                      onClick={handleHelpClick}
+                      onClick={handleFAQsClick}
                       className="block nav-mobile-item-hover px-3 py-2 text-sm text-gray-600 w-full text-left rounded-md"
                     >
                       FAQs
@@ -384,22 +425,31 @@ const Navigation = ({
               {/* Past Editions dropdown for mobile */}
               <div>
                 <button
-                  onClick={() => toggleMobileDropdown('pastEditions')}
+                  onClick={() => toggleMobileDropdown("pastEditions")}
                   className="flex items-center justify-between nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
                 >
                   <div className="flex items-center space-x-3">
                     <Users className="w-5 h-5" />
                     <span>Past Editions</span>
                   </div>
-                  <ChevronDown className={`w-4 h-4 transition-transform duration-200 ${
-                    openDropdowns.pastEditions ? 'rotate-180' : ''
-                  }`} />
+                  <ChevronDown
+                    className={`w-4 h-4 transition-transform duration-200 ${
+                      openDropdowns.pastEditions ? "rotate-180" : ""
+                    }`}
+                  />
                 </button>
-                
+
                 {openDropdowns.pastEditions && (
                   <div className="ml-8 mt-2 space-y-1">
                     <button
-                      onClick={() => setIsMobileMenuOpen(false)}
+                      onClick={() => {
+                        setIsMobileMenuOpen(false);
+                        window.open(
+                          "https://www.hackerearth.com/challenges/hackathon/mosip-create/rules/#rules",
+                          "_blank",
+                          "noopener,noreferrer"
+                        );
+                      }}
                       className="block nav-mobile-item-hover px-3 py-2 text-sm text-gray-600 w-full text-left rounded-md"
                     >
                       MOSIP Create 2024
@@ -419,10 +469,14 @@ const Navigation = ({
                 >
                   Register Now
                 </Button>
-                
-                <button 
+
+                <button
                   onClick={() => {
-                    window.open('https://www.mosip.io', '_blank', 'noopener,noreferrer');
+                    window.open(
+                      "https://www.mosip.io",
+                      "_blank",
+                      "noopener,noreferrer"
+                    );
                     setIsMobileMenuOpen(false);
                   }}
                   className="flex items-center justify-center space-x-2 nav-mobile-item-hover px-3 py-3 text-sm text-gray-600 w-full text-center rounded-md"

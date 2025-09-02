@@ -9,7 +9,7 @@ const MobileImportantDates: React.FC = () => {
     {
       icon: <Registration1 />,
       label: "Registration Opens",
-      date: "Sep 1, 2025",
+      date: "Sep 3, 2025",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
       iconColor: "text-blue-600",
