@@ -12,66 +12,81 @@ import SubmissionPage from "./components/SubmissionPage";
 import { Toaster } from "./components/ui/sonner";
 
 export default function App() {
-  const [currentPage, setCurrentPage] = useState<'home' | 'registration' | 'submission'>('home');
+  const [currentPage, setCurrentPage] = useState<
+    "home" | "registration" | "submission"
+  >("home");
   const [scrollProgress, setScrollProgress] = useState(0);
-  const [openAccordionFn, setOpenAccordionFn] = useState<((accordionId: string) => void) | null>(null);
+  const [openAccordionFn, setOpenAccordionFn] = useState<
+    ((accordionId: string) => void) | null
+  >(null);
 
   // Navigation functions
   const navigateToRegistration = () => {
-    setCurrentPage('registration');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setCurrentPage("registration");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToSubmission = () => {
-    setCurrentPage('submission');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setCurrentPage("submission");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToHome = () => {
-    setCurrentPage('home');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setCurrentPage("home");
+    window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   // Function to handle accordion control from navigation
-  const handleAccordionControl = (openAccordionFunction: (accordionId: string) => void) => {
+  const handleAccordionControl = (
+    openAccordionFunction: (accordionId: string) => void
+  ) => {
     setOpenAccordionFn(() => openAccordionFunction);
   };
 
   // Function to open specific accordion (called from navigation)
   const openProgramDetailsAccordion = () => {
-    if (currentPage !== 'home') {
+    if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
       setTimeout(() => {
         if (openAccordionFn) {
-          openAccordionFn('what-is-mosip-create');
+          openAccordionFn("what-is-mosip-create");
         }
       }, 500);
     } else {
       // Already on home page, just open the accordion
       if (openAccordionFn) {
-        openAccordionFn('what-is-mosip-create');
+        openAccordionFn("what-is-mosip-create");
       }
     }
   };
 
   // Function to open submission criteria accordion (6th accordion)
   const openSubmissionAccordion = () => {
-    console.log('openSubmissionAccordion called, currentPage:', currentPage, 'openAccordionFn:', !!openAccordionFn);
-    
-    if (currentPage !== 'home') {
+    console.log(
+      "openSubmissionAccordion called, currentPage:",
+      currentPage,
+      "openAccordionFn:",
+      !!openAccordionFn
+    );
+
+    if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
       setTimeout(() => {
         if (openAccordionFn) {
-          console.log('Opening submission-criteria accordion after page navigation');
-          openAccordionFn('submission-criteria');
+          console.log(
+            "Opening submission-criteria accordion after page navigation"
+          );
+          openAccordionFn("submission");
         } else {
-          console.warn('openAccordionFn not available after navigation, retrying...');
+          console.warn(
+            "openAccordionFn not available after navigation, retrying..."
+          );
           // Retry after additional delay if function not available
           setTimeout(() => {
             if (openAccordionFn) {
-              openAccordionFn('submission-criteria');
+              openAccordionFn("submission");
             }
           }, 300);
         }
@@ -79,19 +94,25 @@ export default function App() {
     } else {
       // Already on home page, just open the accordion
       if (openAccordionFn) {
-        console.log('Opening submission-criteria accordion directly');
-        openAccordionFn('submission-criteria');
+        console.log("Opening submission-criteria accordion directly");
+        openAccordionFn("submission");
       } else {
-        console.warn('openAccordionFn not available yet, waiting for initialization...');
+        console.warn(
+          "openAccordionFn not available yet, waiting for initialization..."
+        );
         // Wait for accordion control to be available
         const waitForAccordionControl = (attempts = 0) => {
           if (openAccordionFn) {
-            console.log('openAccordionFn now available, opening submission-criteria');
-            openAccordionFn('submission-criteria');
+            console.log(
+              "openAccordionFn now available, opening submission-criteria"
+            );
+            openAccordionFn("submission");
           } else if (attempts < 10) {
             setTimeout(() => waitForAccordionControl(attempts + 1), 100);
           } else {
-            console.error('Failed to initialize accordion control after 10 attempts');
+            console.error(
+              "Failed to initialize accordion control after 10 attempts"
+            );
           }
         };
         waitForAccordionControl();
@@ -101,21 +122,28 @@ export default function App() {
 
   // Function to open contact us accordion
   const openContactUsAccordion = () => {
-    console.log('openContactUsAccordion called, currentPage:', currentPage, 'openAccordionFn:', !!openAccordionFn);
-    
-    if (currentPage !== 'home') {
+    console.log(
+      "openContactUsAccordion called, currentPage:",
+      currentPage,
+      "openAccordionFn:",
+      !!openAccordionFn
+    );
+
+    if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
       setTimeout(() => {
         if (openAccordionFn) {
-          console.log('Opening contact-us accordion after page navigation');
-          openAccordionFn('contact-us');
+          console.log("Opening contact-us accordion after page navigation");
+          openAccordionFn("contact");
         } else {
-          console.warn('openAccordionFn not available after navigation, retrying...');
+          console.warn(
+            "openAccordionFn not available after navigation, retrying..."
+          );
           // Retry after additional delay if function not available
           setTimeout(() => {
             if (openAccordionFn) {
-              openAccordionFn('contact-us');
+              openAccordionFn("contact");
             }
           }, 300);
         }
@@ -123,19 +151,78 @@ export default function App() {
     } else {
       // Already on home page, just open the accordion
       if (openAccordionFn) {
-        console.log('Opening contact-us accordion directly');
-        openAccordionFn('contact-us');
+        console.log("Opening contact-us accordion directly");
+        openAccordionFn("contact");
       } else {
-        console.warn('openAccordionFn not available yet, waiting for initialization...');
+        console.warn(
+          "openAccordionFn not available yet, waiting for initialization..."
+        );
         // Wait for accordion control to be available
         const waitForAccordionControl = (attempts = 0) => {
           if (openAccordionFn) {
-            console.log('openAccordionFn now available, opening contact-us');
-            openAccordionFn('contact-us');
+            console.log("openAccordionFn now available, opening contact-us");
+            openAccordionFn("contact");
           } else if (attempts < 10) {
             setTimeout(() => waitForAccordionControl(attempts + 1), 100);
           } else {
-            console.error('Failed to initialize accordion control after 10 attempts');
+            console.error(
+              "Failed to initialize accordion control after 10 attempts"
+            );
+          }
+        };
+        waitForAccordionControl();
+      }
+    }
+  };
+
+  // Function to open faqs accordion
+  const openFAQsAccordion = () => {
+    console.log(
+      "openFAQsAccordion called, currentPage:",
+      currentPage,
+      "openAccordionFn:",
+      !!openAccordionFn
+    );
+
+    if (currentPage !== "home") {
+      navigateToHome();
+      // Wait for page navigation to complete, then open accordion
+      setTimeout(() => {
+        if (openAccordionFn) {
+          console.log("Opening faqs accordion after page navigation");
+          openAccordionFn("faqs");
+        } else {
+          console.warn(
+            "openAccordionFn not available after navigation, retrying..."
+          );
+          // Retry after additional delay if function not available
+          setTimeout(() => {
+            if (openAccordionFn) {
+              openAccordionFn("faqs");
+            }
+          }, 300);
+        }
+      }, 600);
+    } else {
+      // Already on home page, just open the accordion
+      if (openAccordionFn) {
+        console.log("Opening faqs accordion directly");
+        openAccordionFn("faqs");
+      } else {
+        console.warn(
+          "openAccordionFn not available yet, waiting for initialization..."
+        );
+        // Wait for accordion control to be available
+        const waitForAccordionControl = (attempts = 0) => {
+          if (openAccordionFn) {
+            console.log("openAccordionFn now available, opening faqs");
+            openAccordionFn("faqs");
+          } else if (attempts < 10) {
+            setTimeout(() => waitForAccordionControl(attempts + 1), 100);
+          } else {
+            console.error(
+              "Failed to initialize accordion control after 10 attempts"
+            );
           }
         };
         waitForAccordionControl();
@@ -146,10 +233,8 @@ export default function App() {
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight =
-        document.documentElement.scrollHeight -
-        window.innerHeight;
-      const currentProgress =
-        (window.scrollY / totalHeight) * 100;
+        document.documentElement.scrollHeight - window.innerHeight;
+      const currentProgress = (window.scrollY / totalHeight) * 100;
       setScrollProgress(currentProgress);
     };
 
@@ -157,22 +242,18 @@ export default function App() {
     window.addEventListener("scroll", handleScroll);
 
     // Smooth scrolling for anchor links
-    document
-      .querySelectorAll('a[href^="#"]')
-      .forEach((anchor) => {
-        anchor.addEventListener("click", function (e) {
-          e.preventDefault();
-          const target = document.querySelector(
-            this.getAttribute("href"),
-          );
-          if (target) {
-            target.scrollIntoView({
-              behavior: "smooth",
-              block: "start",
-            });
-          }
-        });
+    document.querySelectorAll('a[href^="#"]').forEach((anchor) => {
+      anchor.addEventListener("click", function (e) {
+        e.preventDefault();
+        const target = document.querySelector(this.getAttribute("href"));
+        if (target) {
+          target.scrollIntoView({
+            behavior: "smooth",
+            block: "start",
+          });
+        }
       });
+    });
 
     // Cleanup
     return () => {
@@ -181,7 +262,7 @@ export default function App() {
   }, []);
 
   // Render submission page
-  if (currentPage === 'submission') {
+  if (currentPage === "submission") {
     return (
       <div className="min-h-screen bg-white">
         {/* Progress indicator */}
@@ -193,30 +274,26 @@ export default function App() {
         </div>
 
         {/* Navigation with proper props */}
-        <Navigation 
+        <Navigation
           onNavigateHome={navigateToHome}
           onNavigateToRegistration={navigateToRegistration}
           onNavigateToSubmission={navigateToSubmission}
           onNavigateToProgramDetails={openProgramDetailsAccordion}
           onNavigateToSubmissionAccordion={openSubmissionAccordion}
+          onNavigateToFAQs={openFAQsAccordion}
           onNavigateToContactUs={openContactUsAccordion}
           currentPage={currentPage}
         />
 
         <SubmissionPage onNavigateHome={navigateToHome} />
 
-        <Toaster 
-          position="top-right"
-          expand={false}
-          richColors
-          closeButton
-        />
+        <Toaster position="top-right" expand={false} richColors closeButton />
       </div>
     );
   }
 
   // Render registration page
-  if (currentPage === 'registration') {
+  if (currentPage === "registration") {
     return (
       <div className="min-h-screen bg-white">
         {/* Progress indicator */}
@@ -228,24 +305,20 @@ export default function App() {
         </div>
 
         {/* Navigation with proper props */}
-        <Navigation 
+        <Navigation
           onNavigateHome={navigateToHome}
           onNavigateToRegistration={navigateToRegistration}
           onNavigateToSubmission={navigateToSubmission}
           onNavigateToProgramDetails={openProgramDetailsAccordion}
           onNavigateToSubmissionAccordion={openSubmissionAccordion}
+          onNavigateToFAQs={openFAQsAccordion}
           onNavigateToContactUs={openContactUsAccordion}
           currentPage={currentPage}
         />
 
         <RegistrationPage onNavigateHome={navigateToHome} />
 
-        <Toaster 
-          position="top-right"
-          expand={false}
-          richColors
-          closeButton
-        />
+        <Toaster position="top-right" expand={false} richColors closeButton />
       </div>
     );
   }
@@ -262,12 +335,13 @@ export default function App() {
       </div>
 
       {/* Navigation with proper props */}
-      <Navigation 
+      <Navigation
         onNavigateHome={navigateToHome}
         onNavigateToRegistration={navigateToRegistration}
         onNavigateToSubmission={navigateToSubmission}
         onNavigateToProgramDetails={openProgramDetailsAccordion}
         onNavigateToSubmissionAccordion={openSubmissionAccordion}
+        onNavigateToFAQs={openFAQsAccordion}
         onNavigateToContactUs={openContactUsAccordion}
         currentPage={currentPage}
       />
@@ -282,7 +356,7 @@ export default function App() {
         {/* Accordion Sections - Consistent container pattern */}
         <section className="w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
           <div className="max-w-7xl mx-auto">
-            <AccordionSections 
+            <AccordionSections
               onNavigateToSubmission={navigateToSubmission}
               onNavigateToRegistration={navigateToRegistration}
               onAccordionControl={handleAccordionControl}
@@ -291,7 +365,7 @@ export default function App() {
         </section>
 
         {/* Call to Action Section */}
-        <CallToActionSection 
+        <CallToActionSection
           onNavigateToRegistration={navigateToRegistration}
           onNavigateToSubmission={navigateToSubmission}
         />
@@ -301,12 +375,7 @@ export default function App() {
       <Footer />
 
       {/* Toast Notifications */}
-      <Toaster 
-        position="top-right"
-        expand={false}
-        richColors
-        closeButton
-      />
+      <Toaster position="top-right" expand={false} richColors closeButton />
 
       {/* Accessibility: Skip to main content link */}
       <a
@@ -321,9 +390,7 @@ export default function App() {
         <Button
           variant="default"
           size="icon"
-          onClick={() =>
-            window.scrollTo({ top: 0, behavior: "smooth" })
-          }
+          onClick={() => window.scrollTo({ top: 0, behavior: "smooth" })}
           className="fixed bottom-6 right-6 md:bottom-8 md:right-8 mosip-primary-button shadow-lg hover:shadow-xl transition-all duration-300 z-40 w-12 h-12 md:w-14 md:h-14"
           aria-label="Back to top"
         >
@@ -342,8 +409,6 @@ export default function App() {
           </svg>
         </Button>
       )}
-
-
     </div>
   );
 }
