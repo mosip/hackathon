@@ -10,6 +10,7 @@ import {
   MapPin,
 } from "lucide-react";
 import mosipCreateLogo from "figma:asset/16a0df83ffdd74ec73f59ffa5fb576ad10db6761.png";
+import mosipCreateLogoNew from "../assets/mosip_create_logo.png";
 import mosipReferenceImage from "figma:asset/b1d587260cc88dff00ceb239ce9d542693357dd7.png";
 import Registration1 from "../imports/Registration1";
 import customIcon from "figma:asset/f1afe06bf45db115c7afa170686ecc0ebf300a5d.png";
@@ -174,33 +175,27 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center w-full">
               {/* Left side - Content */}
-              <div className="text-center lg:text-left space-y-6 lg:space-y-8 max-w-full order-1">
+              <div className="text-center lg:text-left space-y-8 sm:space-y-10 lg:space-y-12 max-w-full order-1">
                 {/* MOSIP Create Logo */}
-                <div className="flex flex-col items-center lg:items-start animate-fade-in">
+                <div className="flex flex-col items-center lg:items-start animate-fade-in mt-[0px] mr-[0px] mb-[10px] ml-[0px]">
                   <img
                     src={mosipCreateLogo}
                     alt="MOSIP Create 2025"
-                    className="h-24 xs:h-28 sm:h-32 md:h-40 lg:h-48 xl:h-56 2xl:h-64 w-auto transform hover-scale-105 transition-transform duration-300 mb-4 lg:mb-6 max-w-full"
+                    className="h-40 xs:h-48 sm:h-56 md:h-32 lg:h-48 xl:h-56 2xl:h-64 w-auto transform hover-scale-105 transition-transform duration-300 mb-4 sm:mb-6 lg:mb-6 max-w-full"
                   />
-                  <h1 className="text-lg xs:text-xl sm:text-2xl md:text-3xl lg:text-4xl xl:text-5xl leading-tight break-words max-w-full">
-                    <span className="text-black font-normal text-[40px] font-bold">
-                      MOSIP{" "}
-                    </span>
-                    <span className="text-[rgba(250,128,5,1)] font-normal">
-                      create{" "}
-                    </span>
-                    <span className="text-black font-bold font-normal">
-                      2025{" "}
-                    </span>
-                  </h1>
+                  <img
+                    src={mosipCreateLogoNew}
+                    alt="MOSIP Create Logo"
+                    className="h-24 xs:h-24 sm:h-28 md:h-16 lg:h-24 xl:h-28 2xl:h-32 w-auto transform hover-scale-105 transition-transform duration-300 mt-4 sm:mt-6 lg:mt-6 max-w-full"
+                  />
                 </div>
 
                 {/* Main headline and tagline */}
                 <div
-                  className="space-y-4 lg:space-y-6 animate-fade-in-up max-w-full"
+                  className="space-y-4 sm:space-y-6 lg:space-y-8 animate-fade-in-up max-w-full mb-4"
                   style={{ animationDelay: "0.2s" }}
                 >
-                  <p className="text-sm xs:text-base sm:text-lg md:text-xl lg:text-2xl xl:text-3xl font-semibold leading-tight break-words max-w-full">
+                  <p className="sm:text-lg md:text-xl lg:text-[24px] xl:text-[24px] font-semibold leading-tight break-words max-w-full px-2 sm:px-0 text-[20px]">
                     <span className="text-black">Fuelling </span>
                     <span style={{ color: "#01A2FD" }}>Integration</span>
                     <span className="text-black">, </span>
@@ -209,7 +204,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     <span style={{ color: "#0A8754" }}>Impact</span>
                   </p>
 
-                  <p className="text-xs xs:text-sm sm:text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-0">
+                  <p className="sm:text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0 text-[14px]">
                     Building ready-for-adoption DPI solutions under the
                     mentorship of the makers of MOSIP.
                   </p>
@@ -217,7 +212,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
                 {/* CTA Buttons */}
                 <div
-                  className="flex flex-col sm:flex-row gap-4 justify-center lg:justify-start animate-fade-in-up"
+                  className="flex flex-col sm:flex-row gap-4 sm:gap-6 justify-center lg:justify-start animate-fade-in-up"
                   style={{ animationDelay: "0.4s" }}
                 >
                   <Button
@@ -456,11 +451,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
               {/* Right side - Key Dates - Desktop only */}
               <div
                 className="hidden lg:block space-y-4 animate-fade-in-up order-2"
-                style={{ animationDelay: "0.3s", opacity: 0 }}
+                style={{ animationDelay: "0.3s" }}
               >
-                <div className="glassmorphism rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-2xl border border-white/30 backdrop-blur-xl">
-                  <div className="text-center mb-6">
-                    <h3 className="text-xl lg:text-2xl font-bold text-gray-900 mb-2">
+                <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-200">
+                  <div className="text-center mb-8">
+                    <h3 className="text-xl lg:text-2xl text-gray-900 mb-2 font-bold">
                       Important Dates
                     </h3>
                     <p className="text-base text-gray-600">
@@ -468,34 +463,57 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     </p>
                   </div>
 
-                  <div className="space-y-4 lg:space-y-5">
-                    {keyDates.map((item, index) => (
-                      <div
-                        key={index}
-                        className={`${item.bgColor} ${item.borderColor} border-2 rounded-xl lg:rounded-2xl p-4 lg:p-5 hover:shadow-lg transition-all duration-300 transform hover-scale-102 cursor-pointer group backdrop-blur-sm`}
-                        style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-                      >
-                        <div className="flex items-center space-x-4">
+                  {/* Timeline Container */}
+                  <div className="relative">
+                    {/* Timeline Line - solid gray */}
+                    <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gray-300"></div>
+
+                    {/* Timeline Items */}
+                    <div className="space-y-8">
+                      {keyDates.map((item, index) => {
+                        const colors = [
+                          "#00a2e5",
+                          "#fec40d",
+                          "#f58020",
+                          "#d64246",
+                        ];
+                        const color = colors[index % colors.length];
+
+                        return (
                           <div
-                            className={`${item.iconColor} bg-white p-3 lg:p-4 rounded-lg lg:rounded-xl shadow-sm group-hover:shadow-md transition-shadow duration-300 flex-shrink-0`}
+                            key={index}
+                            className="relative flex items-center group animate-fade-in-up"
+                            style={{ animationDelay: `${0.5 + index * 0.1}s` }}
                           >
-                            <div className="w-5 h-5 lg:w-6 lg:h-6">
-                              {item.icon}
-                            </div>
-                          </div>
-                          <div className="flex-1 min-w-0">
+                            {/* Timeline Marker */}
                             <div
-                              className={`text-sm font-semibold ${item.textColor} uppercase tracking-wide mb-2`}
+                              className="relative z-10 flex-shrink-0 w-12 h-12 bg-white rounded-full border-4 shadow-sm group-hover:shadow-md transition-all duration-300 flex items-center justify-center"
+                              style={{ borderColor: color }}
                             >
-                              {item.label}
+                              <div
+                                className="w-3 h-3 rounded-full"
+                                style={{ backgroundColor: color }}
+                              ></div>
                             </div>
-                            <div className="text-base lg:text-lg xl:text-xl font-bold text-gray-900 leading-tight">
-                              {item.date}
+
+                            {/* Timeline Content */}
+                            <div className="ml-6 flex-1">
+                              <div className="bg-white border-2 border-gray-200 rounded-xl p-4 lg:p-5 hover:shadow-md transition-all duration-300">
+                                <div
+                                  className="text-sm font-semibold uppercase tracking-wide mb-2"
+                                  style={{ color: color }}
+                                >
+                                  {item.label}
+                                </div>
+                                <div className="text-base lg:text-lg xl:text-xl font-bold text-gray-900 leading-tight">
+                                  {item.date}
+                                </div>
+                              </div>
                             </div>
                           </div>
-                        </div>
-                      </div>
-                    ))}
+                        );
+                      })}
+                    </div>
                   </div>
                 </div>
               </div>

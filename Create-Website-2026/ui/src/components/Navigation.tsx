@@ -194,7 +194,7 @@ const Navigation = ({
                 <img
                   src={mosipCreateLogo}
                   alt="MOSIP Create"
-                  className="h-10 w-auto"
+                  className="h-15 w-auto"
                 />
               </button>
             </div>
@@ -305,7 +305,7 @@ const Navigation = ({
                 <ImageWithFallback
                   src={mosipLogo}
                   alt="MOSIP Logo"
-                  className="w-10 h-10 object-contain rounded-sm"
+                  className="w-15 h-15 object-contain rounded-sm"
                 />
               </button>
             </div>
