@@ -467,7 +467,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
                       }
-                      placeholder="organization@company.com"
+                      placeholder="youremail@organization.com"
                       className="bg-gray-50 border-gray-200 focus:border-[#007aff]"
                     />
                   </div>
@@ -628,7 +628,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     onChange={(e) =>
                       handleInputChange("ideaDescription", e.target.value)
                     }
-                    placeholder="Briefly describe your solution idea, target audience, and how it addresses the chosen theme..."
+                    placeholder="Briefly describe your solution idea, target audience, and how it addresses the chosen theme"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#007aff] resize-none"
                   />

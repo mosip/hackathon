@@ -403,7 +403,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="organization@company.com"
+                  placeholder="youremail@organization.com"
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                 />
               </div>
