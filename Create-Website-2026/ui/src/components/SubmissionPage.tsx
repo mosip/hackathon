@@ -47,11 +47,77 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     "Credential Facilitation for Empowerment",
   ];
 
+  const [isFullNameError, setFullNameError] = useState(false);
+  const [isEmailError, setEmailError] = useState(false);
+  const [isTeamNameError, setTeamNameError] = useState(false);
+  const [isIdeaTitleError, setIdeaTitleError] = useState(false);
+  const [isIdeaDescriptionError, setIdeaDescriptionError] = useState(false);
+
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({
       ...prev,
       [field]: value,
     }));
+  };
+
+  const handleBlur = (e: React.FocusEvent<HTMLInputElement>) => {
+    const { name, value } = e.target;
+
+    if (name === "fullName") {
+      // ✅ Only allows alphabets and spaces
+      const fullNameRegex = /^[A-Za-z ]+$/;
+
+      if (value.trim() && !fullNameRegex.test(value.trim())) {
+        setFullNameError(true);
+      } else {
+        setFullNameError(false);
+      }
+    }
+
+    if (name === "email") {
+      // ✅ Only allows alphabets, numbers, ., -, _, @
+      // ✅ Must contain one @, domain parts with dots, TLD 2-63 letters
+      const emailRegex = /^[A-Za-z0-9._-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,63}$/;
+
+      if (value.trim() && !emailRegex.test(value.trim())) {
+        setEmailError(true);
+      } else {
+        setEmailError(false);
+      }
+    }
+
+    if (name === "teamName") {
+      // ✅ Only alphabets, numbers, hyphens (-), and spaces
+      const teamNameRegex = /^[A-Za-z0-9- ]+$/;
+
+      if (value.trim() && !teamNameRegex.test(value.trim())) {
+        setTeamNameError(true);
+      } else {
+        setTeamNameError(false);
+      }
+    }
+
+    if (name === "ideaTitle") {
+      // ✅ Only alphabets, numbers, hyphens (-), and spaces
+      const ideaTitleRegex = /^[A-Za-z0-9- ]+$/;
+
+      if (value.trim() && !ideaTitleRegex.test(value.trim())) {
+        setIdeaTitleError(true);
+      } else {
+        setIdeaTitleError(false);
+      }
+    }
+
+    if (name === "ideaDescription") {
+      // ✅ Only alphabets, numbers, hyphens (-), and spaces
+      const ideaDescriptionRegex = /^[A-Za-z0-9- ]+$/;
+
+      if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
+        setIdeaDescriptionError(true);
+      } else {
+        setIdeaDescriptionError(false);
+      }
+    }
   };
 
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -128,10 +194,33 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return false;
     }
 
-    // Email validation
-    const emailRegex = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
-    if (!emailRegex.test(formData.email)) {
-      toast.error("Please enter a valid email address");
+    if (isFullNameError) {
+      toast.error("Please enter a valid Full Name");
+      return false;
+    }
+
+    if (isEmailError) {
+      toast.error("Please enter a valid E-Mail address");
+      return false;
+    }
+
+    if (isOrganizationNameError) {
+      toast.error("Please enter a valid Organization Name");
+      return false;
+    }
+
+    if (isTeamNameError) {
+      toast.error("Please enter a valid Team Name");
+      return false;
+    }
+
+    if (isIdeaTitleError) {
+      toast.error("Please enter a valid Idea Title");
+      return false;
+    }
+
+    if (isIdeaDescriptionError) {
+      toast.error("Please enter a valid Idea Description");
       return false;
     }
 
@@ -357,13 +446,25 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Input
                     id="fullName"
+                    name="fullName"
                     value={formData.fullName}
                     onChange={(e) =>
                       handleInputChange("fullName", e.target.value)
                     }
+                    onBlur={handleBlur}
                     placeholder="Enter your full name"
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
+
+                  {isFullNameError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>Only letters and spaces are allowed.</span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -372,13 +473,27 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Input
                     id="teamName"
+                    name="teamName"
                     value={formData.teamName}
                     onChange={(e) =>
                       handleInputChange("teamName", e.target.value)
                     }
+                    onBlur={handleBlur}
                     placeholder="Enter your team name"
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
+                  {isTeamNameError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), and spaces are
+                        allowed.
+                      </span>
+                    </div>
+                  )}
                   <p className="text-xs text-gray-500">
                     Enter exactly as provided during registration.
                   </p>
@@ -400,12 +515,26 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                 </Label>
                 <Input
                   id="email"
+                  name="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
+                  onBlur={handleBlur}
                   placeholder="youremail@organization.com"
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                 />
+                {isEmailError && (
+                  <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                    <AlertCircle
+                      className="w-3 h-3 flex-shrink-0 "
+                      style={{ marginTop: "1px" }}
+                    />
+                    <span>
+                      Please enter a valid email address (e.g.,
+                      name@domain.com).
+                    </span>
+                  </div>
+                )}
               </div>
             </CardContent>
           </Card>
@@ -453,13 +582,27 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Input
                     id="ideaTitle"
+                    name="ideaTitle"
                     value={formData.ideaTitle}
                     onChange={(e) =>
                       handleInputChange("ideaTitle", e.target.value)
                     }
+                    onBlur={handleBlur}
                     placeholder="Enter your solution idea title"
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
+                  {isIdeaTitleError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), and spaces are
+                        allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -471,14 +614,29 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Textarea
                     id="ideaDescription"
+                    name="ideaDescription"
                     value={formData.ideaDescription}
                     onChange={(e) =>
                       handleInputChange("ideaDescription", e.target.value)
                     }
+                    onBlur={handleBlur}
                     placeholder="Provide a detailed description of your solution..."
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
+
+                  {isIdeaDescriptionError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), and spaces are
+                        allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -665,7 +823,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     </Label>
                     {!formData.consent && (
                       <div className="flex items-start gap-1.5 text-xs text-red-600">
-                        <AlertCircle className="w-3 h-3 flex-shrink-0 mt-0.5" />
+                        <AlertCircle
+                          className="w-3 h-3 flex-shrink-0 mt-0.5"
+                          style={{ marginTop: "1px" }}
+                        />
                         <span>Consent is required to proceed</span>
                       </div>
                     )}
@@ -697,7 +858,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </div>
 
                   {!formData.recaptchaVerified && (
-                    <div className="text-xs text-red-600">
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
                       <span>reCAPTCHA verification is required to proceed</span>
                     </div>
                   )}
