@@ -67,11 +67,11 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       icon: (
         <img
           src={winnersIcon}
-          alt="Winners Travel to Morocco"
+          alt="WINNERS TRAVEL TO MOSIP CONNECT 2026"
           className="w-6 h-6 object-contain"
         />
       ),
-      label: "Winners Travel to Morocco",
+      label: "WINNERS TRAVEL TO MOSIP CONNECT 2026",
       date: "Feb, 2026",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",

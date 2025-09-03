@@ -683,8 +683,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   Travel to MOSIP Connect 2026
                 </h6>
                 <p className="text-sm text-gray-600">
-                  Win a return flight ticket (one per team) to Morocco to attend
-                  MOSIP Connect 2026.
+                  Win a return flight ticket (one per team) to attend MOSIP
+                  Connect 2026.
                 </p>
               </div>
 
