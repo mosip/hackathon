@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -18,6 +18,7 @@ import { Badge } from "./ui/badge";
 import { ExternalLink, AlertCircle, Loader2, ArrowLeft, X } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface SubmissionPageProps {
   onNavigateHome: () => void;
@@ -37,8 +38,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     targetAudience: "",
     additionalComments: "",
     consent: false,
-    recaptchaVerified: false,
+    recaptchaToken: "",
   });
+
+  const captchaSiteKey = import.meta.env.VITE_CAPTCHA_SITE_KEY;
+  const _reCaptchaRef = useRef(null);
 
   const themes = [
     "Digital ID for Service Access",
@@ -120,6 +124,18 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     }
   };
 
+  /**
+   * Reset the captcha widget
+   * & its token value
+   */
+  const resetCaptcha = () => {
+    _reCaptchaRef.current?.reset();
+  };
+
+  const handleCaptchaChange = (value) => {
+    handleInputChange("recaptchaToken", value);
+  };
+
   const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
     const files = Array.from(event.target.files || []);
     const allowedTypes = [
@@ -189,7 +205,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return false;
     }
 
-    if (!formData.recaptchaVerified) {
+    if (!formData.recaptchaToken) {
       toast.error("Please complete the reCAPTCHA verification");
       return false;
     }
@@ -201,11 +217,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
     if (isEmailError) {
       toast.error("Please enter a valid E-Mail address");
-      return false;
-    }
-
-    if (isOrganizationNameError) {
-      toast.error("Please enter a valid Organization Name");
       return false;
     }
 
@@ -248,6 +259,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         toast.success(
           "Your solution has been successfully submitted. Our team will review and get back to you soon!"
         );
+        resetCaptcha();
       } else {
         toast.error("Submission failed. Please try again.");
       }
@@ -264,7 +276,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         targetAudience: "",
         additionalComments: "",
         consent: false,
-        recaptchaVerified: false,
+        recaptchaToken: "",
       });
       setUploadedFiles([]);
 
@@ -291,17 +303,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       targetAudience: "",
       additionalComments: "",
       consent: false,
-      recaptchaVerified: false,
+      recaptchaToken: "",
     });
     setUploadedFiles([]);
     toast.success("Form cleared successfully");
-  };
-
-  const handleRecaptchaChange = (verified: boolean) => {
-    handleInputChange("recaptchaVerified", verified);
-    if (verified) {
-      toast.success("reCAPTCHA verification completed");
-    }
   };
 
   // Mock reCAPTCHA Component
@@ -851,13 +856,16 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
 
                   <div className="flex justify-start">
-                    <MockRecaptcha
-                      onChange={handleRecaptchaChange}
-                      verified={formData.recaptchaVerified}
-                    />
+                    <div className="flex justify-center mt-5 mb-5">
+                      <ReCAPTCHA
+                        ref={_reCaptchaRef}
+                        onChange={handleCaptchaChange}
+                        sitekey={captchaSiteKey}
+                      />
+                    </div>
                   </div>
 
-                  {!formData.recaptchaVerified && (
+                  {!formData.recaptchaToken && (
                     <div className="flex items-start gap-1.5 text-xs text-red-600 ">
                       <AlertCircle
                         className="w-3 h-3 flex-shrink-0 "

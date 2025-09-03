@@ -28,7 +28,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
     {
       icon: <Registration1 />,
       label: "Registration Opens",
-      date: "Sep 3, 2025",
+      date: "Sep 4, 2025",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
       iconColor: "text-blue-600",
