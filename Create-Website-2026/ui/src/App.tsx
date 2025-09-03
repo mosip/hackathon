@@ -63,13 +63,6 @@ export default function App() {
 
   // Function to open submission criteria accordion (6th accordion)
   const openSubmissionAccordion = () => {
-    console.log(
-      "openSubmissionAccordion called, currentPage:",
-      currentPage,
-      "openAccordionFn:",
-      !!openAccordionFn
-    );
-
     if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
@@ -122,13 +115,6 @@ export default function App() {
 
   // Function to open contact us accordion
   const openContactUsAccordion = () => {
-    console.log(
-      "openContactUsAccordion called, currentPage:",
-      currentPage,
-      "openAccordionFn:",
-      !!openAccordionFn
-    );
-
     if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
@@ -177,13 +163,6 @@ export default function App() {
 
   // Function to open faqs accordion
   const openFAQsAccordion = () => {
-    console.log(
-      "openFAQsAccordion called, currentPage:",
-      currentPage,
-      "openAccordionFn:",
-      !!openAccordionFn
-    );
-
     if (currentPage !== "home") {
       navigateToHome();
       // Wait for page navigation to complete, then open accordion
@@ -230,6 +209,58 @@ export default function App() {
     }
   };
 
+  // Function to open terms-&-conditions accordion
+  const openTandCAccordion = () => {
+    if (currentPage !== "home") {
+      navigateToHome();
+      // Wait for page navigation to complete, then open accordion
+      setTimeout(() => {
+        if (openAccordionFn) {
+          console.log(
+            "Opening terms-&-conditions accordion after page navigation"
+          );
+          openAccordionFn("terms-conditions");
+        } else {
+          console.warn(
+            "openAccordionFn not available after navigation, retrying..."
+          );
+          // Retry after additional delay if function not available
+          setTimeout(() => {
+            if (openAccordionFn) {
+              openAccordionFn("terms-conditions");
+            }
+          }, 300);
+        }
+      }, 600);
+    } else {
+      // Already on home page, just open the accordion
+      if (openAccordionFn) {
+        console.log("Opening terms-&-conditions accordion directly");
+        openAccordionFn("terms-conditions");
+      } else {
+        console.warn(
+          "openAccordionFn not available yet, waiting for initialization..."
+        );
+        // Wait for accordion control to be available
+        const waitForAccordionControl = (attempts = 0) => {
+          if (openAccordionFn) {
+            console.log(
+              "openAccordionFn now available, opening terms-&-conditions"
+            );
+            openAccordionFn("terms-conditions");
+          } else if (attempts < 10) {
+            setTimeout(() => waitForAccordionControl(attempts + 1), 100);
+          } else {
+            console.error(
+              "Failed to initialize accordion control after 10 attempts"
+            );
+          }
+        };
+        waitForAccordionControl();
+      }
+    }
+  };
+
   useEffect(() => {
     const handleScroll = () => {
       const totalHeight =
@@ -260,6 +291,19 @@ export default function App() {
       window.removeEventListener("scroll", handleScroll);
     };
   }, []);
+
+  if (window.location.pathname === "/terms-and-conditions") {
+    openTandCAccordion();
+
+    setTimeout(() => {
+      // Clean up the URL
+      window.history.replaceState(
+        {},
+        document.title,
+        window.location.origin + "/"
+      );
+    }, 1);
+  }
 
   // Render submission page
   if (currentPage === "submission") {

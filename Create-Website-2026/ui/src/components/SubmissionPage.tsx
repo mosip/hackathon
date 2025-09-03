@@ -15,26 +15,7 @@ import {
 } from "./ui/select";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import {
-  Users,
-  Mail,
-  Building,
-  Globe,
-  User,
-  Lightbulb,
-  FileText,
-  ExternalLink,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
-  ArrowLeft,
-  Home,
-  Upload,
-  X,
-  File,
-  Target,
-  MessageSquare,
-} from "lucide-react";
+import { ExternalLink, AlertCircle, Loader2, ArrowLeft, X } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
 
@@ -56,6 +37,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     targetAudience: "",
     additionalComments: "",
     consent: false,
+    recaptchaVerified: false,
   });
 
   const themes = [
@@ -127,7 +109,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all required fields");
+      toast.error("Please fill in all mandatory fields");
       return false;
     }
 
@@ -138,6 +120,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
     if (!formData.consent) {
       toast.error("Please provide consent to proceed");
+      return false;
+    }
+
+    if (!formData.recaptchaVerified) {
+      toast.error("Please complete the reCAPTCHA verification");
       return false;
     }
 
@@ -168,9 +155,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         body: JSON.stringify(formData),
       });
 
-      toast.success(
-        "Solution submitted successfully! You will receive a confirmation email shortly."
-      );
+      if (res.ok) {
+        toast.success(
+          "Your solution has been successfully submitted. Our team will review and get back to you soon!"
+        );
+      } else {
+        toast.error("Submission failed. Please try again.");
+      }
 
       // Reset form
       setFormData({
@@ -184,6 +175,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         targetAudience: "",
         additionalComments: "",
         consent: false,
+        recaptchaVerified: false,
       });
       setUploadedFiles([]);
 
@@ -210,21 +202,102 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       targetAudience: "",
       additionalComments: "",
       consent: false,
+      recaptchaVerified: false,
     });
     setUploadedFiles([]);
     toast.success("Form cleared successfully");
   };
 
+  const handleRecaptchaChange = (verified: boolean) => {
+    handleInputChange("recaptchaVerified", verified);
+    if (verified) {
+      toast.success("reCAPTCHA verification completed");
+    }
+  };
+
+  // Mock reCAPTCHA Component
+  const MockRecaptcha: React.FC<{
+    onChange: (verified: boolean) => void;
+    verified: boolean;
+  }> = ({ onChange, verified }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleCheck = async () => {
+      if (verified || isLoading) return;
+
+      setIsLoading(true);
+      // Simulate reCAPTCHA verification delay
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      onChange(true);
+      setIsLoading(false);
+    };
+
+    const handleReset = () => {
+      if (isLoading) return;
+      onChange(false);
+    };
+
+    return (
+      <div className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm max-w-xs w-full">
+        <div className="flex items-center gap-3">
+          <div className="relative flex-shrink-0">
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-[#1B52A4] border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Checkbox
+                checked={verified}
+                onCheckedChange={handleCheck}
+                className="w-5 h-5 border-2 border-gray-400 data-[state=checked]:bg-[#1B52A4] data-[state=checked]:border-[#1B52A4]"
+                disabled={verified || isLoading}
+              />
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="text-sm text-gray-700 font-medium">
+              {isLoading ? "Verifying..." : "I'm not a robot"}
+            </span>
+          </div>
+          <div className="flex flex-col items-center text-xs text-gray-500 flex-shrink-0">
+            <div className="mb-1">
+              <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
+                <rect width="32" height="24" rx="2" fill="#4285f4" />
+                <path
+                  d="M8 7h16v2H8V7zm0 4h12v2H8v-2zm0 4h8v2H8v-2z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <span className="font-medium">reCAPTCHA</span>
+          </div>
+        </div>
+        {verified && (
+          <div className="mt-3 flex justify-end border-t border-gray-200 pt-2">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleReset}
+              className="text-xs text-gray-500 hover:text-white h-auto py-1 px-2"
+              disabled={isLoading}
+            >
+              Reset
+            </Button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 submission">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[4em] lg:pt-[7em]">
           <div className="flex items-center justify-between h-16">
             <Button
               variant="ghost"
               onClick={onNavigateHome}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-gray-600 hover:text-white"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Homepage
@@ -239,7 +312,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header */}
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-[#0A8754] to-[#01A2FD] text-white rounded-2xl p-6 md:p-8 mb-6">
+          <div
+            className="text-white rounded-2xl p-6 md:p-8 mb-6"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
             <div className="text-center mb-4">
               <div className="mb-4">
                 <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
@@ -271,14 +347,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#01A2FD]" />
                 Personal Information
               </h3>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="flex items-center gap-1">
-                    Full Name <span className="text-red-600">*</span>
+                    Full Name<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="fullName"
@@ -293,7 +368,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
                 <div className="space-y-2">
                   <Label htmlFor="teamName" className="flex items-center gap-1">
-                    Team Name <span className="text-red-600">*</span>
+                    Team Name<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="teamName"
@@ -316,20 +391,19 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Building className="w-5 h-5 text-[#0A8754]" />
                 Organization Information
               </h3>
 
               <div className="space-y-2">
                 <Label htmlFor="email" className="flex items-center gap-1">
-                  E-Mail (Organization) <span className="text-red-600">*</span>
+                  E-Mail (Organization)<span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="email"
                   type="email"
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
-                  placeholder="organization@company.com"
+                  placeholder="youremail@organization.com"
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                 />
               </div>
@@ -340,7 +414,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-[#FEC401]" />
                 Solution Information
               </h3>
 
@@ -350,7 +423,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="themeChosen"
                     className="flex items-center gap-1"
                   >
-                    Theme Chosen <span className="text-red-600">*</span>
+                    Theme Chosen<span className="text-red-600">*</span>
                   </Label>
                   <Select
                     value={formData.themeChosen}
@@ -376,7 +449,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="ideaTitle"
                     className="flex items-center gap-1"
                   >
-                    Idea Title <span className="text-red-600">*</span>
+                    Idea Title<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="ideaTitle"
@@ -394,7 +467,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="ideaDescription"
                     className="flex items-center gap-1"
                   >
-                    Idea Description <span className="text-red-600">*</span>
+                    Idea Description<span className="text-red-600">*</span>
                   </Label>
                   <Textarea
                     id="ideaDescription"
@@ -415,13 +488,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Upload className="w-5 h-5 text-[#FA8005]" />
-                Attachments <span className="text-red-600">*</span>
+                Attachments<span className="text-red-600">*</span>
               </h3>
 
               <div className="space-y-4">
                 <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
-                  <Upload className="w-12 h-12 text-gray-400 mx-auto mb-4" />
                   <Label htmlFor="file-upload" className="cursor-pointer">
                     <span className="text-[#01A2FD] hover:text-[#0077CC] font-medium">
                       Click to upload files
@@ -452,7 +523,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         className="flex items-center justify-between bg-gray-100 p-3 rounded-lg"
                       >
                         <div className="flex items-center gap-2">
-                          <File className="w-4 h-4 text-gray-500" />
                           <span className="text-sm text-gray-700">
                             {file.name}
                           </span>
@@ -481,7 +551,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Target className="w-5 h-5 text-[#D64045]" />
                 Problem & Target Audience
               </h3>
 
@@ -491,7 +560,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="problemChallenge"
                     className="flex items-center gap-1"
                   >
-                    What specific problem/challenge does it address?{" "}
+                    What specific problem/challenge does it address?
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
@@ -511,7 +580,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="targetAudience"
                     className="flex items-center gap-1"
                   >
-                    Who is the targeted audience for this use case?{" "}
+                    Who is the targeted audience for this use case?
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
@@ -533,7 +602,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <MessageSquare className="w-5 h-5 text-[#6f42c1]" />
                 Additional Information
               </h3>
 
@@ -560,7 +628,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-[#D64045]" />
                 Consent & Agreement
               </h3>
 
@@ -587,14 +654,9 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       purpose and will not be shared with any other party. By
                       clicking below, I also agree to the{" "}
                       <a
-                        href="#"
+                        href={`${window.location.origin}/terms-and-conditions`}
                         className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toast.info(
-                            "Terms & Conditions will open in a new window"
-                          );
-                        }}
+                        target="_blank"
                       >
                         Terms & Conditions
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />
@@ -608,6 +670,37 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* reCAPTCHA Verification */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Security Verification
+              </h3>
+
+              <div className="space-y-4">
+                <div className="flex flex-col gap-4">
+                  <Label className="text-sm">
+                    Please complete the security verification below
+                    <span className="text-red-600">*</span>
+                  </Label>
+
+                  <div className="flex justify-start">
+                    <MockRecaptcha
+                      onChange={handleRecaptchaChange}
+                      verified={formData.recaptchaVerified}
+                    />
+                  </div>
+
+                  {!formData.recaptchaVerified && (
+                    <div className="text-xs text-red-600">
+                      <span>reCAPTCHA verification is required to proceed</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -649,7 +742,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
             onClick={onNavigateHome}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mx-auto"
           >
-            <Home className="w-4 h-4" />
             Return to MOSIP Create Homepage
           </Button>
         </div>

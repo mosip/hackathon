@@ -15,21 +15,7 @@ import {
 } from "./ui/select";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import {
-  Users,
-  Mail,
-  Building,
-  Globe,
-  User,
-  Lightbulb,
-  FileText,
-  ExternalLink,
-  CheckCircle,
-  AlertCircle,
-  Loader2,
-  ArrowLeft,
-  Home,
-} from "lucide-react";
+import { ExternalLink, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
 
@@ -53,6 +39,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     ideaDescription: "",
     linkedinUrl: "",
     consent: false,
+    recaptchaVerified: false,
   });
 
   const themes = [
@@ -62,13 +49,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     "Credential Facilitation for Empowerment",
   ];
 
-  const teamSizes = [
-    "1 member",
-    "2-3 members",
-    "4-5 members",
-    "6-7 members",
-    "8-10 members",
-  ];
+  const teamSizes = ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"];
 
   const countries = [
     "Afghanistan",
@@ -189,12 +170,17 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all required fields");
+      toast.error("Please fill in all mandatory fields");
       return false;
     }
 
     if (!formData.consent) {
       toast.error("Please provide consent to proceed");
+      return false;
+    }
+
+    if (!formData.recaptchaVerified) {
+      toast.error("Please complete the reCAPTCHA verification");
       return false;
     }
 
@@ -226,7 +212,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
       if (res.ok) {
         toast.success(
-          "Registration submitted successfully! Check your email for confirmation."
+          "Thank you for registering for MOSIP Create. Continue building your solution and stay tuned for more updates."
         );
       } else {
         toast.error("Registration failed. Please try again.");
@@ -245,6 +231,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         ideaDescription: "",
         linkedinUrl: "",
         consent: false,
+        recaptchaVerified: false,
       });
 
       // Navigate back to homepage after successful submission
@@ -271,12 +258,93 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       ideaDescription: "",
       linkedinUrl: "",
       consent: false,
+      recaptchaVerified: false,
     });
     toast.success("Form cleared successfully");
   };
 
+  const handleRecaptchaChange = (verified: boolean) => {
+    handleInputChange("recaptchaVerified", verified);
+    if (verified) {
+      toast.success("reCAPTCHA verification completed");
+    }
+  };
+
+  // Mock reCAPTCHA Component
+  const MockRecaptcha: React.FC<{
+    onChange: (verified: boolean) => void;
+    verified: boolean;
+  }> = ({ onChange, verified }) => {
+    const [isLoading, setIsLoading] = useState(false);
+
+    const handleCheck = async () => {
+      if (verified || isLoading) return;
+
+      setIsLoading(true);
+      // Simulate reCAPTCHA verification delay
+      await new Promise((resolve) => setTimeout(resolve, 0));
+      onChange(true);
+      setIsLoading(false);
+    };
+
+    const handleReset = () => {
+      if (isLoading) return;
+      onChange(false);
+    };
+
+    return (
+      <div className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm max-w-xs w-full">
+        <div className="flex items-center gap-3">
+          <div className="relative flex-shrink-0">
+            {isLoading ? (
+              <div className="w-5 h-5 border-2 border-[#1B52A4] border-t-transparent rounded-full animate-spin"></div>
+            ) : (
+              <Checkbox
+                checked={verified}
+                onCheckedChange={handleCheck}
+                className="w-5 h-5 border-2 border-gray-400 data-[state=checked]:bg-[#1B52A4] data-[state=checked]:border-[#1B52A4]"
+                disabled={verified || isLoading}
+              />
+            )}
+          </div>
+          <div className="flex-1 min-w-0">
+            <span className="text-sm text-gray-700 font-medium">
+              {isLoading ? "Verifying..." : "I'm not a robot"}
+            </span>
+          </div>
+          <div className="flex flex-col items-center text-xs text-gray-500 flex-shrink-0">
+            <div className="mb-1">
+              <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
+                <rect width="32" height="24" rx="2" fill="#4285f4" />
+                <path
+                  d="M8 7h16v2H8V7zm0 4h12v2H8v-2zm0 4h8v2H8v-2z"
+                  fill="white"
+                />
+              </svg>
+            </div>
+            <span className="font-medium">reCAPTCHA</span>
+          </div>
+        </div>
+        {verified && (
+          <div className="mt-3 flex justify-end border-t border-gray-200 pt-2">
+            <Button
+              type="button"
+              variant="ghost"
+              size="sm"
+              onClick={handleReset}
+              className="text-xs text-gray-500 hover:text-white h-auto py-1 px-2"
+              disabled={isLoading}
+            >
+              Reset
+            </Button>
+          </div>
+        )}
+      </div>
+    );
+  };
+
   return (
-    <div className="min-h-screen bg-gray-50">
+    <div className="min-h-screen bg-gray-50 register">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
@@ -284,7 +352,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
             <Button
               variant="ghost"
               onClick={onNavigateHome}
-              className="flex items-center gap-2 text-gray-600 hover:text-gray-900"
+              className="flex items-center gap-2 text-gray-600 hover:text-white"
             >
               <ArrowLeft className="w-4 h-4" />
               Back to Homepage
@@ -299,7 +367,10 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-8">
         {/* Page Header - Fixed Section */}
         <div className="text-center mb-8">
-          <div className="bg-gradient-to-r from-[#0A8754] to-[#01A2FD] text-white rounded-2xl p-6 md:p-8 mb-6">
+          <div
+            className="text-white rounded-2xl p-6 md:p-8 mb-6"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
             <div className="text-center mb-4">
               <div className="mb-4">
                 <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
@@ -330,14 +401,13 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <User className="w-5 h-5 text-[#007aff]" />
                 Personal Information
               </h3>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="flex items-center gap-1">
-                    Full Name <span className="text-red-600">*</span>
+                    Full Name<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="fullName"
@@ -352,7 +422,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
                 <div className="space-y-2">
                   <Label htmlFor="country" className="flex items-center gap-1">
-                    Country <span className="text-red-600">*</span>
+                    Country<span className="text-red-600">*</span>
                   </Label>
                   <Select
                     value={formData.country}
@@ -380,7 +450,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Building className="w-5 h-5 text-[#28a745]" />
                 Organization Information
               </h3>
 
@@ -388,7 +457,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                 <div className="grid md:grid-cols-2 gap-4">
                   <div className="space-y-2">
                     <Label htmlFor="email" className="flex items-center gap-1">
-                      E-Mail (Organization){" "}
+                      E-Mail (Organization)
                       <span className="text-red-600">*</span>
                     </Label>
                     <Input
@@ -398,7 +467,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       onChange={(e) =>
                         handleInputChange("email", e.target.value)
                       }
-                      placeholder="organization@company.com"
+                      placeholder="youremail@organization.com"
                       className="bg-gray-50 border-gray-200 focus:border-[#007aff]"
                     />
                   </div>
@@ -408,7 +477,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       htmlFor="organizationName"
                       className="flex items-center gap-1"
                     >
-                      Organization Name <span className="text-red-600">*</span>
+                      Organization Name<span className="text-red-600">*</span>
                     </Label>
                     <Input
                       id="organizationName"
@@ -445,14 +514,13 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Users className="w-5 h-5 text-[#ffc107]" />
                 Team Information
               </h3>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="teamSize" className="flex items-center gap-1">
-                    Team Size <span className="text-red-600">*</span>
+                    Team Size<span className="text-red-600">*</span>
                   </Label>
                   <Select
                     value={formData.teamSize}
@@ -475,7 +543,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
                 <div className="space-y-2">
                   <Label htmlFor="teamName" className="flex items-center gap-1">
-                    Team Name <span className="text-red-600">*</span>
+                    Team Name<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="teamName"
@@ -487,8 +555,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     className="bg-gray-50 border-gray-200 focus:border-[#007aff]"
                   />
                   <p className="text-xs text-gray-500">
-                    Remember this name - use the exact same name during solution
-                    submission.
+                    Please remember your team name and use the exact same name
+                    during solution submission.
                   </p>
                 </div>
               </div>
@@ -499,7 +567,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <Lightbulb className="w-5 h-5 text-[#dc3545]" />
                 Solution Information
               </h3>
 
@@ -509,7 +576,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     htmlFor="themeChosen"
                     className="flex items-center gap-1"
                   >
-                    Theme Chosen <span className="text-red-600">*</span>
+                    Theme Chosen<span className="text-red-600">*</span>
                   </Label>
                   <Select
                     value={formData.themeChosen}
@@ -535,7 +602,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     htmlFor="ideaTitle"
                     className="flex items-center gap-1"
                   >
-                    Idea Title <span className="text-red-600">*</span>
+                    Idea Title<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="ideaTitle"
@@ -553,7 +620,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     htmlFor="ideaDescription"
                     className="flex items-center gap-1"
                   >
-                    Idea Description <span className="text-red-600">*</span>
+                    Idea Description<span className="text-red-600">*</span>
                   </Label>
                   <Textarea
                     id="ideaDescription"
@@ -561,7 +628,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                     onChange={(e) =>
                       handleInputChange("ideaDescription", e.target.value)
                     }
-                    placeholder="Briefly describe your solution idea, target audience, and how it addresses the chosen theme..."
+                    placeholder="Briefly describe your solution idea, target audience, and how it addresses the chosen theme"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#007aff] resize-none"
                   />
@@ -574,7 +641,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                <FileText className="w-5 h-5 text-[#6f42c1]" />
                 Consent & Agreement
               </h3>
 
@@ -601,15 +667,9 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       purpose and will not be shared with any other party. By
                       clicking below, I also agree to the{" "}
                       <a
-                        href="#"
+                        href={`${window.location.origin}/terms-and-conditions`}
                         className="text-[#007aff] hover:underline hover:text-[#0056cc] transition-colors duration-200"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          // This would open T&C in a new tab/modal
-                          toast.info(
-                            "Terms & Conditions will open in a new window"
-                          );
-                        }}
+                        target="_blank"
                       >
                         Terms & Conditions
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />
@@ -623,6 +683,37 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       </div>
                     )}
                   </div>
+                </div>
+              </div>
+            </CardContent>
+          </Card>
+
+          {/* reCAPTCHA Verification */}
+          <Card>
+            <CardContent className="p-6">
+              <h3 className="text-lg font-semibold text-gray-900 mb-4">
+                Security Verification
+              </h3>
+
+              <div className="space-y-4">
+                <div className="flex flex-col gap-4">
+                  <Label className="text-sm">
+                    Please complete the security verification below
+                    <span className="text-red-600">*</span>
+                  </Label>
+
+                  <div className="flex justify-start">
+                    <MockRecaptcha
+                      onChange={handleRecaptchaChange}
+                      verified={formData.recaptchaVerified}
+                    />
+                  </div>
+
+                  {!formData.recaptchaVerified && (
+                    <div className="text-xs text-red-600">
+                      <span>reCAPTCHA verification is required to proceed</span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -642,7 +733,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
             <Button
               type="submit"
-              className="flex-1 mosip-gradient hover:opacity-90 text-white font-semibold"
+              className="flex-1 mosip-primary-button text-white font-semibold"
               disabled={isSubmitting}
             >
               {isSubmitting ? (
@@ -651,10 +742,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                   Submitting...
                 </>
               ) : (
-                <>
-                  <CheckCircle className="w-4 h-4 mr-2" />
-                  Submit Registration
-                </>
+                <>Submit Registration</>
               )}
             </Button>
           </div>
@@ -667,7 +755,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
             onClick={onNavigateHome}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mx-auto"
           >
-            <Home className="w-4 h-4" />
             Return to MOSIP Create Homepage
           </Button>
         </div>

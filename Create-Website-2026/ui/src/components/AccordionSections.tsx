@@ -1,7 +1,7 @@
 "use client";
 
 import React, { useState, useRef, useCallback, useEffect } from "react";
-import { motion } from "motion/react";
+import { color, motion } from "motion/react";
 import { Card, CardContent } from "./ui/card";
 import {
   Accordion,
@@ -12,91 +12,20 @@ import {
 import { Badge } from "./ui/badge";
 import { Button } from "./ui/button";
 import {
-  Globe,
-  Users,
-  Target,
-  Trophy,
   Calendar,
-  FileText,
-  Star,
-  BookOpen,
-  Shield,
-  MessageCircle,
   CheckCircle,
-  ArrowRight,
-  MapPin,
-  DollarSign,
-  CreditCard,
-  UserCheck,
   Mail,
-  Phone,
-  HelpCircle,
-  AlertTriangle,
   ExternalLink,
-  Clock,
-  Award,
-  Eye,
-  Share2,
-  Zap,
-  Database,
-  Code,
-  Video,
-  Download,
   Link as LinkIcon,
-  Building,
-  Lightbulb,
-  Palette,
-  Smartphone,
-  ShieldCheck,
-  Scale,
-  Cpu,
-  BarChart3,
-  FileCheck,
-  Briefcase,
-  GraduationCap,
-  Heart,
-  Landmark,
-  AlertCircle,
   Info,
-  SendHorizontal,
-  ClipboardCheck,
-  Layers,
-  Plane,
-  Monitor,
-  Camera,
-  Handshake,
-  Coins,
   CreditCard as CreditCardIcon,
-  Banknote,
-  Wallet,
-  Settings,
-  Play,
-  ChevronRight,
-  X,
-  Users2,
-  Lock,
-  Calendar1,
-  Percent,
   Plus,
   Minus,
-  Upload,
 } from "lucide-react";
 import networkIcon from "../assets/7100cbf2bdd2edf857b1756b0e7a3e017056d5d3.png";
 import ekycIcon from "../assets/3cbf525c4ed461404eed76541658d2ca2685726c.png";
 import financialIcon from "../assets/4a90e15aa62cda3b74c6a98b571e5a25425ea5ef.png";
 import credentialIcon from "../assets/0cabc3e0a8a5beb5dd7faa4d916036fcfd8f9a2b.png";
-import what_is_mosip_createIcon from "../assets/what_is_mosip_create.png";
-import who_is_mosip_create_forIcon from "../assets/who_is_mosip_create_for.png";
-import themesIcon from "../assets/themes.png";
-import prizesIcon from "../assets/prizes.png";
-import timelineIcon from "../assets/timeline.png";
-import resourcesIcon from "../assets/resources.png";
-import evaluation_criteriaIcon from "../assets/evaluation_criteria.png";
-import submission_criteriaIcon from "../assets/submission_criteria.png";
-import rulesIcon from "../assets/rules.png";
-import terms_and_conditionsIcon from "../assets/terms_and_conditions.png";
-import faqsIcon from "../assets/faqs.png";
-import contant_usIcon from "../assets/contact_us.png";
 
 interface AccordionSectionsProps {
   onNavigateToSubmission?: () => void;
@@ -211,24 +140,19 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "what-is-mosip-create",
       title: "What is MOSIP Create?",
-      icon: (
-        <img
-          src={what_is_mosip_createIcon}
-          alt="What is MOSIP Create Icon"
-          className="w-8 h-8"
-        />
-      ),
-      color: "#01A2FD",
-      bgGradient: "from-[#01A2FD] to-[#0077CC]",
+      color: "#00A2E5",
       borderColor: "border-[#01A2FD]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-50 to-sky-50 p-6 rounded-xl border border-blue-200">
-            <h4 className="font-bold text-gray-900 mb-4">
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-4">
               MOSIP's Flagship Global Programme
             </h4>
             <div className="prose prose-sm max-w-none">
-              <p className="text-gray-700 leading-relaxed mb-4">
+              <p className="text-white leading-relaxed mb-4">
                 MOSIP Create is MOSIP's flagship global programme initiated to
                 support and advance digital identity solutions from around the
                 world. Designed for established technology companies, startups,
@@ -236,7 +160,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 structured platform to develop and integrate ready-to-market
                 digital identity solutions with MOSIP.
               </p>
-              <p className="text-gray-700 leading-relaxed">
+              <p className="text-white leading-relaxed">
                 Leveraging MOSIP's open-source ID platform and suite of
                 products, participants refine their solutions to contribute to
                 Digital Public Infrastructure (DPI) — whether through
@@ -248,12 +172,14 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Globe className="w-5 h-5 text-green-600" />
+          <div
+            className="p-4 rounded-lg border border-gray-200"
+            style={{ backgroundColor: "#F58020" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Global Opportunities & Support
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Supported by the MOSIP team, top solutions will gain access to
               more than 11 countries where MOSIP serves as the national ID
               system, global visibility through the MOSIP Marketplace, and the
@@ -264,9 +190,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           <div className="grid md:grid-cols-3 gap-4">
             <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center">
-              <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <Target className="w-6 h-6 text-blue-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 DPI Solutions
               </h5>
@@ -277,9 +200,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center">
-              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <Building className="w-6 h-6 text-green-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 11+ Countries
               </h5>
@@ -289,9 +209,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             <div className="bg-white p-4 rounded-lg border border-gray-200 shadow-sm text-center">
-              <div className="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                <Award className="w-6 h-6 text-purple-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 Global Visibility
               </h5>
@@ -307,30 +224,25 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "who-is-mosip-create-for",
       title: "Who is MOSIP Create for?",
-      icon: (
-        <img
-          src={who_is_mosip_create_forIcon}
-          alt="Who is MOSIP Create for Icon"
-          className="w-8 h-8"
-        />
-      ),
-      color: "#0A8754",
-      bgGradient: "from-[#0A8754] to-[#086B43]",
+      color: "#FEC40D",
       borderColor: "border-[#0A8754]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
-            <h4 className="font-bold text-gray-900 mb-4">
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-4">
               Global Online Programme
             </h4>
-            <p className="text-gray-700 leading-relaxed mb-4">
+            <p className="text-white leading-relaxed mb-4">
               MOSIP Create is an online programme, allowing participants to join
               from anywhere in the world. Focused on solution integration and
               showcasing, it is open to technology companies and the broader
               commercial ecosystem, both established and emerging.
             </p>
 
-            <div className="bg-white p-4 rounded-lg border border-green-200 mt-4">
+            <div className="bg-white p-4 rounded-lg border border-gray-200 mt-4">
               <h5 className="font-semibold text-gray-900 mb-2">
                 Ready to Start?
               </h5>
@@ -341,7 +253,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
               <Button
                 variant="default"
                 size="lg"
-                className="mosip-primary-button-green font-semibold"
+                className="mosip-primary-button font-semibold"
                 onClick={onNavigateToRegistration}
               >
                 Register Now
@@ -349,9 +261,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-4 rounded-lg border border-blue-200">
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
             <h5 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-              <Info className="w-4 h-4 text-blue-600" />
               Platform Integration Options
             </h5>
             <p className="text-sm text-gray-700">
@@ -366,17 +277,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "themes",
       title: "Themes",
-      icon: <img src={themesIcon} alt="Themes Icon" className="w-8 h-8" />,
-      color: "#FEC401",
-      bgGradient: "from-[#FEC401] to-[#E5B001]",
+      color: "#F58020",
       borderColor: "border-[#FEC401]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-xl border border-yellow-200">
-            <h4 className="font-bold text-gray-900 mb-3">
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3">
               UN Sustainable Development Goals Aligned
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Informed by the UN's Sustainable Development Goals, MOSIP Create's
               themes invite solutions that address the on-ground needs of
               countries establishing their national digital infrastructures. We
@@ -508,9 +420,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
           </div>
 
-          <div className="bg-gradient-to-r from-indigo-50 to-purple-50 p-6 rounded-xl border border-indigo-200">
+          <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
             <h5 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Target className="w-5 h-5 text-indigo-600" />
               Contribute to SDGs
             </h5>
             <p className="text-gray-700 leading-relaxed mb-3">
@@ -741,7 +652,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 }}
                 className="inline-flex items-center gap-1 text-mosip-blue hover:text-mosip-dark-blue font-medium transition-all duration-300 hover:underline underline-offset-2 hover:shadow-sm rounded-md px-2 py-1 hover:bg-mosip-blue/5 group"
               >
-                <BarChart3 className="w-4 h-4 group-hover:scale-110 transition-transform duration-200" />
                 Visit Evaluation Criteria
                 <ExternalLink className="w-3 h-3 group-hover:translate-x-0.5 group-hover:-translate-y-0.5 transition-transform duration-200" />
               </a>{" "}
@@ -754,37 +664,31 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "prizes",
       title: "Prizes",
-      icon: <img src={prizesIcon} alt="Prizes Icon" className="w-8 h-8" />,
-      color: "#D64045",
-      bgGradient: "from-[#D64045] to-[#B5353A]",
+      color: "#D64246",
       borderColor: "border-[#D64045]",
       content: (
         <div className="space-y-6">
           {/* Top Winners */}
-          <div className="bg-gradient-to-r from-yellow-50 to-amber-50 p-6 rounded-xl border-2 border-yellow-300">
-            <h5 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <Award className="w-5 h-5 text-yellow-600" />
-              Top 6-8 Winning Solutions/Teams
+          <div
+            className="p-6 rounded-xl border-2 border-gray-300"
+            style={{ backgroundColor: "#F58020" }}
+          >
+            <h5 className="font-bold text-white mb-4 flex items-center gap-2">
+              Top 6-8 Winning Solutions/ Teams
             </h5>
 
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-white p-4 rounded-lg border border-gray-200 text-center">
-                <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Plane className="w-6 h-6 text-blue-600" />
-                </div>
                 <h6 className="font-semibold text-gray-900 mb-2">
                   Travel to MOSIP Connect 2026
                 </h6>
                 <p className="text-sm text-gray-600">
-                  Win a return flight ticket (one per team) to Morocco to attend
-                  MOSIP Connect 2026.
+                  Win a return flight ticket (one per team) to attend MOSIP
+                  Connect 2026.
                 </p>
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-gray-200 text-center">
-                <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Monitor className="w-6 h-6 text-green-600" />
-                </div>
                 <h6 className="font-semibold text-gray-900 mb-2">
                   Showcase at MOSIP Create Solution Discovery Space
                 </h6>
@@ -795,9 +699,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
               </div>
 
               <div className="bg-white p-4 rounded-lg border border-gray-200 text-center">
-                <div className="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-3">
-                  <Star className="w-6 h-6 text-purple-600" />
-                </div>
                 <h6 className="font-semibold text-gray-900 mb-2">
                   Main Stage Spotlight
                 </h6>
@@ -811,11 +712,13 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           {/* All Completed Submissions */}
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border-2 border-blue-300">
-            <h5 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <CheckCircle className="w-5 h-5 text-blue-600" />
-              All Completed Solution Submissions/Teams
-              <Badge variant="outline" className="ml-2 text-xs">
+          <div
+            className="p-6 rounded-xl border-2 border-gray-300"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h5 className="font-bold text-white mb-4 flex items-center gap-2">
+              All Completed Solution Submissions/ Teams
+              <Badge variant="outline" className="ml-2 text-xs text-white">
                 As per submission criteria
               </Badge>
             </h5>
@@ -823,7 +726,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             <div className="grid md:grid-cols-3 gap-4">
               <div className="bg-white p-4 rounded-lg border border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
-                  <Badge className="bg-green-100 text-green-700">
+                  <Badge
+                    className="text-white"
+                    style={{ backgroundColor: "#00A2E5" }}
+                  >
                     Concept Catalyst Badge
                   </Badge>
                 </div>
@@ -838,8 +744,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
               <div className="bg-white p-4 rounded-lg border border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
-                  <Camera className="w-4 h-4 text-blue-600" />
-                  <span className="text-sm font-medium">Video Feature</span>
+                  <Badge
+                    className="text-white"
+                    style={{ backgroundColor: "#F58020" }}
+                  >
+                    Video Feature
+                  </Badge>
                 </div>
                 <h6 className="font-medium text-gray-900 mb-2">
                   Display at MOSIP's Experience Center and Marketplace
@@ -854,8 +764,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
               <div className="bg-white p-4 rounded-lg border border-gray-200">
                 <div className="flex items-center gap-2 mb-2">
-                  <Award className="w-4 h-4 text-purple-600" />
-                  <span className="text-sm font-medium">Recognition</span>
+                  <Badge
+                    className="text-white"
+                    style={{ backgroundColor: "#098855" }}
+                  >
+                    Recognition
+                  </Badge>
                 </div>
                 <h6 className="font-medium text-gray-900 mb-2">
                   Awards & Recognition
@@ -871,7 +785,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           {/* Expert Jury */}
           <div className="bg-white p-6 rounded-lg border border-gray-200 shadow-sm">
             <h5 className="font-bold text-gray-900 mb-4 flex items-center gap-2">
-              <Users className="w-5 h-5 text-[#D64045]" />
               Expert Jury for Evaluation
             </h5>
             <p className="text-gray-700 mb-4">
@@ -880,16 +793,22 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </p>
 
             <div className="grid md:grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-gradient-to-b from-blue-50 to-blue-100 rounded-lg">
-                <Globe className="w-8 h-8 text-blue-600 mx-auto mb-2" />
+              <div
+                className="text-center p-4 rounded-lg text-white"
+                style={{ backgroundColor: "#00A2E5" }}
+              >
                 <h6 className="font-medium">International Technical Experts</h6>
               </div>
-              <div className="text-center p-4 bg-gradient-to-b from-green-50 to-green-100 rounded-lg">
-                <GraduationCap className="w-8 h-8 text-green-600 mx-auto mb-2" />
+              <div
+                className="text-center p-4 rounded-lg text-white"
+                style={{ backgroundColor: "#F58020" }}
+              >
                 <h6 className="font-medium">Renowned Academic Leaders</h6>
               </div>
-              <div className="text-center p-4 bg-gradient-to-b from-purple-50 to-purple-100 rounded-lg">
-                <Handshake className="w-8 h-8 text-purple-600 mx-auto mb-2" />
+              <div
+                className="text-center p-4 rounded-lg text-white"
+                style={{ backgroundColor: "#098855" }}
+              >
                 <h6 className="font-medium">
                   Practitioners from MOSIP Partner Countries
                 </h6>
@@ -899,7 +818,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
             <h5 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-              <AlertCircle className="w-4 h-4 text-amber-600" />
               Important Note
             </h5>
             <p className="text-sm text-gray-700">
@@ -915,18 +833,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "timeline",
       title: "Timeline",
-      icon: <img src={timelineIcon} alt="Timeline Icon" className="w-8 h-8" />,
-      color: "#014DAF",
-      bgGradient: "from-[#014DAF] to-[#013D8A]",
+      color: "#098855",
       borderColor: "border-[#014DAF]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Calendar className="w-5 h-5 text-[#014DAF]" />
+          <div
+            className="p-6 rounded-xl border border-blue-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               MOSIP Create 2025 Official Timeline
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Follow this comprehensive timeline to stay on track throughout the
               MOSIP Create journey.
             </p>
@@ -936,7 +854,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-[#014DAF] to-[#013D8A] text-white">
+                <thead
+                  className="text-white"
+                  style={{ backgroundColor: "#00A2E5" }}
+                >
                   <tr>
                     <th className="px-6 py-3 text-left font-semibold">
                       Milestone
@@ -948,9 +869,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-green-100 p-2 rounded-lg mr-3">
-                          <Play className="w-4 h-4 text-green-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#098855" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Event Launch & Opening of Registration
                         </span>
@@ -963,9 +885,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-red-100 p-2 rounded-lg mr-3">
-                          <Clock className="w-4 h-4 text-red-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#D64246" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Registration Closure
                         </span>
@@ -978,9 +901,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-blue-100 p-2 rounded-lg mr-3">
-                          <Video className="w-4 h-4 text-blue-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#F58020" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Kick-Off Webinar
                         </span>
@@ -993,9 +917,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                          <MessageCircle className="w-4 h-4 text-purple-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#FEC40D" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Bi-Weekly AMA Sessions
                         </span>
@@ -1008,9 +933,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-red-100 p-2 rounded-lg mr-3">
-                          <SendHorizontal className="w-4 h-4 text-red-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#00A2E5" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Solution Submission Closure
                         </span>
@@ -1023,9 +949,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-yellow-100 p-2 rounded-lg mr-3">
-                          <Eye className="w-4 h-4 text-yellow-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#1B52A4" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Evaluation: Panel-Level Demo
                         </span>
@@ -1038,9 +965,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-green-100 p-2 rounded-lg mr-3">
-                          <Trophy className="w-4 h-4 text-green-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#098855" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Winners Announcement
                         </span>
@@ -1055,9 +983,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-orange-100 p-2 rounded-lg mr-3">
-                          <Settings className="w-4 h-4 text-orange-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#D64246" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Preparation for Travel & Solution Showcase
                         </span>
@@ -1070,9 +999,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center">
-                        <div className="bg-purple-100 p-2 rounded-lg mr-3">
-                          <Star className="w-4 h-4 text-purple-600" />
-                        </div>
+                        <div
+                          className="p-2 rounded-lg mr-3"
+                          style={{ backgroundColor: "#F58020" }}
+                        ></div>
                         <span className="font-medium text-gray-900">
                           Marketplace Listing
                         </span>
@@ -1092,24 +1022,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "submission",
       title: "Submission Criteria",
-      icon: (
-        <img
-          src={submission_criteriaIcon}
-          alt="Submission Criteria Icon"
-          className="w-8 h-8"
-        />
-      ),
-      color: "#FA8005",
-      bgGradient: "from-[#FA8005] to-[#E8740A]",
+      color: "#1B52A4",
       borderColor: "border-[#FA8005]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-orange-50 to-yellow-50 p-6 rounded-xl border border-orange-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <SendHorizontal className="w-5 h-5 text-[#FA8005]" />
+          <div
+            className="p-6 rounded-xl border border-orange-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Complete Submission Requirements
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Please follow the detailed submission format below to ensure your
               solution meets all the necessary requirements and standards:
             </p>
@@ -1117,9 +1041,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           {/* Required Artefacts Table */}
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#098855" }}>
               <h5 className="font-bold text-white flex items-center gap-2">
-                <Upload className="w-5 h-5" />
                 Required Artefacts
               </h5>
             </div>
@@ -1139,7 +1062,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <FileText className="w-4 h-4 text-blue-600" />
                         <span className="font-medium text-gray-900">
                           Solution Presentation or Slide Deck*
                         </span>
@@ -1156,7 +1078,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Video className="w-4 h-4 text-green-600" />
                         <span className="font-medium text-gray-900">
                           Video Demo*
                         </span>
@@ -1174,7 +1095,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Camera className="w-4 h-4 text-purple-600" />
                         <span className="font-medium text-gray-900">
                           Video for Marketplace Showcase*
                         </span>
@@ -1195,9 +1115,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           {/* Submission Process */}
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#00A2E5" }}>
               <h5 className="font-bold text-white flex items-center gap-2">
-                <ClipboardCheck className="w-5 h-5" />
                 Solution Submission Process
               </h5>
             </div>
@@ -1209,8 +1128,11 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
               <div className="space-y-6">
                 <div className="flex items-start gap-4">
-                  <div className="bg-blue-100 text-blue-600 font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                    01
+                  <div
+                    className="font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white"
+                    style={{ backgroundColor: "#F58020" }}
+                  >
+                    1
                   </div>
                   <div>
                     <h6 className="font-semibold text-gray-900 mb-2">
@@ -1224,8 +1146,11 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="bg-green-100 text-green-600 font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                    02
+                  <div
+                    className="font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0 text-white"
+                    style={{ backgroundColor: "#098855" }}
+                  >
+                    2
                   </div>
                   <div>
                     <h6 className="font-semibold text-gray-900 mb-2">
@@ -1252,8 +1177,11 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 </div>
 
                 <div className="flex items-start gap-4">
-                  <div className="bg-purple-100 text-purple-600 font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0">
-                    03
+                  <div
+                    className="text-white font-bold text-lg w-10 h-10 rounded-full flex items-center justify-center flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  >
+                    3
                   </div>
                   <div>
                     <h6 className="font-semibold text-gray-900 mb-2">
@@ -1285,24 +1213,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "evaluation",
       title: "Evaluation Criteria",
-      icon: (
-        <img
-          src={evaluation_criteriaIcon}
-          alt="Evaluation Criteria Icon"
-          className="w-8 h-8"
-        />
-      ),
-      color: "#6f42c1",
-      bgGradient: "from-[#6f42c1] to-[#5d359a]",
+      color: "#00A2E5",
       borderColor: "border-[#6f42c1]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <BarChart3 className="w-5 h-5 text-[#6f42c1]" />
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Comprehensive Evaluation Framework
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Solutions will be evaluated by expert panels using these weighted
               criteria. Focus on demonstrating excellence across all dimensions
               for maximum impact.
@@ -1313,7 +1235,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
               <table className="w-full">
-                <thead className="bg-gradient-to-r from-[#6f42c1] to-[#5d359a] text-white">
+                <thead
+                  className="text-white"
+                  style={{ backgroundColor: "#1B52A4" }}
+                >
                   <tr>
                     <th className="px-6 py-3 text-left font-semibold">
                       Criteria
@@ -1330,7 +1255,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Target className="w-4 h-4 text-blue-600" />
                         <span className="font-medium text-gray-900">
                           Impact & Relevance
                         </span>
@@ -1340,7 +1264,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge className="bg-blue-100 text-blue-700">25%</Badge>
+                      <Badge
+                        className="bg-blue-100 text-white"
+                        style={{ backgroundColor: "#00A2E5" }}
+                      >
+                        25%
+                      </Badge>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       Solutions will be assessed based on their potential to
@@ -1351,7 +1280,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Code className="w-4 h-4 text-green-600" />
                         <span className="font-medium text-gray-900">
                           Integration with MOSIP Solutions
                         </span>
@@ -1361,7 +1289,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge className="bg-green-100 text-green-700">25%</Badge>
+                      <Badge
+                        className="text-white"
+                        style={{ backgroundColor: "#098855" }}
+                      >
+                        25%
+                      </Badge>
                     </td>
                     <td className="px-6 py-4 text-sm text-gray-600">
                       This criterion evaluates how effectively the solution
@@ -1375,7 +1308,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Users className="w-4 h-4 text-purple-600" />
                         <span className="font-medium text-gray-900">
                           Usability & Design
                         </span>
@@ -1385,7 +1317,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge className="bg-purple-100 text-purple-700">
+                      <Badge
+                        className="text-white"
+                        style={{ backgroundColor: "#D64246" }}
+                      >
                         20%
                       </Badge>
                     </td>
@@ -1399,7 +1334,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Lightbulb className="w-4 h-4 text-yellow-600" />
                         <span className="font-medium text-gray-900">
                           Innovation
                         </span>
@@ -1409,7 +1343,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge className="bg-yellow-100 text-yellow-700">
+                      <Badge
+                        className="text-white"
+                        style={{ backgroundColor: "#1B52A4" }}
+                      >
                         15%
                       </Badge>
                     </td>
@@ -1422,7 +1359,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <tr className="hover:bg-gray-50">
                     <td className="px-6 py-4">
                       <div className="flex items-center gap-2">
-                        <Settings className="w-4 h-4 text-orange-600" />
                         <span className="font-medium text-gray-900">
                           Feasibility, Scalability & Interoperability
                         </span>
@@ -1432,7 +1368,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4">
-                      <Badge className="bg-orange-100 text-orange-700">
+                      <Badge
+                        className="text-white"
+                        style={{ backgroundColor: "#F58020" }}
+                      >
                         15%
                       </Badge>
                     </td>
@@ -1451,7 +1390,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           <div className="bg-gradient-to-r from-amber-50 to-yellow-50 p-4 rounded-lg border border-amber-200">
             <h5 className="font-semibold text-gray-900 mb-2 flex items-center gap-2">
-              <Info className="w-4 h-4 text-amber-600" />
               Important Note
             </h5>
             <p className="text-sm text-gray-700">
@@ -1465,527 +1403,547 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "resources",
       title: "Resources",
-      icon: (
-        <img src={resourcesIcon} alt="Resources Icon" className="w-8 h-8" />
-      ),
-      color: "#28a745",
-      bgGradient: "from-[#28a745] to-[#218838]",
+      color: "#FEC40D",
       borderColor: "border-[#28a745]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-green-50 to-emerald-50 p-6 rounded-xl border border-green-200">
-            <h4 className="font-bold text-gray-900 mb-3">
-              Development Resources & Support
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-4">
+              MOSIP Product Resources
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Access all relevant MOSIP product resources in one place to help
               you understand the platform, explore integration options, and
               develop your solution effectively.
             </p>
           </div>
-          <div className="space-y-6">
-            <div className="bg-gradient-to-r from-blue-50 to-indigo-50 p-6 rounded-xl border border-blue-200">
-              <h4 className="font-bold text-gray-900 mb-4">
-                MOSIP Product Resources
-              </h4>
-              <p className="text-gray-700 leading-relaxed">
-                Access all relevant MOSIP product resources in one place to help
-                you understand the platform, explore integration options, and
-                develop your solution effectively.
-              </p>
+
+          <div className="space-y-8">
+            {/* MOSIP Identity Platform */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">
+                MOSIP Identity Platform
+              </h5>
+
+              <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. Documentation
+                  </h6>
+                  <div className="ml-4">
+                    <a
+                      href="https://docs.mosip.io/1.2.0"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://docs.mosip.io/1.2.0
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Masterclass Sessions
+                  </h6>
+                  <div className="ml-4 space-y-2">
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Functional Overview:{" "}
+                      </span>
+                      <a
+                        href="https://youtu.be/3wd0TzqcCkE"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://youtu.be/3wd0TzqcCkE
+                      </a>
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Demo - ID Registration & Issuance Process:{" "}
+                      </span>
+                      <a
+                        href="https://www.youtube.com/watch?v=e3HJAmp2GRU"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://www.youtube.com/watch?v=e3HJAmp2GRU
+                      </a>
+                    </div>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    3. MOSIP YouTube Channel
+                  </h6>
+                  <div className="ml-4">
+                    <a
+                      href="https://www.youtube.com/channel/UCxvEtyjmc3_KR45BOKMLJLA"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://www.youtube.com/channel/UCxvEtyjmc3_KR45BOKMLJLA
+                    </a>
+                  </div>
+                </div>
+              </div>
             </div>
 
-            <div className="space-y-8">
-              {/* 1. MOSIP Identity Platform */}
-              <div className="bg-gradient-to-br from-blue-50 to-indigo-50 rounded-lg border-l-4 border-[#01A2FD] shadow-sm hover:shadow-md transition-all duration-300 p-6">
-                <div className="bg-gradient-to-r from-[#01A2FD] to-[#0077CC] text-white p-4 rounded-lg mb-6 -mx-2 -mt-2">
-                  <h5 className="text-xl font-bold mb-2">
-                    1. MOSIP Identity Platform
-                  </h5>
-                  <p className="text-blue-100 text-sm">
-                    Core digital identity infrastructure
-                  </p>
+            {/* Inji Stack */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">
+                Inji Stack
+              </h5>
+
+              <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. Documentation
+                  </h6>
+                  <div className="ml-4">
+                    <a
+                      href="https://docs.inji.io/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://docs.inji.io/
+                    </a>
+                  </div>
                 </div>
 
-                <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Masterclass Sessions
+                  </h6>
                   <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm">
-                      <h6 className="font-semibold text-blue-900 mb-2">
-                        1.1.{" "}
-                        <a
-                          href="https://docs.mosip.io/1.2.0"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#01A2FD] hover:text-[#0077CC] underline transition-colors duration-200"
-                        >
-                          Documentation
-                        </a>
-                      </h6>
-                    </div>
-                  </div>
-
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm">
-                      <h6 className="font-semibold text-blue-900 mb-2">
-                        1.2. Masterclass Sessions:
-                      </h6>
-                      <div className="ml-4 space-y-2">
-                        <div className="bg-blue-50 p-3 rounded-md border-l-3 border-[#01A2FD]">
-                          <span className="font-medium text-blue-800">
-                            1.2.a.{" "}
-                          </span>
-                          <a
-                            href="https://youtu.be/3wd0TzqcCkE"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#01A2FD] hover:text-[#0077CC] underline transition-colors duration-200"
-                          >
-                            Functional Overview
-                          </a>
-                        </div>
-                        <div className="bg-blue-50 p-3 rounded-md border-l-3 border-[#01A2FD]">
-                          <span className="font-medium text-blue-800">
-                            1.2.b.{" "}
-                          </span>
-                          <a
-                            href="https://www.youtube.com/watch?v=e3HJAmp2GRU"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-[#01A2FD] hover:text-[#0077CC] underline transition-colors duration-200"
-                          >
-                            Demo - ID Registration & Issuance Process
-                          </a>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-blue-200 shadow-sm">
-                      <h6 className="font-semibold text-blue-900 mb-2">
-                        1.3.{" "}
-                        <a
-                          href="https://www.youtube.com/channel/UCxvEtyjmc3_KR45BOKMLJLA"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#01A2FD] hover:text-[#0077CC] underline transition-colors duration-200"
-                        >
-                          MOSIP YouTube
-                        </a>
-                      </h6>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Functional Overview & Demo:{" "}
+                      </span>
+                      <a
+                        href="https://www.youtube.com/watch?v=WQI3qan8egY"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://www.youtube.com/watch?v=WQI3qan8egY
+                      </a>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* 2. Inji */}
-              <div className="bg-gradient-to-br from-green-50 to-emerald-50 rounded-lg border-l-4 border-[#0A8754] shadow-sm hover:shadow-md transition-all duration-300 p-6">
-                <div className="bg-gradient-to-r from-[#0A8754] to-[#086B43] text-white p-4 rounded-lg mb-6 -mx-2 -mt-2">
-                  <h5 className="text-xl font-bold mb-2">2. Inji</h5>
-                  <p className="text-green-100 text-sm">
-                    Digital wallet and credentialing ecosystem
-                  </p>
+            {/* Inji Wallet (Mobile & Web) */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">
+                Inji Wallet (Mobile & Web)
+              </h5>
+
+              <div className="space-y-6">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. Documentation
+                  </h6>
+                  <div className="ml-4 space-y-2">
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Mobile Wallet:{" "}
+                      </span>
+                      <a
+                        href="https://docs.inji.io/inji-wallet/inji-mobile/overview"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://docs.inji.io/inji-wallet/inji-mobile/overview
+                      </a>
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Web Wallet:{" "}
+                      </span>
+                      <a
+                        href="https://docs.inji.io/inji-wallet/inji-web/overview"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://docs.inji.io/inji-wallet/inji-web/overview
+                      </a>
+                    </div>
+                  </div>
                 </div>
 
-                <div className="space-y-6">
-                  {/* 2.1. Inji Stack */}
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-green-200 shadow-sm">
-                      <h6 className="font-semibold text-green-900 mb-3">
-                        2.1. Inji Stack
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Masterclass Sessions
+                  </h6>
+                  <div className="ml-4 space-y-4">
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">
+                        Functional Overview & Demo:
                       </h6>
-                      <div className="ml-4 space-y-3">
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.1.1.{" "}
+                      <div className="ml-4 space-y-2">
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Mobile Wallet:{" "}
                           </span>
                           <a
-                            href="https://docs.inji.io/"
+                            href="https://www.youtube.com/watch?v=hO12UQXtkqI"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
                           >
-                            Documentation
+                            https://www.youtube.com/watch?v=hO12UQXtkqI
                           </a>
                         </div>
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.1.2. Masterclass Sessions:
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Web Wallet:{" "}
                           </span>
-                          <div className="ml-6 mt-2">
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.1.2.a.{" "}
-                              </span>
-                              <a
-                                href="https://www.youtube.com/watch?v=WQI3qan8egY"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Functional Overview & Demo
-                              </a>
-                            </div>
-                          </div>
+                          <a
+                            href="https://youtu.be/hcCn2AGe6AY"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          >
+                            https://youtu.be/hcCn2AGe6AY
+                          </a>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* 2.2. Inji Wallet */}
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-green-200 shadow-sm">
-                      <h6 className="font-semibold text-green-900 mb-3">
-                        2.2. Inji Wallet (Mobile & Web)
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">
+                        Technical Overview:
                       </h6>
-                      <div className="ml-4 space-y-3">
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.2.1. Documentation:
+                      <div className="ml-4 space-y-2">
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Mimoto Setup Wallet:{" "}
                           </span>
-                          <div className="ml-6 mt-2 space-y-1">
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.2.1.a.{" "}
-                              </span>
-                              <a
-                                href="https://docs.inji.io/inji-wallet/inji-mobile/overview"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Mobile Wallet
-                              </a>
-                            </div>
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.2.1.b.{" "}
-                              </span>
-                              <a
-                                href="https://docs.inji.io/inji-wallet/inji-web/overview"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Web Wallet
-                              </a>
-                            </div>
-                          </div>
+                          <a
+                            href="https://youtu.be/yzK6arInf40"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          >
+                            https://youtu.be/yzK6arInf40
+                          </a>
                         </div>
-
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.2.2. Masterclass Sessions:
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Local Setup Guide Web Wallet:{" "}
                           </span>
-                          <div className="ml-6 mt-2 space-y-2">
-                            <div className="bg-green-100 p-3 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.2.2.a. Functional Overview & Demo:
-                              </span>
-                              <div className="ml-4 mt-1 space-y-1">
-                                <div className="bg-white p-2 rounded border border-green-200">
-                                  •{" "}
-                                  <a
-                                    href="https://www.youtube.com/watch?v=hO12UQXtkqI"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                                  >
-                                    Mobile Wallet
-                                  </a>
-                                </div>
-                                <div className="bg-white p-2 rounded border border-green-200">
-                                  •{" "}
-                                  <a
-                                    href="https://youtu.be/hcCn2AGe6AY"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                                  >
-                                    Web Wallet
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="bg-green-100 p-3 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.2.2.b. Technical Overview:
-                              </span>
-                              <div className="ml-4 mt-1 space-y-1">
-                                <div className="bg-white p-2 rounded border border-green-200">
-                                  •{" "}
-                                  <a
-                                    href="https://youtu.be/yzK6arInf40"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                                  >
-                                    Mimoto Setup: Wallet
-                                  </a>
-                                </div>
-                                <div className="bg-white p-2 rounded border border-green-200">
-                                  •{" "}
-                                  <a
-                                    href="https://youtu.be/QYUI-ovSVX8"
-                                    target="_blank"
-                                    rel="noopener noreferrer"
-                                    className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                                  >
-                                    Local Setup Guide: Web Wallet
-                                  </a>
-                                </div>
-                              </div>
-                            </div>
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.2.2.c.{" "}
-                              </span>
-                              <a
-                                href="https://www.youtube.com/watch?v=n8bUVpjtnF4"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Demo
-                              </a>
-                            </div>
-                          </div>
+                          <a
+                            href="https://youtu.be/QYUI-ovSVX8"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          >
+                            https://youtu.be/QYUI-ovSVX8
+                          </a>
                         </div>
                       </div>
                     </div>
-                  </div>
 
-                  {/* 2.3. Inji Certify */}
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-green-200 shadow-sm">
-                      <h6 className="font-semibold text-green-900 mb-3">
-                        2.3. Inji Certify
-                      </h6>
-                      <div className="ml-4 space-y-3">
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.3.1.{" "}
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">Demos:</h6>
+                      <div className="ml-4 space-y-2">
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Demo:{" "}
                           </span>
                           <a
-                            href="https://docs.inji.io/inji-certify/overview"
+                            href="https://www.youtube.com/watch?v=n8bUVpjtnF4"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
                           >
-                            Documentation
+                            https://www.youtube.com/watch?v=n8bUVpjtnF4
                           </a>
                         </div>
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.3.2. Masterclass Sessions:
-                          </span>
-                          <div className="ml-6 mt-2 space-y-1">
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.3.2.a.{" "}
-                              </span>
-                              <a
-                                href="https://youtu.be/VdF3UpTb6wY"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Functional Overview
-                              </a>
-                            </div>
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.3.2.b.{" "}
-                              </span>
-                              <a
-                                href="https://www.youtube.com/watch?v=r_HnbLYQfVo&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=13"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Technical Deep Dive - VC Issuance
-                              </a>
-                            </div>
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.3.2.c.{" "}
-                              </span>
-                              <a
-                                href="https://youtu.be/3jMP-X8PAvM"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Local Setup & Deployment using Docker Compose
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-
-                  {/* 2.4. Inji Verify */}
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-green-200 shadow-sm">
-                      <h6 className="font-semibold text-green-900 mb-3">
-                        2.4. Inji Verify
-                      </h6>
-                      <div className="ml-4 space-y-3">
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.4.1.{" "}
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            VC Download & Offline Authentication:{" "}
                           </span>
                           <a
-                            href="https://docs.inji.io/inji-verify/overview"
+                            href="https://www.youtube.com/watch?v=9Z1WuTd8q0M"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
                           >
-                            Documentation
+                            https://www.youtube.com/watch?v=9Z1WuTd8q0M
                           </a>
                         </div>
-                        <div className="bg-green-50 p-3 rounded-md border-l-3 border-[#0A8754]">
-                          <span className="font-medium text-green-800">
-                            2.4.2. Masterclass Sessions:
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            VC Download with OpenID4VCI & eSignet:{" "}
                           </span>
-                          <div className="ml-6 mt-2 space-y-1">
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.4.2.a.{" "}
-                              </span>
-                              <a
-                                href="https://youtu.be/0mDMG-4anaE"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Functional Overview & Demo
-                              </a>
-                            </div>
-                            <div className="bg-green-100 p-2 rounded border-l-2 border-[#0A8754]">
-                              <span className="font-medium text-green-800">
-                                2.4.2.b.{" "}
-                              </span>
-                              <a
-                                href="https://youtu.be/odf_bo38NKI"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#0A8754] hover:text-[#086B43] underline transition-colors duration-200"
-                              >
-                                Technical Deep Dive
-                              </a>
-                            </div>
-                          </div>
+                          <a
+                            href="https://www.youtube.com/watch?v=n8bUVpjtnF4"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          >
+                            https://www.youtube.com/watch?v=n8bUVpjtnF4
+                          </a>
                         </div>
                       </div>
                     </div>
                   </div>
                 </div>
               </div>
+            </div>
 
-              {/* 3. eSignet */}
-              <div className="bg-gradient-to-br from-orange-50 to-amber-50 rounded-lg border-l-4 border-[#FA8005] shadow-sm hover:shadow-md transition-all duration-300 p-6">
-                <div className="bg-gradient-to-r from-[#FA8005] to-[#E5720A] text-white p-4 rounded-lg mb-6 -mx-2 -mt-2">
-                  <h5 className="text-xl font-bold mb-2">3. eSignet</h5>
-                  <p className="text-orange-100 text-sm">
-                    Authentication and identity verification services
-                  </p>
+            {/* Inji Certify */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">
+                Inji Certify
+              </h5>
+
+              <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. Documentation
+                  </h6>
+                  <div className="ml-4">
+                    <a
+                      href="https://docs.inji.io/inji-certify/overview"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://docs.inji.io/inji-certify/overview
+                    </a>
+                  </div>
                 </div>
 
-                <div className="space-y-4">
-                  <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-orange-200 shadow-sm">
-                      <h6 className="font-semibold text-orange-900 mb-2">
-                        3.1.{" "}
-                        <a
-                          href=" https://www.youtube.com/watch?v=ZfUPRv71s_0&t=3s"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
-                        >
-                          About eSignet
-                        </a>
-                      </h6>
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Masterclass Sessions
+                  </h6>
+                  <div className="ml-4 space-y-2">
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Functional Overview:{" "}
+                      </span>
+                      <a
+                        href="https://youtu.be/VdF3UpTb6wY"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://youtu.be/VdF3UpTb6wY
+                      </a>
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Technical Deep Dive - VC Issuance:{" "}
+                      </span>
+                      <a
+                        href="https://www.youtube.com/watch?v=r_HnbLYQfVo&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=13"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://www.youtube.com/watch?v=r_HnbLYQfVo&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=13
+                      </a>
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Local Setup & Deployment using Docker Compose:{" "}
+                      </span>
+                      <a
+                        href="https://youtu.be/3jMP-X8PAvM"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://youtu.be/3jMP-X8PAvM
+                      </a>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
 
+            {/* Inji Verify */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">
+                Inji Verify
+              </h5>
+
+              <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. Documentation
+                  </h6>
                   <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-orange-200 shadow-sm">
-                      <h6 className="font-semibold text-orange-900 mb-2">
-                        3.2.{" "}
-                        <a
-                          href="https://docs.esignet.io/"
-                          target="_blank"
-                          rel="noopener noreferrer"
-                          className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
-                        >
-                          Documentation
-                        </a>
-                      </h6>
+                    <a
+                      href="https://docs.inji.io/inji-verify/overview"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://docs.inji.io/inji-verify/overview
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Masterclass Sessions
+                  </h6>
+                  <div className="ml-4 space-y-2">
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Functional Overview & Demo:{" "}
+                      </span>
+                      <a
+                        href="https://youtu.be/0mDMG-4anaE"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://youtu.be/0mDMG-4anaE
+                      </a>
+                    </div>
+                    <div>
+                      <span className="font-medium text-gray-700">
+                        Technical Deep Dive:{" "}
+                      </span>
+                      <a
+                        href="https://youtu.be/odf_bo38NKI"
+                        target="_blank"
+                        rel="noopener noreferrer"
+                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      >
+                        https://youtu.be/odf_bo38NKI
+                      </a>
                     </div>
                   </div>
+                </div>
+              </div>
+            </div>
 
+            {/* eSignet */}
+            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
+              <h5 className="text-xl font-bold text-gray-900 mb-6">eSignet</h5>
+
+              <div className="space-y-4">
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    1. About eSignet
+                  </h6>
                   <div className="ml-4">
-                    <div className="bg-white p-4 rounded-lg border border-orange-200 shadow-sm">
-                      <h6 className="font-semibold text-orange-900 mb-2">
-                        3.3. Masterclass Sessions:
+                    <a
+                      href="https://www.youtube.com/watch?v=ZfUPRv71s_0&t=3s"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://www.youtube.com/watch?v=ZfUPRv71s_0&t=3s
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    2. Documentation
+                  </h6>
+                  <div className="ml-4">
+                    <a
+                      href="https://docs.esignet.io/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                    >
+                      https://docs.esignet.io/
+                    </a>
+                  </div>
+                </div>
+
+                <div>
+                  <h6 className="font-semibold text-gray-800 mb-3">
+                    3. Masterclass Sessions
+                  </h6>
+                  <div className="ml-4 space-y-4">
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">
+                        Functional Overview & Demo:
+                      </h6>
+                      <div className="ml-4">
+                        <a
+                          href="https://youtu.be/etd7bBx0XTM"
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        >
+                          https://youtu.be/etd7bBx0XTM
+                        </a>
+                      </div>
+                    </div>
+
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">
+                        Technical Overview:
                       </h6>
                       <div className="ml-4 space-y-2">
-                        <div className="bg-orange-50 p-3 rounded-md border-l-3 border-[#FA8005]">
-                          <span className="font-medium text-orange-800">
-                            3.3.a.{" "}
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            eSignet Authentication - Solution Building &
+                            Integration:{" "}
                           </span>
                           <a
-                            href="https://youtu.be/etd7bBx0XTM"
+                            href="https://www.youtube.com/watch?v=pcHux8GVrQE"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
                           >
-                            Functional Overview & Demo
+                            https://www.youtube.com/watch?v=pcHux8GVrQE
                           </a>
                         </div>
-                        <div className="bg-orange-50 p-3 rounded-md border-l-3 border-[#FA8005]">
-                          <span className="font-medium text-orange-800">
-                            3.3.b. Technical Overview:
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            eSignet Signup - Technical Deepdive:{" "}
                           </span>
-                          <div className="ml-4 mt-1 space-y-1">
-                            <div className="bg-orange-100 p-2 rounded border-l-2 border-[#FA8005]">
-                              •{" "}
-                              <a
-                                href="https://www.youtube.com/watch?v=pcHux8GVrQE"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
-                              >
-                                eSignet Authentication - Solution Building &
-                                Integration
-                              </a>
-                            </div>
-                            <div className="bg-orange-100 p-2 rounded border-l-2 border-[#FA8005]">
-                              •{" "}
-                              <a
-                                href="https://www.youtube.com/watch?v=7XAxKm_YW7w&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=3"
-                                target="_blank"
-                                rel="noopener noreferrer"
-                                className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
-                              >
-                                eSignet Signup - Technical Deepdive
-                              </a>
-                            </div>
-                          </div>
+                          <a
+                            href="https://www.youtube.com/watch?v=7XAxKm_YW7w&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=3"
+                            target="_blank"
+                            rel="noopener noreferrer"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          >
+                            https://www.youtube.com/watch?v=7XAxKm_YW7w&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=3
+                          </a>
                         </div>
-                        <div className="bg-orange-50 p-3 rounded-md border-l-3 border-[#FA8005]">
-                          <span className="font-medium text-orange-800">
-                            3.3.c.{" "}
+                      </div>
+                    </div>
+
+                    <div>
+                      <h6 className="font-medium text-gray-700 mb-2">Demo:</h6>
+                      <div className="ml-4">
+                        <div>
+                          <span className="font-medium text-gray-700">
+                            Online Authentication:{" "}
                           </span>
                           <a
                             href="https://www.youtube.com/watch?v=uNKlmw9KRFg"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-[#FA8005] hover:text-[#E5720A] underline transition-colors duration-200"
+                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
                           >
-                            Demo - Online Authentication
+                            https://www.youtube.com/watch?v=uNKlmw9KRFg
                           </a>
                         </div>
                       </div>
@@ -2001,18 +1959,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "rules",
       title: "Rules",
-      icon: <img src={rulesIcon} alt="Rules Icon" className="w-8 h-8" />,
-      color: "#dc3545",
-      bgGradient: "from-[#dc3545] to-[#c82333]",
+      color: "#F58020",
       borderColor: "border-[#dc3545]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-red-50 to-orange-50 p-6 rounded-xl border border-red-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Scale className="w-5 h-5 text-[#dc3545]" />
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Official Competition Rules & Guidelines
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               All participants must adhere to these official rules and
               guidelines. Violation of any rule may result in disqualification
               from MOSIP Create 2025.
@@ -2022,7 +1980,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           <div className="space-y-4">
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-blue-100 text-blue-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#1B52A4" }}
+                >
                   1
                 </div>
                 <p className="text-gray-700">
@@ -2034,7 +1995,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-green-100 text-green-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#098855" }}
+                >
                   2
                 </div>
                 <p className="text-gray-700">
@@ -2047,7 +2011,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-purple-100 text-purple-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#00A2E5" }}
+                >
                   3
                 </div>
                 <p className="text-gray-700">
@@ -2060,7 +2027,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-yellow-100 text-yellow-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#FEC40D" }}
+                >
                   4
                 </div>
                 <p className="text-gray-700">
@@ -2073,7 +2043,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-orange-100 text-orange-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#F58020" }}
+                >
                   5
                 </div>
                 <p className="text-gray-700">
@@ -2085,7 +2058,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
               <div className="flex items-start gap-3">
-                <div className="bg-red-100 text-red-600 font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0">
+                <div
+                  className="text-white font-bold text-lg w-8 h-8 rounded-full flex items-center justify-center flex-shrink-0"
+                  style={{ backgroundColor: "#D64246" }}
+                >
                   6
                 </div>
                 <p className="text-gray-700">
@@ -2134,20 +2110,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "contact",
       title: "Contact Us",
-      icon: (
-        <img src={contant_usIcon} alt="Contact Us Icon" className="w-8 h-8" />
-      ),
-      color: "#17a2b8",
-      bgGradient: "from-[#17a2b8] to-[#138496]",
+      color: "#D64246",
       borderColor: "border-[#17a2b8]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-cyan-50 to-blue-50 p-6 rounded-xl border border-cyan-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <Mail className="w-5 h-5 text-[#17a2b8]" />
+          <div
+            className="text-white p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Get in Touch
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               We're here to support you throughout your MOSIP Create journey.
               Choose the best way to reach us based on your needs.
             </p>
@@ -2155,9 +2129,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           <div className="grid md:grid-cols-3 gap-6">
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 text-center">
-              <div className="bg-blue-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <MessageCircle className="w-6 h-6 text-blue-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 Community Discussion Forum
               </h5>
@@ -2172,9 +2143,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 text-center">
-              <div className="bg-green-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Mail className="w-6 h-6 text-green-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 Direct Email Support
               </h5>
@@ -2189,9 +2157,6 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6 text-center">
-              <div className="bg-purple-100 w-12 h-12 rounded-lg flex items-center justify-center mx-auto mb-4">
-                <Video className="w-6 h-6 text-purple-600" />
-              </div>
               <h5 className="font-semibold text-gray-900 mb-2">
                 Live AMA Sessions
               </h5>
@@ -2199,7 +2164,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 You can also join us live for our bi-weekly AMA sessions
                 starting 15-Oct-2025.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                style={{ marginTop: "1.3em" }}
+              >
                 <Calendar className="w-3 h-3 mr-2" />
                 Stay tuned for more updates!
               </Button>
@@ -2211,18 +2181,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "faqs",
       title: "FAQs",
-      icon: <img src={faqsIcon} alt="FAQs Icon" className="w-8 h-8" />,
-      color: "#6f42c1",
-      bgGradient: "from-[#6f42c1] to-[#5d359a]",
+      color: "#098855",
       borderColor: "border-[#6f42c1]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-purple-50 to-indigo-50 p-6 rounded-xl border border-purple-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <HelpCircle className="w-5 h-5 text-[#6f42c1]" />
+          <div
+            className="text-white p-6 rounded-xl border border-purple-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               Frequently Asked Questions
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               Find answers to common questions about MOSIP Create 2025. Can't
               find what you're looking for? Contact our support team.
             </p>
@@ -2231,7 +2201,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           <div className="space-y-6">
             {/* Registration and Idea Submission */}
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-              <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
+              <div className="p-4" style={{ backgroundColor: "#D64246" }}>
                 <h5 className="font-bold text-white">
                   Registration and Idea Submission
                 </h5>
@@ -2289,7 +2259,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             {/* Creating & Submitting Solutions */}
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-              <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
+              <div className="p-4" style={{ backgroundColor: "#FEC40D" }}>
                 <h5 className="font-bold text-white">
                   Creating & Submitting Solutions
                 </h5>
@@ -2407,7 +2377,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             {/* Results */}
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-              <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-4">
+              <div className="p-4" style={{ backgroundColor: "#1B52A4" }}>
                 <h5 className="font-bold text-white">Results</h5>
               </div>
               <div className="p-6 space-y-6">
@@ -2460,7 +2430,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
             {/* Communication */}
             <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-              <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4">
+              <div className="p-4" style={{ backgroundColor: "#F58020" }}>
                 <h5 className="font-bold text-white">Communication</h5>
               </div>
               <div className="p-6">
@@ -2485,24 +2455,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
     {
       id: "terms-conditions",
       title: "Terms & Conditions",
-      icon: (
-        <img
-          src={terms_and_conditionsIcon}
-          alt="Terms & Conditions Icon"
-          className="w-8 h-8"
-        />
-      ),
-      color: "#495057",
-      bgGradient: "from-[#495057] to-[#343a40]",
+      color: "#1B52A4",
       borderColor: "border-[#495057]",
       content: (
         <div className="space-y-6">
-          <div className="bg-gradient-to-r from-gray-50 to-slate-50 p-6 rounded-xl border border-gray-200">
-            <h4 className="font-bold text-gray-900 mb-3 flex items-center gap-2">
-              <FileText className="w-5 h-5 text-[#495057]" />
+          <div
+            className="p-6 rounded-xl border border-gray-200"
+            style={{ backgroundColor: "#1B52A4" }}
+          >
+            <h4 className="font-bold text-white mb-3 flex items-center gap-2">
               MOSIP CREATE PRIVACY POLICY
             </h4>
-            <p className="text-gray-700 leading-relaxed">
+            <p className="text-white leading-relaxed">
               This Privacy Policy ("Policy") contains information about the
               collection, use, storage, and processing of personal data
               collected in connection with your registration and participation
@@ -2511,7 +2475,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-blue-500 to-blue-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#F58020" }}>
               <h5 className="font-bold text-white">Controller Information</h5>
             </div>
             <div className="p-6">
@@ -2525,7 +2489,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-green-500 to-green-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#D64246" }}>
               <h5 className="font-bold text-white">Applicability</h5>
             </div>
             <div className="p-6">
@@ -2544,7 +2508,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-purple-500 to-purple-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#098855" }}>
               <h5 className="font-bold text-white">What data do we collect?</h5>
             </div>
             <div className="p-6">
@@ -2554,35 +2518,53 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2 rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Information required for your registration i.e. full name,
                   email address, phone number, and username/ nickname.
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Team name and team participants' information (in the event you
                   apply as a group). You are responsible to procure relevant
                   consents from any participants that you sign up for MOSIP
                   Create.
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Physical address or any address for receipt of physical
                   delivery of awards or certificates.
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Your profession, designation, field of work, professional
                   experience, organisation/ institution/ affiliated association
                   or company.
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Photographs and video recordings made through your
                   participation in MOSIP Create.
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-purple-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#098855" }}
+                  ></div>
                   Additional information that can be provided through MOSIP
                   Create, its related events, social media, or other types of
                   interaction with us.
@@ -2592,7 +2574,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-orange-500 to-orange-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#1B52A4" }}>
               <h5 className="font-bold text-white">
                 Why do we collect your data?
               </h5>
@@ -2604,27 +2586,42 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
               </p>
               <ul className="space-y-2 text-gray-700">
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  ></div>
                   In order to conduct, broadcast, deliberate upon, and otherwise
                   organise MOSIP Create
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  ></div>
                   In order to provide you with the resources necessary to
                   participate in MOSIP Create, including any necessary materials
                   or audio-video conferencing services
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  ></div>
                   In order to provide you with any administrative or technical
                   assistance
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  ></div>
                   To communicate with you regarding MOSIP Create
                 </li>
                 <li className="flex items-start gap-2">
-                  <div className="w-2 h-2 bg-orange-600 rounded-full mt-2 flex-shrink-0"></div>
+                  <div
+                    className="w-2 h-2  rounded-full mt-2 flex-shrink-0"
+                    style={{ backgroundColor: "#1B52A4" }}
+                  ></div>
                   Where we need to comply with a legal or regulatory obligation
                 </li>
               </ul>
@@ -2639,7 +2636,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-red-500 to-red-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#00A2E5" }}>
               <h5 className="font-bold text-white">
                 How do we store your data?
               </h5>
@@ -2665,7 +2662,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-cyan-500 to-cyan-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#FEC40D" }}>
               <h5 className="font-bold text-white">
                 Do we disclose any information to outside parties?
               </h5>
@@ -2685,7 +2682,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-pink-500 to-pink-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#F58020" }}>
               <h5 className="font-bold text-white">
                 How do we protect children's data?
               </h5>
@@ -2709,7 +2706,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-teal-500 to-teal-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#D64246" }}>
               <h5 className="font-bold text-white">
                 What are your rights over the collected data?
               </h5>
@@ -2754,7 +2751,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-indigo-500 to-indigo-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#098855 " }}>
               <h5 className="font-bold text-white">Contact Information</h5>
             </div>
             <div className="p-6">
@@ -2767,7 +2764,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
-            <div className="bg-gradient-to-r from-slate-500 to-slate-600 p-4">
+            <div className="p-4" style={{ backgroundColor: "#00A2E5" }}>
               <h5 className="font-bold text-white">Updates</h5>
             </div>
             <div className="p-6">
@@ -2837,42 +2834,35 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   <Card className="overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">
                     <AccordionTrigger className="px-0 py-0 hover:no-underline [&>svg]:hidden">
                       <div
-                        className={`flex items-center gap-4 text-left transition-all duration-300 rounded-lg p-6 w-full ${
-                          openAccordionValue === item.id
-                            ? `bg-gradient-to-r ${item.bgGradient} text-white`
-                            : "bg-white text-gray-900"
-                        }`}
-                      >
-                        <div
-                          className={`p-3 rounded-lg transition-all duration-300 ${
+                        className={`flex items-center gap-4 text-left transition-all duration-300 rounded-lg p-6 w-full bg-white`}
+                        style={{
+                          paddingBottom:
+                            openAccordionValue === item.id ? "0px" : "20px",
+                          color:
                             openAccordionValue === item.id
-                              ? "bg-white"
-                              : "bg-gray-100"
-                          }`}
-                        >
-                          {React.cloneElement(item.icon, {
-                            style: {
-                              color:
-                                openAccordionValue === item.id
-                                  ? "white"
-                                  : item.color,
-                            },
-                          })}
-                        </div>
+                              ? item.color
+                              : "text-gray-900",
+                        }}
+                      >
                         <div className="flex-1">
                           <h3
-                            className={`text-lg font-semibold transition-all duration-300 ${
-                              openAccordionValue === item.id
-                                ? "text-white"
-                                : "text-gray-900"
-                            }`}
+                            className={`text-lg font-semibold transition-all duration-300 mb-0`}
+                            style={{
+                              color:
+                                openAccordionValue === item.id
+                                  ? item.color
+                                  : "text-gray-900",
+                            }}
                           >
                             {item.title}
                           </h3>
                         </div>
                         <div className="flex items-center justify-center ml-4">
                           {openAccordionValue === item.id ? (
-                            <Minus className="w-5 h-5 transition-all duration-300 text-white" />
+                            <Minus
+                              className="w-5 h-5 transition-all duration-300"
+                              style={{ color: item.color }}
+                            />
                           ) : (
                             <Plus
                               className="w-5 h-5 transition-all duration-300"
