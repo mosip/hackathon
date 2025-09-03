@@ -1,6 +1,6 @@
 "use client";
 
-import React, { useState } from "react";
+import React, { useState, useRef } from "react";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Label } from "./ui/label";
@@ -18,6 +18,7 @@ import { Badge } from "./ui/badge";
 import { ExternalLink, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
+import ReCAPTCHA from "react-google-recaptcha";
 
 interface RegistrationPageProps {
   onNavigateHome: () => void;
@@ -39,8 +40,11 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     ideaDescription: "",
     linkedinUrl: "",
     consent: false,
-    recaptchaVerified: false,
+    recaptchaToken: "",
   });
+
+  const captchaSiteKey = import.meta.env.VITE_CAPTCHA_SITE_KEY;
+  const _reCaptchaRef = useRef(null);
 
   const themes = [
     "Digital ID for Service Access",
@@ -229,6 +233,18 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     }
   };
 
+  /**
+   * Reset the captcha widget
+   * & its token value
+   */
+  const resetCaptcha = () => {
+    _reCaptchaRef.current?.reset();
+  };
+
+  const handleCaptchaChange = (value) => {
+    handleInputChange("recaptchaToken", value);
+  };
+
   const validateForm = () => {
     const requiredFields = [
       "fullName",
@@ -256,7 +272,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       return false;
     }
 
-    if (!formData.recaptchaVerified) {
+    if (!formData.recaptchaToken) {
       toast.error("Please complete the reCAPTCHA verification");
       return false;
     }
@@ -314,6 +330,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         toast.success(
           "Thank you for registering for MOSIP Create. Continue building your solution and stay tuned for more updates."
         );
+        resetCaptcha();
       } else {
         toast.error("Registration failed. Please try again.");
       }
@@ -331,7 +348,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
         ideaDescription: "",
         linkedinUrl: "",
         consent: false,
-        recaptchaVerified: false,
+        recaptchaToken: "",
       });
 
       // Navigate back to homepage after successful submission
@@ -358,16 +375,9 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       ideaDescription: "",
       linkedinUrl: "",
       consent: false,
-      recaptchaVerified: false,
+      recaptchaToken: "",
     });
     toast.success("Form cleared successfully");
-  };
-
-  const handleRecaptchaChange = (verified: boolean) => {
-    handleInputChange("recaptchaVerified", verified);
-    if (verified) {
-      toast.success("reCAPTCHA verification completed");
-    }
   };
 
   // Mock reCAPTCHA Component
@@ -885,13 +895,16 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                   </Label>
 
                   <div className="flex justify-start">
-                    <MockRecaptcha
-                      onChange={handleRecaptchaChange}
-                      verified={formData.recaptchaVerified}
-                    />
+                    <div className="flex justify-center mt-5 mb-5">
+                      <ReCAPTCHA
+                        ref={_reCaptchaRef}
+                        onChange={handleCaptchaChange}
+                        sitekey={captchaSiteKey}
+                      />
+                    </div>
                   </div>
 
-                  {!formData.recaptchaVerified && (
+                  {!formData.recaptchaToken && (
                     <div className="flex items-start gap-1.5 text-xs text-red-600 ">
                       <AlertCircle
                         className="w-3 h-3 flex-shrink-0 "

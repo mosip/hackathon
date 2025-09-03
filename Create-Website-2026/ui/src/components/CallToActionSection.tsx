@@ -34,7 +34,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
               Join MOSIP Create 2025 and be part of building the future of Digital Public 
-              Infrastructure. Registration opens September 3rd, 2025.
+              Infrastructure. Registration opens September 4th, 2025.
             </p>
           </div>
 
@@ -75,7 +75,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             className="mt-8 pt-6 border-t border-gray-200"
           >
             <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-              <strong>Registration Timeline:</strong> Applications open on September 3rd, 2025. 
+              <strong>Registration Timeline:</strong> Applications open on September 4th, 2025. 
               Don't miss your chance to be part of the next generation of digital identity solutions.
             </p>
           </motion.div>
