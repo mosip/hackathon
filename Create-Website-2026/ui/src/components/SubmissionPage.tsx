@@ -654,14 +654,9 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       purpose and will not be shared with any other party. By
                       clicking below, I also agree to the{" "}
                       <a
-                        href="#"
+                        href={`${window.location.origin}/terms-and-conditions`}
                         className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          toast.info(
-                            "Terms & Conditions will open in a new window"
-                          );
-                        }}
+                        target="_blank"
                       >
                         Terms & Conditions
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />

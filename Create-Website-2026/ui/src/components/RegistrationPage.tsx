@@ -15,13 +15,7 @@ import {
 } from "./ui/select";
 import { Card, CardContent } from "./ui/card";
 import { Badge } from "./ui/badge";
-import {
-  ExternalLink,
-  AlertCircle,
-  Loader2,
-  ArrowLeft,
-  Home,
-} from "lucide-react";
+import { ExternalLink, AlertCircle, Loader2, ArrowLeft } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
 
@@ -673,15 +667,9 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       purpose and will not be shared with any other party. By
                       clicking below, I also agree to the{" "}
                       <a
-                        href="#"
+                        href={`${window.location.origin}/terms-and-conditions`}
                         className="text-[#007aff] hover:underline hover:text-[#0056cc] transition-colors duration-200"
-                        onClick={(e) => {
-                          e.preventDefault();
-                          // This would open T&C in a new tab/modal
-                          toast.info(
-                            "Terms & Conditions will open in a new window"
-                          );
-                        }}
+                        target="_blank"
                       >
                         Terms & Conditions
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />
@@ -710,7 +698,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
               <div className="space-y-4">
                 <div className="flex flex-col gap-4">
                   <Label className="text-sm">
-                    Please complete the security verification below<span className="text-red-600">*</span>
+                    Please complete the security verification below
+                    <span className="text-red-600">*</span>
                   </Label>
 
                   <div className="flex justify-start">
@@ -766,7 +755,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
             onClick={onNavigateHome}
             className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mx-auto"
           >
-            <Home className="w-4 h-4" />
             Return to MOSIP Create Homepage
           </Button>
         </div>
