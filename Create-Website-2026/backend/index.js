@@ -8,7 +8,7 @@ const secretsClient = new SecretsManagerClient();
 
 exports.handler = async (event) => {
   try {
-    const { name, email, message } = JSON.parse(event.body);
+    const { fullName,country,email,organizationName,teamSize,teamName,themeChosen,ideaTitle,ideaDescription,linkedinUrl,consent } = JSON.parse(event.body);
 
     const command = new GetSecretValueCommand({
       SecretId: "google-sheets-credentials",
@@ -31,7 +31,7 @@ exports.handler = async (event) => {
       range: "Sheet1!A1",
       valueInputOption: "RAW",
       requestBody: {
-        values: [[name, email, message, new Date().toISOString()]],
+        values: [[fullName,country,email,organizationName,teamSize,teamName,themeChosen,ideaTitle,ideaDescription,linkedinUrl,consent, new Date().toISOString()]],
       },
     });
 
