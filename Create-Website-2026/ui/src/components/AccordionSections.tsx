@@ -718,7 +718,11 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           >
             <h5 className="font-bold text-white mb-4 flex items-center gap-2">
               All Completed Solution Submissions/ Teams
-              <Badge variant="outline" className="ml-2 text-xs text-white">
+              <Badge
+                variant="outline"
+                className="ml-2 text-xs text-white onBadgeHover"
+                onClick={() => setOpenAccordionValue("submission")}
+              >
                 As per submission criteria
               </Badge>
             </h5>
@@ -1394,7 +1398,24 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </h5>
             <p className="text-sm text-gray-700">
               We strongly encourage participants to submit new, innovative
-              solutions aligned with the defined themes.
+              solutions aligned with the defined{" "}
+              <a
+                href="#"
+                onClick={(e) => {
+                  e.preventDefault();
+                  setOpenAccordionValue("themes");
+
+                  // scroll to the accordion section
+                  const el = document.getElementById("accordion-sections");
+                  if (el) {
+                    el.scrollIntoView({ behavior: "smooth", block: "start" });
+                  }
+                }}
+                className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+              >
+                themes
+              </a>{" "}
+              .
             </p>
           </div>
         </div>
@@ -2136,9 +2157,15 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 For quick questions, discussions, or general queries about the
                 event, visit our community forum.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                <ExternalLink className="w-3 h-3 mr-2" />
-                Visit Forum
+              <Button asChild variant="outline" size="sm" className="w-full">
+                <a
+                  href="https://community.mosip.io"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  <ExternalLink className="w-3 h-3 mr-2" />
+                  Visit Forum
+                </a>
               </Button>
             </div>
 
@@ -2150,9 +2177,11 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 For targeted solution-specific queries, email us directly. We
                 will respond or arrange one-on-one discussions.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
-                <Mail className="w-3 h-3 mr-2" />
-                create@mosip.io
+              <Button asChild variant="outline" size="sm" className="w-full">
+                <a href="mailto:create@mosip.io">
+                  <Mail className="w-3 h-3 mr-2" />
+                  create@mosip.io
+                </a>
               </Button>
             </div>
 
@@ -2169,6 +2198,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 size="sm"
                 className="w-full"
                 style={{ marginTop: "1.3em" }}
+                disabled
               >
                 <Calendar className="w-3 h-3 mr-2" />
                 Stay tuned for more updates!
@@ -2243,7 +2273,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   </h6>
                   <p className="text-sm text-gray-600">
                     One participant can register on behalf of the entire team
-                    using the form link provided here.
+                    using the{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        onNavigateToRegistration();
+                      }}
+                      className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+                    >
+                      form link
+                    </a>{" "}
+                    provided here.
                   </p>
                 </div>
                 <div>
@@ -2301,7 +2342,28 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     No, one does not need to be logged in or be online for the
                     entire duration. You can develop the application on your
                     local system based on the given themes and then submit it as
-                    per the submission process defined.
+                    per the{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenAccordionValue("submission");
+
+                        // scroll to the accordion section
+                        const el =
+                          document.getElementById("accordion-sections");
+                        if (el) {
+                          el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        }
+                      }}
+                      className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+                    >
+                      submission process
+                    </a>{" "}
+                    defined.
                   </p>
                 </div>
                 <div>
@@ -2367,9 +2429,29 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     15. How do I submit my final deliverables/artefacts?
                   </h6>
                   <p className="text-sm text-gray-600">
-                    Follow the submission process outlined in the Submission
-                    Criteria section to share your final deliverables/artefacts
-                    for MOSIP Create.
+                    Follow the submission process outlined in the{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenAccordionValue("submission");
+
+                        // scroll to the accordion section
+                        const el =
+                          document.getElementById("accordion-sections");
+                        if (el) {
+                          el.scrollIntoView({
+                            behavior: "smooth",
+                            block: "start",
+                          });
+                        }
+                      }}
+                      className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+                    >
+                      Submission Criteria
+                    </a>{" "}
+                    section to share your final deliverables/artefacts for MOSIP
+                    Create.
                   </p>
                 </div>
               </div>
