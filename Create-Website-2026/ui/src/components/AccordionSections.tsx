@@ -2164,7 +2164,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 You can also join us live for our bi-weekly AMA sessions
                 starting 15-Oct-2025.
               </p>
-              <Button variant="outline" size="sm" className="w-full">
+              <Button
+                variant="outline"
+                size="sm"
+                className="w-full"
+                style={{ marginTop: "1.3em" }}
+              >
                 <Calendar className="w-3 h-3 mr-2" />
                 Stay tuned for more updates!
               </Button>
