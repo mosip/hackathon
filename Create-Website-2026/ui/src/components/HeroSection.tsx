@@ -84,7 +84,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
   return (
     <div>
       {/* Main hero content area */}
-      <div className="relative min-h-screen lg:h-screen overflow-hidden">
+      <div className="relative h-auto">
         {/* MOSIP-Style Animated Wave Background - Pure CSS */}
         <div className="absolute inset-0 bg-mosip-waves animate-mosip-wave-flow"></div>
 
@@ -532,32 +532,52 @@ const HeroSection: React.FC<HeroSectionProps> = ({
             <p className="text-sm text-gray-600">Mark your calendar</p>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 sm:gap-4">
-            {keyDates.map((item, index) => (
-              <div
-                key={index}
-                className={`${item.bgColor} ${item.borderColor} border-2 rounded-lg p-3 sm:p-4 hover:shadow-md transition-all duration-300 transform hover-scale-102 cursor-pointer group backdrop-blur-sm animate-fade-in-up`}
-                style={{ animationDelay: `${0.5 + index * 0.1}s` }}
-              >
-                <div className="flex items-center space-x-3">
+          {/* Timeline Container */}
+          <div className="relative">
+            {/* Timeline Line - solid gray */}
+            <div className="absolute left-6 top-6 bottom-6 w-0.5 bg-gray-300"></div>
+
+            {/* Timeline Items */}
+            <div className="space-y-8">
+              {keyDates.map((item, index) => {
+                const colors = ["#00a2e5", "#fec40d", "#f58020", "#d64246"];
+                const color = colors[index % colors.length];
+
+                return (
                   <div
-                    className={`${item.iconColor} bg-white p-2 sm:p-3 rounded-lg shadow-sm group-hover:shadow-md transition-shadow duration-300 flex-shrink-0`}
+                    key={index}
+                    className="relative flex items-center group animate-fade-in-up"
+                    style={{ animationDelay: `${0.5 + index * 0.1}s` }}
                   >
-                    <div className="w-4 h-4 sm:w-5 sm:h-5">{item.icon}</div>
-                  </div>
-                  <div className="flex-1 min-w-0">
+                    {/* Timeline Marker */}
                     <div
-                      className={`text-xs font-semibold ${item.textColor} uppercase tracking-wide mb-1`}
+                      className="relative z-10 flex-shrink-0 w-12 h-12 bg-white rounded-full border-4 shadow-sm group-hover:shadow-md transition-all duration-300 flex items-center justify-center"
+                      style={{ borderColor: color }}
                     >
-                      {item.label}
+                      <div
+                        className="w-3 h-3 rounded-full"
+                        style={{ backgroundColor: color }}
+                      ></div>
                     </div>
-                    <div className="text-sm sm:text-base font-bold text-gray-900 leading-tight">
-                      {item.date}
+
+                    {/* Timeline Content */}
+                    <div className="ml-6 flex-1">
+                      <div className="bg-white border-2 border-gray-200 rounded-xl p-4 lg:p-5 hover:shadow-md transition-all duration-300">
+                        <div
+                          className="text-sm font-semibold uppercase tracking-wide mb-2"
+                          style={{ color: color }}
+                        >
+                          {item.label}
+                        </div>
+                        <div className="text-base lg:text-lg xl:text-xl font-bold text-gray-900 leading-tight">
+                          {item.date}
+                        </div>
+                      </div>
                     </div>
                   </div>
-                </div>
-              </div>
-            ))}
+                );
+              })}
+            </div>
           </div>
         </div>
       </div>

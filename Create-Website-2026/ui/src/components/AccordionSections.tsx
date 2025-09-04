@@ -1139,7 +1139,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     1
                   </div>
                   <div>
-                    <h6 className="font-semibold text-gray-900 mb-2">
+                    <h6 className="font-semibold text-gray-900">
                       Deliverables:
                     </h6>
                     <p className="text-sm text-gray-600">
@@ -1157,14 +1157,13 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     2
                   </div>
                   <div>
-                    <h6 className="font-semibold text-gray-900 mb-2">
-                      Submit:
-                    </h6>
+                    <h6 className="font-semibold text-gray-900">Submit:</h6>
                     <p className="text-sm text-gray-600 mb-3">
                       Fill out the{" "}
                       <button
                         onClick={onNavigateToSubmission}
                         className="text-gray-600 hover:text-gray-800 underline font-medium transition-colors duration-200"
+                        style={{ minHeight: "auto" }}
                         disabled
                       >
                         submission form
@@ -1188,9 +1187,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     3
                   </div>
                   <div>
-                    <h6 className="font-semibold text-gray-900 mb-2">
-                      Access:
-                    </h6>
+                    <h6 className="font-semibold text-gray-900">Access:</h6>
                     <p className="text-sm text-gray-600">
                       Ensure all links and files are accessible to MOSIP and
                       have the necessary permissions.
@@ -1444,14 +1441,17 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
 
           <div className="space-y-8">
             {/* MOSIP Identity Platform */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#00A2E5" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">
                 MOSIP Identity Platform
               </h5>
 
               <div className="space-y-4">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. Documentation
                   </h6>
                   <div className="ml-4">
@@ -1459,49 +1459,43 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://docs.mosip.io/1.2.0"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://docs.mosip.io/1.2.0
+                      MOSIP Platform Documentation
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Masterclass Sessions
                   </h6>
                   <div className="ml-4 space-y-2">
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Functional Overview:{" "}
-                      </span>
                       <a
                         href="https://youtu.be/3wd0TzqcCkE"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://youtu.be/3wd0TzqcCkE
+                        Functional Overview
                       </a>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Demo - ID Registration & Issuance Process:{" "}
-                      </span>
                       <a
                         href="https://www.youtube.com/watch?v=e3HJAmp2GRU"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://www.youtube.com/watch?v=e3HJAmp2GRU
+                        Demo - ID Registration & Issuance Process
                       </a>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     3. MOSIP YouTube Channel
                   </h6>
                   <div className="ml-4">
@@ -1509,9 +1503,9 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://www.youtube.com/channel/UCxvEtyjmc3_KR45BOKMLJLA"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://www.youtube.com/channel/UCxvEtyjmc3_KR45BOKMLJLA
+                      MOSIP Official YouTube Channel
                     </a>
                   </div>
                 </div>
@@ -1519,14 +1513,15 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             {/* Inji Stack */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">
-                Inji Stack
-              </h5>
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#098855" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">Inji Stack</h5>
 
               <div className="space-y-4">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. Documentation
                   </h6>
                   <div className="ml-4">
@@ -1534,29 +1529,26 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://docs.inji.io/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://docs.inji.io/
+                      Inji Stack Documentation
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Masterclass Sessions
                   </h6>
                   <div className="ml-4">
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Functional Overview & Demo:{" "}
-                      </span>
                       <a
                         href="https://www.youtube.com/watch?v=WQI3qan8egY"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://www.youtube.com/watch?v=WQI3qan8egY
+                        Functional Overview & Demo
                       </a>
                     </div>
                   </div>
@@ -1565,159 +1557,125 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             {/* Inji Wallet (Mobile & Web) */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#D64246" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">
                 Inji Wallet (Mobile & Web)
               </h5>
 
               <div className="space-y-6">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. Documentation
                   </h6>
                   <div className="ml-4 space-y-2">
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Mobile Wallet:{" "}
-                      </span>
                       <a
                         href="https://docs.inji.io/inji-wallet/inji-mobile/overview"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://docs.inji.io/inji-wallet/inji-mobile/overview
+                        Mobile Wallet Documentation
                       </a>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Web Wallet:{" "}
-                      </span>
                       <a
                         href="https://docs.inji.io/inji-wallet/inji-web/overview"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://docs.inji.io/inji-wallet/inji-web/overview
+                        Web Wallet Documentation
                       </a>
                     </div>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Masterclass Sessions
                   </h6>
                   <div className="ml-4 space-y-4">
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">
+                      <h6 className="font-medium text-white mb-2">
                         Functional Overview & Demo:
                       </h6>
                       <div className="ml-4 space-y-2">
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Mobile Wallet:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=hO12UQXtkqI"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=hO12UQXtkqI
+                            Mobile Wallet Overview & Demo
                           </a>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Web Wallet:{" "}
-                          </span>
                           <a
                             href="https://youtu.be/hcCn2AGe6AY"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://youtu.be/hcCn2AGe6AY
+                            Web Wallet Overview & Demo
                           </a>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">
+                      <h6 className="font-medium text-white mb-2">
                         Technical Overview:
                       </h6>
                       <div className="ml-4 space-y-2">
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Mimoto Setup Wallet:{" "}
-                          </span>
                           <a
                             href="https://youtu.be/yzK6arInf40"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://youtu.be/yzK6arInf40
+                            Mimoto Setup Wallet
                           </a>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Local Setup Guide Web Wallet:{" "}
-                          </span>
                           <a
                             href="https://youtu.be/QYUI-ovSVX8"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://youtu.be/QYUI-ovSVX8
+                            Local Setup Guide Web Wallet
                           </a>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">Demos:</h6>
+                      <h6 className="font-medium text-white mb-2">Demos:</h6>
                       <div className="ml-4 space-y-2">
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Demo:{" "}
-                          </span>
-                          <a
-                            href="https://www.youtube.com/watch?v=n8bUVpjtnF4"
-                            target="_blank"
-                            rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
-                          >
-                            https://www.youtube.com/watch?v=n8bUVpjtnF4
-                          </a>
-                        </div>
-                        <div>
-                          <span className="font-medium text-gray-700">
-                            VC Download & Offline Authentication:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=9Z1WuTd8q0M"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=9Z1WuTd8q0M
+                            VC Download & Offline Authentication
                           </a>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">
-                            VC Download with OpenID4VCI & eSignet:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=n8bUVpjtnF4"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=n8bUVpjtnF4
+                            VC Download with OpenID4VCI & eSignet
                           </a>
                         </div>
                       </div>
@@ -1728,14 +1686,17 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             {/* Inji Certify */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#1B52A4" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">
                 Inji Certify
               </h5>
 
               <div className="space-y-4">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. Documentation
                   </h6>
                   <div className="ml-4">
@@ -1743,55 +1704,46 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://docs.inji.io/inji-certify/overview"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://docs.inji.io/inji-certify/overview
+                      Inji Certify Documentation
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Masterclass Sessions
                   </h6>
                   <div className="ml-4 space-y-2">
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Functional Overview:{" "}
-                      </span>
                       <a
                         href="https://youtu.be/VdF3UpTb6wY"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://youtu.be/VdF3UpTb6wY
+                        Functional Overview
                       </a>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Technical Deep Dive - VC Issuance:{" "}
-                      </span>
                       <a
                         href="https://www.youtube.com/watch?v=r_HnbLYQfVo&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=13"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://www.youtube.com/watch?v=r_HnbLYQfVo&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=13
+                        Technical Deep Dive - VC Issuance
                       </a>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Local Setup & Deployment using Docker Compose:{" "}
-                      </span>
                       <a
                         href="https://youtu.be/3jMP-X8PAvM"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://youtu.be/3jMP-X8PAvM
+                        Local Setup & Deployment using Docker Compose
                       </a>
                     </div>
                   </div>
@@ -1800,14 +1752,15 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             {/* Inji Verify */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">
-                Inji Verify
-              </h5>
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#098855" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">Inji Verify</h5>
 
               <div className="space-y-4">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. Documentation
                   </h6>
                   <div className="ml-4">
@@ -1815,42 +1768,36 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://docs.inji.io/inji-verify/overview"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://docs.inji.io/inji-verify/overview
+                      Inji Verify Documentation
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Masterclass Sessions
                   </h6>
                   <div className="ml-4 space-y-2">
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Functional Overview & Demo:{" "}
-                      </span>
                       <a
                         href="https://youtu.be/0mDMG-4anaE"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://youtu.be/0mDMG-4anaE
+                        Functional Overview & Demo
                       </a>
                     </div>
                     <div>
-                      <span className="font-medium text-gray-700">
-                        Technical Deep Dive:{" "}
-                      </span>
                       <a
                         href="https://youtu.be/odf_bo38NKI"
                         target="_blank"
                         rel="noopener noreferrer"
-                        className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                        className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                       >
-                        https://youtu.be/odf_bo38NKI
+                        Technical Deep Dive
                       </a>
                     </div>
                   </div>
@@ -1859,12 +1806,15 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </div>
 
             {/* eSignet */}
-            <div className="bg-white rounded-lg border border-gray-200 shadow-sm p-6">
-              <h5 className="text-xl font-bold text-gray-900 mb-6">eSignet</h5>
+            <div
+              className="rounded-lg shadow-sm p-6"
+              style={{ backgroundColor: "#F58020" }}
+            >
+              <h5 className="text-xl font-bold text-white mb-6">eSignet</h5>
 
               <div className="space-y-4">
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     1. About eSignet
                   </h6>
                   <div className="ml-4">
@@ -1872,15 +1822,15 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://www.youtube.com/watch?v=ZfUPRv71s_0&t=3s"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://www.youtube.com/watch?v=ZfUPRv71s_0&t=3s
+                      Introduction to eSignet
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     2. Documentation
                   </h6>
                   <div className="ml-4">
@@ -1888,20 +1838,20 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       href="https://docs.esignet.io/"
                       target="_blank"
                       rel="noopener noreferrer"
-                      className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                      className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                     >
-                      https://docs.esignet.io/
+                      eSignet Documentation
                     </a>
                   </div>
                 </div>
 
                 <div>
-                  <h6 className="font-semibold text-gray-800 mb-3">
+                  <h6 className="font-semibold text-white mb-3">
                     3. Masterclass Sessions
                   </h6>
                   <div className="ml-4 space-y-4">
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">
+                      <h6 className="font-medium text-white mb-2">
                         Functional Overview & Demo:
                       </h6>
                       <div className="ml-4">
@@ -1909,62 +1859,53 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                           href="https://youtu.be/etd7bBx0XTM"
                           target="_blank"
                           rel="noopener noreferrer"
-                          className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                          className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                         >
-                          https://youtu.be/etd7bBx0XTM
+                          eSignet Functional Overview & Demo
                         </a>
                       </div>
                     </div>
 
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">
+                      <h6 className="font-medium text-white mb-2">
                         Technical Overview:
                       </h6>
                       <div className="ml-4 space-y-2">
                         <div>
-                          <span className="font-medium text-gray-700">
-                            eSignet Authentication - Solution Building &
-                            Integration:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=pcHux8GVrQE"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=pcHux8GVrQE
+                            eSignet Authentication - Solution Building &
+                            Integration
                           </a>
                         </div>
                         <div>
-                          <span className="font-medium text-gray-700">
-                            eSignet Signup - Technical Deepdive:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=7XAxKm_YW7w&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=3"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=7XAxKm_YW7w&list=PLJH-POb_55z_kaiEpAzaT_H4hUdGW6QcQ&index=3
+                            eSignet Signup - Technical Deepdive
                           </a>
                         </div>
                       </div>
                     </div>
 
                     <div>
-                      <h6 className="font-medium text-gray-700 mb-2">Demo:</h6>
+                      <h6 className="font-medium text-white mb-2">Demo:</h6>
                       <div className="ml-4">
                         <div>
-                          <span className="font-medium text-gray-700">
-                            Online Authentication:{" "}
-                          </span>
                           <a
                             href="https://www.youtube.com/watch?v=uNKlmw9KRFg"
                             target="_blank"
                             rel="noopener noreferrer"
-                            className="text-blue-600 hover:text-blue-800 underline transition-colors duration-200"
+                            className="text-white hover:text-blue-100 underline transition-colors duration-200 font-medium"
                           >
-                            https://www.youtube.com/watch?v=uNKlmw9KRFg
+                            Online Authentication Demo
                           </a>
                         </div>
                       </div>

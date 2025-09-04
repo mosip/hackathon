@@ -151,13 +151,13 @@ const Footer = () => {
               <h3 className="font-bold mb-3 text-white">Quick Links:</h3>
               <div className="space-y-2 mb-4">
                 <a
-                  href="#"
+                  href="https://www.mosip.io/privacy_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
                 >
                   Privacy Policy
                 </a>
                 <a
-                  href="#"
+                  href="https://www.mosip.io/ip_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
                 >
                   IP Policy
@@ -167,9 +167,10 @@ const Footer = () => {
               {/* Social Media Icons */}
               <div className="flex space-x-3">
                 <a
-                  href="#"
+                  href="https://www.youtube.com/@mosip16"
                   className="hover:opacity-80 transition-opacity"
                   aria-label="YouTube"
+                  target="_blank"
                 >
                   <img
                     src={imgYotubeN}
@@ -178,9 +179,10 @@ const Footer = () => {
                   />
                 </a>
                 <a
-                  href="#"
+                  href="https://www.linkedin.com/company/mosip-project"
                   className="hover:opacity-80 transition-opacity"
                   aria-label="LinkedIn"
+                  target="_blank"
                 >
                   <img
                     src={imgLinkedinN}
