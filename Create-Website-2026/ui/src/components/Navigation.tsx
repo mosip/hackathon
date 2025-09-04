@@ -268,7 +268,7 @@ const Navigation = ({
                     className="nav-dropdown-hover px-4 py-3 cursor-pointer"
                   >
                     <a
-                      href="https://www.hackerearth.com/challenges/hackathon/mosip-create/rules/#rules"
+                      href="https://www.hackerearth.com/challenges/hackathon/mosip-create"
                       target="_blank"
                       rel="noopener noreferrer"
                       className="flex items-center"
@@ -445,7 +445,7 @@ const Navigation = ({
                       onClick={() => {
                         setIsMobileMenuOpen(false);
                         window.open(
-                          "https://www.hackerearth.com/challenges/hackathon/mosip-create/rules/#rules",
+                          "https://www.hackerearth.com/challenges/hackathon/mosip-create",
                           "_blank",
                           "noopener,noreferrer"
                         );
