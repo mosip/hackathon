@@ -393,7 +393,7 @@ export default function App() {
       {/* Main Content */}
       <main className="w-full">
         {/* Hero Section */}
-        <section id="hero" className="w-full">
+        <section id="hero" className="w-full min-h-screen">
           <HeroSection onNavigateToRegistration={navigateToRegistration} />
         </section>
 

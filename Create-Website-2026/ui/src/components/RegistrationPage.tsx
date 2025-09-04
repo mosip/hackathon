@@ -329,7 +329,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
       if (res.ok) {
         toast.success(
-          "Thank you for registering for MOSIP Create. Continue building your solution and stay tuned for more updates."
+          "Thank you for registering for MOSIP Create. Stay tuned for more updates!"
         );
         resetCaptcha();
       } else {
@@ -817,8 +817,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-) full stops (.) and
-                        spaces are allowed.
+                        Only letters, numbers, hyphens (-), full stops (.) and spaces are allowed.
                       </span>
                     </div>
                   )}

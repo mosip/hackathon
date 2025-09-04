@@ -61,6 +61,18 @@ const Navigation = ({
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
 
+  useEffect(() => {
+    if (isMobileMenuOpen) {
+      document.body.style.overflow = "hidden"; // prevent background scroll
+    } else {
+      document.body.style.overflow = ""; // restore scroll
+    }
+
+    return () => {
+      document.body.style.overflow = ""; // cleanup
+    };
+  }, [isMobileMenuOpen]);
+
   const handleHomeClick = () => {
     if (onNavigateHome) {
       onNavigateHome();
@@ -319,7 +331,7 @@ const Navigation = ({
                     setOpenDropdowns({ help: false, pastEditions: false });
                   }
                 }}
-                className="nav-icon-hover p-2"
+                className="flex items-center justify-center nav-icon-hover p-2"
                 aria-label={isMobileMenuOpen ? "Close menu" : "Open menu"}
               >
                 {isMobileMenuOpen ? (

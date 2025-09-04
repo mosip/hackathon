@@ -638,7 +638,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-) full stops (.) and
+                        Only letters, numbers, hyphens (-), full stops (.) and
                         spaces are allowed.
                       </span>
                     </div>

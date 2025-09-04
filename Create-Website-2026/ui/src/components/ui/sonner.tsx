@@ -9,7 +9,7 @@ const Toaster = ({ ...props }: ToasterProps) => {
   return (
     <Sonner
       theme={theme as ToasterProps["theme"]}
-      duration={10000}
+      duration={12000}
       className="toaster group"
       style={
         {
