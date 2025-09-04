@@ -302,7 +302,8 @@
   }
 
   a:hover,
-  button:hover, .onBadgeHover:hover {
+  button:hover,
+  .onBadgeHover:hover {
     cursor: pointer;
   }
 
@@ -314,6 +315,52 @@
   .register,
   .submission {
     padding-top: 7em;
+  }
+
+  /* Toast container as 3-column grid: [icon][content grows][close button] */
+  li[data-sonner-toast] {
+    display: grid !important;
+    grid-template-columns: auto 1fr auto !important; /* icon | content | close */
+    align-items: center !important; /* vertical centering */
+    column-gap: 0.5rem !important;
+    min-width: 0 !important; /* allow content wrapping */
+  }
+
+  /* Icon stays left */
+  li[data-sonner-toast] > [data-icon] {
+    grid-column: 1 !important;
+    display: flex !important;
+    align-items: center !important;
+  }
+
+  /* Content grows in middle */
+  li[data-sonner-toast] > [data-content] {
+    grid-column: 2 !important;
+    text-align: left !important;
+    min-width: 0 !important;
+    word-break: break-word !important;
+  }
+
+  /* Close button pinned to far right + vertically centered */
+  li[data-sonner-toast] > button[data-close-button] {
+    grid-column: 3 !important;
+    align-self: center !important; /* vertical center */
+    justify-self: end !important; /* push to far right */
+    display: flex !important;
+    align-items: center !important;
+    justify-content: center !important;
+    background: transparent !important;
+    border: none !important;
+    padding: 6px !important;
+    position: absolute !important;
+    top: 1.5em !important;
+    right: 2.25em !important;
+  }
+
+  /* Ensure close icon sizing is consistent */
+  li[data-sonner-toast] > button[data-close-button] svg {
+    width: 1.25em !important;
+    height: 1.25em !important;
   }
 
   @media screen and (max-width: 1024px) {

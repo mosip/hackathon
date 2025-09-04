@@ -292,11 +292,11 @@ export default function App() {
     };
   }, []);
 
-  if (window.location.pathname === "/terms-and-conditions") {
+  if (window.location.hash === "#terms-and-conditions") {
     openTandCAccordion();
 
     setTimeout(() => {
-      // Clean up the URL
+      // Clean up the URL (remove hash)
       window.history.replaceState(
         {},
         document.title,

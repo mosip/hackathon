@@ -222,8 +222,9 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     }
 
     if (name === "ideaDescription") {
-      // ✅ Only alphabets, numbers, hyphens (-), and spaces
-      const ideaDescriptionRegex = /^[A-Za-z0-9- ]+$/;
+      // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
+
+      const ideaDescriptionRegex = /^[A-Za-z0-9-. ]+$/;
 
       if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
         setIdeaDescriptionError(true);
@@ -816,8 +817,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), and spaces are
-                        allowed.
+                        Only letters, numbers, hyphens (-) full stops (.) and
+                        spaces are allowed.
                       </span>
                     </div>
                   )}
@@ -856,9 +857,10 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                       purpose and will not be shared with any other party. By
                       clicking below, I also agree to the{" "}
                       <a
-                        href={`${window.location.origin}/terms-and-conditions`}
-                        className="text-[#007aff] hover:underline hover:text-[#0056cc] transition-colors duration-200"
+                        href={`${window.location.origin}/#terms-and-conditions`}
+                        className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
                         target="_blank"
+                        rel="noopener noreferrer"
                       >
                         Terms & Conditions
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />
