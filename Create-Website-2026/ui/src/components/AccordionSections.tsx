@@ -2796,7 +2796,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 page.
               </p>
               <p className="text-gray-700">
-                This document is CC-BY-SA. It was last updated September 5th,
+                This document is CC-BY-SA. It was last updated September 4th,
                 2024.
               </p>
             </div>
