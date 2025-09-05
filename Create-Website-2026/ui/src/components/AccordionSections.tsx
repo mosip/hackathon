@@ -883,7 +883,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                      05-Sep-2025
+                      04-Sep-2025
                     </td>
                   </tr>
                   <tr className="hover:bg-gray-50">
@@ -2796,7 +2796,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 page.
               </p>
               <p className="text-gray-700">
-                This document is CC-BY-SA. It was last updated September 5th,
+                This document is CC-BY-SA. It was last updated September 4th,
                 2024.
               </p>
             </div>
