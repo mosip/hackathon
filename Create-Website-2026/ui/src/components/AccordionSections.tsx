@@ -883,7 +883,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                       </div>
                     </td>
                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                      04-Sep-2025
+                      05-Sep-2025
                     </td>
                   </tr>
                   <tr className="hover:bg-gray-50">
