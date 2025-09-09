@@ -99,25 +99,6 @@ const Navigation = ({
     setOpenDropdowns({ help: false, pastEditions: false });
   };
 
-  const handleHelpClick = () => {
-    // Navigate to FAQ accordion
-    if (currentPage !== "home" && onNavigateHome) {
-      onNavigateHome();
-    }
-    setTimeout(() => {
-      const element = document.querySelector('[data-value="faqs"]');
-      if (element) {
-        element.scrollIntoView({ behavior: "smooth", block: "start" });
-        const trigger = element.querySelector('button[data-state="closed"]');
-        if (trigger) {
-          (trigger as HTMLElement).click();
-        }
-      }
-    }, 100);
-    setIsMobileMenuOpen(false);
-    setOpenDropdowns({ help: false, pastEditions: false });
-  };
-
   const handleContactUsClick = () => {
     // Use the proper accordion control function for contact us accordion
     if (onNavigateToContactUs) {
@@ -296,7 +277,14 @@ const Navigation = ({
             {/* Register Now Button & MOSIP Logo */}
             <div className="hidden lg:flex items-center space-x-6">
               <Button
-                onClick={onNavigateToRegistration}
+                onClick={() => {
+                  onNavigateToRegistration?.();
+                  setOpenDropdowns({ help: false, pastEditions: false });
+                }}
+                onMouseDown={() => {
+                  onNavigateToRegistration?.();
+                  setOpenDropdowns({ help: false, pastEditions: false });
+                }}
                 className="mosip-primary-button px-6 py-2 text-sm font-semibold"
               >
                 Register Now
@@ -473,8 +461,11 @@ const Navigation = ({
               {/* Mobile Register Button and MOSIP Logo */}
               <div className="pt-4 space-y-3 border-t border-gray-100 mt-4">
                 <Button
-                  onClick={() => {
+                  onClick={(e) => {
+                    e.preventDefault();
+                    e.stopPropagation();
                     onNavigateToRegistration?.();
+                    setOpenDropdowns({ help: false, pastEditions: false });
                     setIsMobileMenuOpen(false);
                   }}
                   className="mosip-primary-button w-full py-3 text-base font-semibold"
