@@ -42,6 +42,7 @@ exports.handler = async (event) => {
       "ideaDescription",
       "consent",
       "recaptchaToken",
+      "formName"
     ];
 
     // Check for missing fields
@@ -109,6 +110,8 @@ exports.handler = async (event) => {
       linkedinUrl,
       consent,
       recaptchaToken,
+      formName,
+      uploadedFiles
     } = data;
 
     const command = new GetSecretValueCommand({
@@ -123,6 +126,9 @@ exports.handler = async (event) => {
       scopes: ["https://www.googleapis.com/auth/spreadsheets"],
     });
 
+    // Convert files array to comma-separated string
+    const fileList = Array.isArray(uploadedFiles) ? files.join(", ") : "";
+
     const sheets = google.sheets({ version: "v4", auth });
 
     const spreadsheetId = process.env.SPREADSHEET_ID;
@@ -132,7 +138,7 @@ exports.handler = async (event) => {
       range: "Sheet1!A1",
       valueInputOption: "RAW",
       requestBody: {
-        values: [[fullName,country,email,organizationName,teamSize,teamName,themeChosen,ideaTitle,ideaDescription,linkedinUrl,consent,new Date().toISOString()]],
+        values: [[fullName,country,email,organizationName,teamSize,teamName,themeChosen,ideaTitle,ideaDescription,linkedinUrl,formName,fileList,new Date().toISOString()]],
       },
     });
 
