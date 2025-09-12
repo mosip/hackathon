@@ -57,6 +57,8 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   const [isTeamNameError, setTeamNameError] = useState(false);
   const [isIdeaTitleError, setIdeaTitleError] = useState(false);
   const [isIdeaDescriptionError, setIdeaDescriptionError] = useState(false);
+  const [isProblemChallengeError, setProblemChallengeError] = useState(false);
+  const [isTargetAudienceError, setTargetAudienceError] = useState(false);
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({
@@ -124,6 +126,30 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         setIdeaDescriptionError(false);
       }
     }
+
+    if (name === "problemChallenge") {
+      // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
+
+      const problemChallengeRegex = /^[A-Za-z0-9-. ]+$/;
+
+      if (value.trim() && !problemChallengeRegex.test(value.trim())) {
+        setProblemChallengeError(true);
+      } else {
+        setProblemChallengeError(false);
+      }
+    }
+
+    if (name === "targetAudience") {
+      // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
+
+      const targetAudienceRegex = /^[A-Za-z0-9-. ]+$/;
+
+      if (value.trim() && !targetAudienceRegex.test(value.trim())) {
+        setTargetAudienceError(true);
+      } else {
+        setTargetAudienceError(false);
+      }
+    }
   };
 
   /**
@@ -141,7 +167,6 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   const handleFileUpload = async (
     event: React.ChangeEvent<HTMLInputElement>
   ) => {
-    // ✅ Explicitly type files as File[]
     const files: File[] = event.target.files
       ? Array.from(event.target.files)
       : [];
@@ -158,7 +183,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
     const maxSize = 10 * 1024 * 1024; // 10MB limit
 
-    const validFiles: File[] = files.filter((file) => {
+    const validFiles = files.filter((file) => {
       if (!allowedTypes.includes(file.type)) {
         toast.error(
           `${file.name}: Unsupported file type. Please upload PDF, PPT, DOCX, or ZIP files.`
@@ -175,28 +200,15 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     const uploadedFileUrls: string[] = [];
 
     for (const file of validFiles) {
-      const formData = new FormData();
-
-      formData.append("file", file); // ✅ file is now typed as File (a Blob)
-
       try {
-        const res = await fetch(import.meta.env.VITE_FILE_UPLOAD_URL, {
-          method: "POST",
-          body: formData,
-        });
-
-        if (res.ok) {
-          const data: { fileUrl: string } = await res.json();
-          uploadedFileUrls.push(data.fileUrl);
-        } else {
-          toast.error(`${file.name}: Failed to upload.`);
-        }
+        const fileUrl = await uploadFile(file); // call Lambda + presigned S3 upload
+        uploadedFileUrls.push(fileUrl);
       } catch (err) {
-        toast.error(`${file.name}: Upload error.`);
+        toast.error(`${file.name}: Upload failed.`);
       }
     }
 
-    // 🔹 Update state with just the URLs
+    // 🔹 Update state with uploaded file URLs
     setUploadedFiles((prev) => {
       const updated = [...prev, ...uploadedFileUrls];
       setFormData((prevFormData) => ({
@@ -212,6 +224,32 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       );
     }
   };
+
+  // Utility function to call Lambda and upload file to S3
+  async function uploadFile(file: File): Promise<string> {
+    // 1️⃣ Get presigned POST from Lambda
+    const res = await fetch(import.meta.env.VITE_FILE_UPLOAD_LAMBDA_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+    });
+
+    if (!res.ok) throw new Error("Failed to get presigned URL");
+
+    const { url, fields, fileUrl } = await res.json(); // Lambda returns presigned fields + fileUrl
+
+    // 2️⃣ Upload to S3
+    const formData = new FormData();
+    Object.entries(fields).forEach(([key, value]) =>
+      formData.append(key, value as string)
+    );
+    formData.append("file", file);
+
+    const upload = await fetch(url, { method: "POST", body: formData });
+    if (!upload.ok) throw new Error("File upload failed. Please try again.");
+
+    return fileUrl; // final S3 URL to store in state
+  }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
     e.preventDefault(); // ✅ required to allow drop
@@ -244,8 +282,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       "themeChosen",
       "ideaTitle",
       "ideaDescription",
+      "uploadedFiles",
       "problemChallenge",
       "targetAudience",
+      "consent",
+      "recaptchaToken",
     ];
 
     const missingFields = requiredFields.filter(
@@ -297,6 +338,16 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return false;
     }
 
+    if (isProblemChallengeError) {
+      toast.error("Please enter a valid Problem/ Challenge");
+      return false;
+    }
+
+    if (isTargetAudienceError) {
+      toast.error("Please enter a valid Target Audience");
+      return false;
+    }
+
     return true;
   };
 
@@ -314,7 +365,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       const res = await fetch(import.meta.env.VITE_SOLUTION_SUBMISSION_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          formType: "submission",
+        }),
       });
 
       if (res.ok) {
@@ -616,7 +670,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("ideaDescription", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Provide a detailed description of your solution..."
+                    placeholder="Provide a detailed description of your solution"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
@@ -718,19 +772,33 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="problemChallenge"
                     className="flex items-center gap-1"
                   >
-                    What specific problem/challenge does it address?
+                    What specific problem/ challenge does it address?
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
                     id="problemChallenge"
+                    name="problemChallenge"
                     value={formData.problemChallenge}
                     onChange={(e) =>
                       handleInputChange("problemChallenge", e.target.value)
                     }
-                    placeholder="Describe the specific problem or challenge your solution addresses..."
+                    onBlur={handleBlur}
+                    placeholder="Describe the specific problem or challenge your solution addresses"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
+                  {isProblemChallengeError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -743,14 +811,28 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Textarea
                     id="targetAudience"
+                    name="targetAudience"
                     value={formData.targetAudience}
                     onChange={(e) =>
                       handleInputChange("targetAudience", e.target.value)
                     }
-                    placeholder="e.g., Country, Relying Party, specific user groups..."
+                    onBlur={handleBlur}
+                    placeholder="e.g., Country, Relying Party, specific user groups"
                     rows={3}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
+                  {isTargetAudienceError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -774,7 +856,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   onChange={(e) =>
                     handleInputChange("additionalComments", e.target.value)
                   }
-                  placeholder="Any additional information you'd like to share..."
+                  placeholder="Any additional information you'd like to share"
                   rows={3}
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                 />

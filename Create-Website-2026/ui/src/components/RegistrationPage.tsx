@@ -257,6 +257,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       "themeChosen",
       "ideaTitle",
       "ideaDescription",
+      "consent",
+      "recaptchaToken",
     ];
 
     const missingFields = requiredFields.filter(
@@ -324,7 +326,10 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       const res = await fetch(import.meta.env.VITE_REGISTER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          formType: "registration",
+        }),
       });
 
       if (res.ok) {
@@ -744,7 +749,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), full stops (.) and spaces are allowed.
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
                       </span>
                     </div>
                   )}
