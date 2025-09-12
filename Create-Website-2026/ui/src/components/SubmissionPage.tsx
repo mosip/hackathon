@@ -39,6 +39,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     additionalComments: "",
     consent: false,
     recaptchaToken: "",
+    uploadedFiles: [] as File[],
   });
 
   const captchaSiteKey = import.meta.env.VITE_CAPTCHA_SITE_KEY;
@@ -56,6 +57,8 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   const [isTeamNameError, setTeamNameError] = useState(false);
   const [isIdeaTitleError, setIdeaTitleError] = useState(false);
   const [isIdeaDescriptionError, setIdeaDescriptionError] = useState(false);
+  const [isProblemChallengeError, setProblemChallengeError] = useState(false);
+  const [isTargetAudienceError, setTargetAudienceError] = useState(false);
 
   const handleInputChange = (field: string, value: string | boolean) => {
     setFormData((prev) => ({
@@ -123,6 +126,30 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         setIdeaDescriptionError(false);
       }
     }
+
+    if (name === "problemChallenge") {
+      // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
+
+      const problemChallengeRegex = /^[A-Za-z0-9-. ]+$/;
+
+      if (value.trim() && !problemChallengeRegex.test(value.trim())) {
+        setProblemChallengeError(true);
+      } else {
+        setProblemChallengeError(false);
+      }
+    }
+
+    if (name === "targetAudience") {
+      // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
+
+      const targetAudienceRegex = /^[A-Za-z0-9-. ]+$/;
+
+      if (value.trim() && !targetAudienceRegex.test(value.trim())) {
+        setTargetAudienceError(true);
+      } else {
+        setTargetAudienceError(false);
+      }
+    }
   };
 
   /**
@@ -137,8 +164,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     handleInputChange("recaptchaToken", value);
   };
 
-  const handleFileUpload = (event: React.ChangeEvent<HTMLInputElement>) => {
-    const files = Array.from(event.target.files || []);
+  const handleFileUpload = async (
+    event: React.ChangeEvent<HTMLInputElement>
+  ) => {
+    const files: File[] = event.target.files
+      ? Array.from(event.target.files)
+      : [];
+
     const allowedTypes = [
       "application/pdf",
       "application/vnd.ms-powerpoint",
@@ -146,6 +178,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       "application/msword",
       "application/vnd.openxmlformats-officedocument.wordprocessingml.document",
       "application/zip",
+      "application/x-zip-compressed",
     ];
 
     const maxSize = 10 * 1024 * 1024; // 10MB limit
@@ -164,10 +197,76 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return true;
     });
 
-    setUploadedFiles((prev) => [...prev, ...validFiles]);
-    if (validFiles.length > 0) {
-      toast.success(`${validFiles.length} file(s) uploaded successfully.`);
+    const uploadedFileUrls: string[] = [];
+
+    for (const file of validFiles) {
+      try {
+        const fileUrl = await uploadFile(file); // call Lambda + presigned S3 upload
+        uploadedFileUrls.push(fileUrl);
+      } catch (err) {
+        toast.error(`${file.name}: Upload failed.`);
+      }
     }
+
+    // 🔹 Update state with uploaded file URLs
+    setUploadedFiles((prev) => {
+      const updated = [...prev, ...uploadedFileUrls];
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        uploadedFiles: updated,
+      }));
+      return updated;
+    });
+
+    if (uploadedFileUrls.length > 0) {
+      toast.success(
+        `${uploadedFileUrls.length} file(s) uploaded successfully.`
+      );
+    }
+  };
+
+  // Utility function to call Lambda and upload file to S3
+  async function uploadFile(file: File): Promise<string> {
+    // 1️⃣ Get presigned POST from Lambda
+    const res = await fetch(import.meta.env.VITE_FILE_UPLOAD_LAMBDA_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ fileName: file.name, fileType: file.type }),
+    });
+
+    if (!res.ok) throw new Error("Failed to get presigned URL");
+
+    const { url, fields, fileUrl } = await res.json(); // Lambda returns presigned fields + fileUrl
+
+    // 2️⃣ Upload to S3
+    const formData = new FormData();
+    Object.entries(fields).forEach(([key, value]) =>
+      formData.append(key, value as string)
+    );
+    formData.append("file", file);
+
+    const upload = await fetch(url, { method: "POST", body: formData });
+    if (!upload.ok) throw new Error("File upload failed. Please try again.");
+
+    return fileUrl; // final S3 URL to store in state
+  }
+
+  const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault(); // ✅ required to allow drop
+  };
+
+  const handleDrop = (e: React.DragEvent<HTMLDivElement>) => {
+    e.preventDefault();
+
+    // ✅ Convert FileList to Array<File>
+    const files = Array.from(e.dataTransfer.files);
+
+    // ✅ Create a fake event to reuse handleFileUpload
+    const fakeEvent = {
+      target: { files } as unknown as HTMLInputElement,
+    } as React.ChangeEvent<HTMLInputElement>;
+
+    handleFileUpload(fakeEvent);
   };
 
   const removeFile = (index: number) => {
@@ -183,8 +282,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       "themeChosen",
       "ideaTitle",
       "ideaDescription",
+      "uploadedFiles",
       "problemChallenge",
       "targetAudience",
+      "consent",
+      "recaptchaToken",
     ];
 
     const missingFields = requiredFields.filter(
@@ -236,6 +338,16 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return false;
     }
 
+    if (isProblemChallengeError) {
+      toast.error("Please enter a valid Problem/ Challenge");
+      return false;
+    }
+
+    if (isTargetAudienceError) {
+      toast.error("Please enter a valid Target Audience");
+      return false;
+    }
+
     return true;
   };
 
@@ -253,7 +365,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       const res = await fetch(import.meta.env.VITE_SOLUTION_SUBMISSION_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          formType: "submission",
+        }),
       });
 
       if (res.ok) {
@@ -278,6 +393,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         additionalComments: "",
         consent: false,
         recaptchaToken: "",
+        uploadedFiles: [],
       });
       setUploadedFiles([]);
 
@@ -305,82 +421,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       additionalComments: "",
       consent: false,
       recaptchaToken: "",
+      uploadedFiles: [],
     });
     setUploadedFiles([]);
     toast.success("Form cleared successfully");
-  };
-
-  // Mock reCAPTCHA Component
-  const MockRecaptcha: React.FC<{
-    onChange: (verified: boolean) => void;
-    verified: boolean;
-  }> = ({ onChange, verified }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleCheck = async () => {
-      if (verified || isLoading) return;
-
-      setIsLoading(true);
-      // Simulate reCAPTCHA verification delay
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      onChange(true);
-      setIsLoading(false);
-    };
-
-    const handleReset = () => {
-      if (isLoading) return;
-      onChange(false);
-    };
-
-    return (
-      <div className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm max-w-xs w-full">
-        <div className="flex items-center gap-3">
-          <div className="relative flex-shrink-0">
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-[#1B52A4] border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <Checkbox
-                checked={verified}
-                onCheckedChange={handleCheck}
-                className="w-5 h-5 border-2 border-gray-400 data-[state=checked]:bg-[#1B52A4] data-[state=checked]:border-[#1B52A4]"
-                disabled={verified || isLoading}
-              />
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <span className="text-sm text-gray-700 font-medium">
-              {isLoading ? "Verifying..." : "I'm not a robot"}
-            </span>
-          </div>
-          <div className="flex flex-col items-center text-xs text-gray-500 flex-shrink-0">
-            <div className="mb-1">
-              <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                <rect width="32" height="24" rx="2" fill="#4285f4" />
-                <path
-                  d="M8 7h16v2H8V7zm0 4h12v2H8v-2zm0 4h8v2H8v-2z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-            <span className="font-medium">reCAPTCHA</span>
-          </div>
-        </div>
-        {verified && (
-          <div className="mt-3 flex justify-end border-t border-gray-200 pt-2">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleReset}
-              className="text-xs text-gray-500 hover:text-white h-auto py-1 px-2"
-              disabled={isLoading}
-            >
-              Reset
-            </Button>
-          </div>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -626,7 +670,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("ideaDescription", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Provide a detailed description of your solution..."
+                    placeholder="Provide a detailed description of your solution"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
@@ -656,7 +700,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
               </h3>
 
               <div className="space-y-4">
-                <div className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center">
+                <div
+                  className="border-2 border-dashed border-gray-300 rounded-lg p-6 text-center"
+                  onDragOver={handleDragOver}
+                  onDrop={handleDrop}
+                >
                   <Label htmlFor="file-upload" className="cursor-pointer">
                     <span className="text-[#01A2FD] hover:text-[#0077CC] font-medium">
                       Click to upload files
@@ -724,19 +772,33 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="problemChallenge"
                     className="flex items-center gap-1"
                   >
-                    What specific problem/challenge does it address?
+                    What specific problem/ challenge does it address?
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
                     id="problemChallenge"
+                    name="problemChallenge"
                     value={formData.problemChallenge}
                     onChange={(e) =>
                       handleInputChange("problemChallenge", e.target.value)
                     }
-                    placeholder="Describe the specific problem or challenge your solution addresses..."
+                    onBlur={handleBlur}
+                    placeholder="Describe the specific problem or challenge your solution addresses"
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
+                  {isProblemChallengeError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
 
                 <div className="space-y-2">
@@ -749,14 +811,28 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Textarea
                     id="targetAudience"
+                    name="targetAudience"
                     value={formData.targetAudience}
                     onChange={(e) =>
                       handleInputChange("targetAudience", e.target.value)
                     }
-                    placeholder="e.g., Country, Relying Party, specific user groups..."
+                    onBlur={handleBlur}
+                    placeholder="e.g., Country, Relying Party, specific user groups"
                     rows={3}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
+                  {isTargetAudienceError && (
+                    <div className="flex items-start gap-1.5 text-xs text-red-600 ">
+                      <AlertCircle
+                        className="w-3 h-3 flex-shrink-0 "
+                        style={{ marginTop: "1px" }}
+                      />
+                      <span>
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
+                      </span>
+                    </div>
+                  )}
                 </div>
               </div>
             </CardContent>
@@ -780,7 +856,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   onChange={(e) =>
                     handleInputChange("additionalComments", e.target.value)
                   }
-                  placeholder="Any additional information you'd like to share..."
+                  placeholder="Any additional information you'd like to share"
                   rows={3}
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                 />

@@ -257,6 +257,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       "themeChosen",
       "ideaTitle",
       "ideaDescription",
+      "consent",
+      "recaptchaToken",
     ];
 
     const missingFields = requiredFields.filter(
@@ -324,7 +326,10 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       const res = await fetch(import.meta.env.VITE_REGISTER_URL, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(formData),
+        body: JSON.stringify({
+          ...formData,
+          formType: "registration",
+        }),
       });
 
       if (res.ok) {
@@ -379,79 +384,6 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       recaptchaToken: "",
     });
     toast.success("Form cleared successfully");
-  };
-
-  // Mock reCAPTCHA Component
-  const MockRecaptcha: React.FC<{
-    onChange: (verified: boolean) => void;
-    verified: boolean;
-  }> = ({ onChange, verified }) => {
-    const [isLoading, setIsLoading] = useState(false);
-
-    const handleCheck = async () => {
-      if (verified || isLoading) return;
-
-      setIsLoading(true);
-      // Simulate reCAPTCHA verification delay
-      await new Promise((resolve) => setTimeout(resolve, 0));
-      onChange(true);
-      setIsLoading(false);
-    };
-
-    const handleReset = () => {
-      if (isLoading) return;
-      onChange(false);
-    };
-
-    return (
-      <div className="border-2 border-gray-300 rounded-lg p-4 bg-white shadow-sm max-w-xs w-full">
-        <div className="flex items-center gap-3">
-          <div className="relative flex-shrink-0">
-            {isLoading ? (
-              <div className="w-5 h-5 border-2 border-[#1B52A4] border-t-transparent rounded-full animate-spin"></div>
-            ) : (
-              <Checkbox
-                checked={verified}
-                onCheckedChange={handleCheck}
-                className="w-5 h-5 border-2 border-gray-400 data-[state=checked]:bg-[#1B52A4] data-[state=checked]:border-[#1B52A4]"
-                disabled={verified || isLoading}
-              />
-            )}
-          </div>
-          <div className="flex-1 min-w-0">
-            <span className="text-sm text-gray-700 font-medium">
-              {isLoading ? "Verifying..." : "I'm not a robot"}
-            </span>
-          </div>
-          <div className="flex flex-col items-center text-xs text-gray-500 flex-shrink-0">
-            <div className="mb-1">
-              <svg className="w-8 h-6" viewBox="0 0 32 24" fill="none">
-                <rect width="32" height="24" rx="2" fill="#4285f4" />
-                <path
-                  d="M8 7h16v2H8V7zm0 4h12v2H8v-2zm0 4h8v2H8v-2z"
-                  fill="white"
-                />
-              </svg>
-            </div>
-            <span className="font-medium">reCAPTCHA</span>
-          </div>
-        </div>
-        {verified && (
-          <div className="mt-3 flex justify-end border-t border-gray-200 pt-2">
-            <Button
-              type="button"
-              variant="ghost"
-              size="sm"
-              onClick={handleReset}
-              className="text-xs text-gray-500 hover:text-white h-auto py-1 px-2"
-              disabled={isLoading}
-            >
-              Reset
-            </Button>
-          </div>
-        )}
-      </div>
-    );
   };
 
   return (
@@ -817,7 +749,8 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), full stops (.) and spaces are allowed.
+                        Only letters, numbers, hyphens (-), full stops (.) and
+                        spaces are allowed.
                       </span>
                     </div>
                   )}
