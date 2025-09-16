@@ -236,7 +236,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
     if (!res.ok) throw new Error("Failed to get presigned URL");
 
-    const { url, fields, fileUrl } = await res.json(); // Lambda returns presigned fields + fileUrl
+    const { url, fields, fileName } = await res.json(); // Lambda returns presigned fields + fileName
 
     // 2️⃣ Upload to S3
     const formData = new FormData();
@@ -248,7 +248,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     const upload = await fetch(url, { method: "POST", body: formData });
     if (!upload.ok) throw new Error("File upload failed. Please try again.");
 
-    return fileUrl; // final S3 URL to store in state
+    return fileName; // final S3 file name to store in state
   }
 
   const handleDragOver = (e: React.DragEvent<HTMLDivElement>) => {
