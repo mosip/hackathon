@@ -270,7 +270,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   };
 
   const removeFile = (index: number) => {
-    setUploadedFiles((prev) => prev.filter((_, i) => i !== index));
+    setUploadedFiles((prev: any) => {
+      const updated = [...prev];
+      updated.splice(index, 1); // remove specific file
+      return updated;
+    });
     toast.success("File removed successfully.");
   };
 
@@ -424,6 +428,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       uploadedFiles: [],
     });
     setUploadedFiles([]);
+    resetCaptcha();
     toast.success("Form cleared successfully");
   };
 
@@ -731,16 +736,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     </Label>
                     {uploadedFiles.map((file, index) => (
                       <div
-                        key={index}
+                        key={file}
                         className="flex items-center justify-between bg-gray-100 p-3 rounded-lg"
                       >
-                        <div className="flex items-center gap-2">
-                          <span className="text-sm text-gray-700">
-                            {file.name}
+                        <div className="flex items-center gap-2 flex-1">
+                          <span className="text-sm text-gray-700 truncate">
+                            {file}
                           </span>
-                          <Badge variant="outline" className="text-xs">
-                            {(file.size / 1024 / 1024).toFixed(1)} MB
-                          </Badge>
                         </div>
                         <Button
                           type="button"
