@@ -383,6 +383,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       consent: false,
       recaptchaToken: "",
     });
+    resetCaptcha();
     toast.success("Form cleared successfully");
   };
 
