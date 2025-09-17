@@ -104,7 +104,7 @@ exports.handler = async (event) => {
     } else {
       return {
         statusCode: 400,
-        headers,
+        //headers,
         body: JSON.stringify({
           error: "formType must be 'registration' or 'submission'",
         }),
@@ -133,7 +133,7 @@ exports.handler = async (event) => {
     if (errors.length > 0) {
       return {
         statusCode: 400,
-        headers,
+        //headers,
         body: JSON.stringify({ error: errors.join(" ") }),
       };
     }
@@ -160,7 +160,7 @@ exports.handler = async (event) => {
       console.error("Network error during reCAPTCHA verification:", networkErr);
       return {
         statusCode: 502, // Bad Gateway
-        headers,
+        //headers,
         body: JSON.stringify({
           error: "Failed to verify reCAPTCHA. Try again later.",
         }),
@@ -171,7 +171,7 @@ exports.handler = async (event) => {
     if (!verifyResult.success || verifyResult.score < 0.5) {
       return {
         statusCode: 403,
-        headers,
+        //headers,
         body: JSON.stringify({ error: "Failed reCAPTCHA validation" }),
       };
     }
@@ -236,7 +236,7 @@ exports.handler = async (event) => {
         );
         return {
           statusCode: 500,
-          headers,
+          //headers,
           body: JSON.stringify({
             error: "Failed to write registration data to Google Sheets",
           }),
@@ -287,7 +287,7 @@ exports.handler = async (event) => {
         );
         return {
           statusCode: 500,
-          headers,
+          //headers,
           body: JSON.stringify({
             error: "Failed to write submission data to Google Sheets",
           }),
@@ -297,14 +297,14 @@ exports.handler = async (event) => {
 
     return {
       statusCode: 200,
-      headers,
+      //headers,
       body: JSON.stringify({ success: true }),
     };
   } catch (err) {
     console.error("Error in Lambda:", err);
     return {
       statusCode: 500,
-      headers,
+      //headers,
       body: JSON.stringify({
         error: "Server error",
         details: err.message,
