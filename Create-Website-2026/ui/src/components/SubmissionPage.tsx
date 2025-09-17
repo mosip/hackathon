@@ -26,7 +26,7 @@ interface SubmissionPageProps {
 
 const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   const [isSubmitting, setIsSubmitting] = useState(false);
-  const [uploadedFiles, setUploadedFiles] = useState<File[]>([]);
+  const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const [formData, setFormData] = useState({
     fullName: "",
     teamName: "",
@@ -39,7 +39,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     additionalComments: "",
     consent: false,
     recaptchaToken: "",
-    uploadedFiles: [] as File[],
+    uploadedFiles: [] as string[],
   });
 
   const captchaSiteKey = import.meta.env.VITE_CAPTCHA_SITE_KEY;
@@ -197,30 +197,30 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       return true;
     });
 
-    const uploadedFileUrls: string[] = [];
+    const uploadedFileNames: string[] = [];
 
     for (const file of validFiles) {
       try {
-        const fileUrl = await uploadFile(file); // call Lambda + presigned S3 upload
-        uploadedFileUrls.push(fileUrl);
+        const fileName = await uploadFile(file); // returns string
+        uploadedFileNames.push(fileName);
       } catch (err) {
         toast.error(`${file.name}: Upload failed.`);
       }
     }
 
-    // 🔹 Update state with uploaded file URLs
-    setUploadedFiles((prev) => {
-      const updated = [...prev, ...uploadedFileUrls];
-      setFormData((prevFormData) => ({
-        ...prevFormData,
-        uploadedFiles: updated,
-      }));
-      return updated;
-    });
+    // Update state only if there are new uploaded files
+    if (uploadedFileNames.length > 0) {
+      setUploadedFiles((prev) => {
+        const updated = [...prev, ...uploadedFileNames];
+        setFormData((prevFormData) => ({
+          ...prevFormData,
+          uploadedFiles: updated,
+        }));
+        return updated;
+      });
 
-    if (uploadedFileUrls.length > 0) {
       toast.success(
-        `${uploadedFileUrls.length} file(s) uploaded successfully.`
+        `${uploadedFileNames.length} file(s) uploaded successfully.`
       );
     }
   };
@@ -270,9 +270,14 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
   };
 
   const removeFile = (index: number) => {
-    setUploadedFiles((prev: any) => {
+    setUploadedFiles((prev) => {
       const updated = [...prev];
-      updated.splice(index, 1); // remove specific file
+      updated.splice(index, 1);
+      // update formData too
+      setFormData((prevFormData) => ({
+        ...prevFormData,
+        uploadedFiles: updated,
+      }));
       return updated;
     });
     toast.success("File removed successfully.");
@@ -993,7 +998,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Button
             variant="ghost"
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mx-auto"
+            className="flex items-center gap-2 text-gray-600 hover:text-white mx-auto"
           >
             Return to MOSIP Create Homepage
           </Button>
