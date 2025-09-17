@@ -886,7 +886,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
           <Button
             variant="ghost"
             onClick={onNavigateHome}
-            className="flex items-center gap-2 text-gray-600 hover:text-gray-900 mx-auto"
+            className="flex items-center gap-2 text-gray-600 hover:text-white mx-auto"
           >
             Return to MOSIP Create Homepage
           </Button>
