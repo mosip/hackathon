@@ -153,12 +153,14 @@ const Footer = () => {
                 <a
                   href="https://www.mosip.io/privacy_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
+                  target="_blank"
                 >
                   Privacy Policy
                 </a>
                 <a
                   href="https://www.mosip.io/ip_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
+                  target="_blank"
                 >
                   IP Policy
                 </a>

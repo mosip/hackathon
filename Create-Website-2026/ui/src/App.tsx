@@ -20,19 +20,34 @@ export default function App() {
     ((accordionId: string) => void) | null
   >(null);
 
+  useEffect(() => {
+    const path = window.location.pathname;
+
+    if (path === "/registration-form") {
+      setCurrentPage("registration");
+    } else if (path === "/solution-submission-form") {
+      setCurrentPage("submission");
+    } else {
+      setCurrentPage("home");
+    }
+  }, []);
+
   // Navigation functions
   const navigateToRegistration = () => {
     setCurrentPage("registration");
+    window.history.pushState({}, "", "/registration-form");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToSubmission = () => {
     setCurrentPage("submission");
+    window.history.pushState({}, "", "/solution-submission-form");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToHome = () => {
     setCurrentPage("home");
+    window.history.pushState({}, "", "/");
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 

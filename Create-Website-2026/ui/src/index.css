@@ -364,7 +364,11 @@
   }
 
   [data-sonner-toast][data-styled="true"] [data-title] {
-    padding-right: 0.25em !important; /* space for close button */
+    padding-right: 1em !important; /* space for close button */
+  }
+
+  .hover\:bg-accent:hover {
+    color: white !important;
   }
 
   @media screen and (max-width: 1024px) {
