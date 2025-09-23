@@ -118,7 +118,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     if (name === "ideaDescription") {
       // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
 
-      const ideaDescriptionRegex = /^[A-Za-z0-9-. ]+$/;
+      const ideaDescriptionRegex = /^[A-Za-z0-9-. \s]+$/;
 
       if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
         setIdeaDescriptionError(true);
@@ -130,7 +130,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     if (name === "problemChallenge") {
       // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
 
-      const problemChallengeRegex = /^[A-Za-z0-9-. ]+$/;
+      const problemChallengeRegex = /^[A-Za-z0-9-. \s]+$/;
 
       if (value.trim() && !problemChallengeRegex.test(value.trim())) {
         setProblemChallengeError(true);
@@ -142,7 +142,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     if (name === "targetAudience") {
       // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
 
-      const targetAudienceRegex = /^[A-Za-z0-9-. ]+$/;
+      const targetAudienceRegex = /^[A-Za-z0-9-. \s]+$/;
 
       if (value.trim() && !targetAudienceRegex.test(value.trim())) {
         setTargetAudienceError(true);
@@ -409,7 +409,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       // Navigate back to homepage after successful submission
       setTimeout(() => {
         onNavigateHome();
-      }, 2000);
+      }, 12000);
     } catch (error) {
       toast.error("Submission failed. Please try again.");
     } finally {

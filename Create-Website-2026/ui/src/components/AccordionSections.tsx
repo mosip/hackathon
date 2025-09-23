@@ -1118,7 +1118,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
           </div>
 
           {/* Submission Process */}
-          <div className="bg-white rounded-lg border border-gray-200 shadow-sm">
+          <div
+            className="bg-white rounded-lg border border-gray-200 shadow-sm"
+            id="submission-process"
+          >
             <div className="p-4" style={{ backgroundColor: "#00A2E5" }}>
               <h5 className="font-bold text-white flex items-center gap-2">
                 Solution Submission Process
@@ -1400,11 +1403,18 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   e.preventDefault();
                   setOpenAccordionValue("themes");
 
-                  // scroll to the accordion section
-                  const el = document.getElementById("accordion-sections");
-                  if (el) {
-                    el.scrollIntoView({ behavior: "smooth", block: "start" });
-                  }
+                  // wait for DOM update
+                  requestAnimationFrame(() => {
+                    const el = document.getElementById("themes");
+                    if (el) {
+                      const yOffset = -100; // adjust if you have a fixed header
+                      const y =
+                        el.getBoundingClientRect().top +
+                        window.pageYOffset +
+                        yOffset;
+                      window.scrollTo({ top: y, behavior: "smooth" });
+                    }
+                  });
                 }}
                 className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
               >
@@ -2250,7 +2260,31 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     6. How and where do I submit the deliverables?
                   </h6>
                   <p className="text-sm text-gray-600">
-                    Please refer to the Submission Criteria section for details.
+                    Please refer to the{" "}
+                    <a
+                      href="#"
+                      onClick={(e) => {
+                        e.preventDefault();
+                        setOpenAccordionValue("submission");
+
+                        // wait for DOM update
+                        requestAnimationFrame(() => {
+                          const el = document.getElementById("submission");
+                          if (el) {
+                            const yOffset = -100; // adjust if you have a fixed header
+                            const y =
+                              el.getBoundingClientRect().top +
+                              window.pageYOffset +
+                              yOffset;
+                            window.scrollTo({ top: y, behavior: "smooth" });
+                          }
+                        });
+                      }}
+                      className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+                    >
+                      Submission Criteria
+                    </a>{" "}
+                    section for details.
                   </p>
                 </div>
                 <div>
@@ -2288,15 +2322,19 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                         e.preventDefault();
                         setOpenAccordionValue("submission");
 
-                        // scroll to the accordion section
-                        const el =
-                          document.getElementById("accordion-sections");
-                        if (el) {
-                          el.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                        }
+                        // wait for DOM update
+                        requestAnimationFrame(() => {
+                          const el =
+                            document.getElementById("submission-process");
+                          if (el) {
+                            const yOffset = -125; // adjust if you have a fixed header
+                            const y =
+                              el.getBoundingClientRect().top +
+                              window.pageYOffset +
+                              yOffset;
+                            window.scrollTo({ top: y, behavior: "smooth" });
+                          }
+                        });
                       }}
                       className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
                     >
@@ -2365,32 +2403,36 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 </div>
                 <div>
                   <h6 className="font-semibold text-gray-900 mb-2">
-                    15. How do I submit my final deliverables/artefacts?
+                    15. How do I submit my final deliverables/ artefacts?
                   </h6>
                   <p className="text-sm text-gray-600">
-                    Follow the submission process outlined in the{" "}
+                    Follow the{" "}
                     <a
                       href="#"
                       onClick={(e) => {
                         e.preventDefault();
                         setOpenAccordionValue("submission");
 
-                        // scroll to the accordion section
-                        const el =
-                          document.getElementById("accordion-sections");
-                        if (el) {
-                          el.scrollIntoView({
-                            behavior: "smooth",
-                            block: "start",
-                          });
-                        }
+                        // wait for DOM update
+                        requestAnimationFrame(() => {
+                          const el =
+                            document.getElementById("submission-process");
+                          if (el) {
+                            const yOffset = -125; // adjust if you have a fixed header
+                            const y =
+                              el.getBoundingClientRect().top +
+                              window.pageYOffset +
+                              yOffset;
+                            window.scrollTo({ top: y, behavior: "smooth" });
+                          }
+                        });
                       }}
                       className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
                     >
-                      Submission Criteria
+                      submission process
                     </a>{" "}
-                    section to share your final deliverables/artefacts for MOSIP
-                    Create.
+                    outlined in the Submission Criteria section to share your
+                    final deliverables/ artefacts for MOSIP Create.
                   </p>
                 </div>
               </div>
@@ -2850,6 +2892,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 key={item.id}
                 value={item.id}
                 className="border-none"
+                id={item.id}
               >
                 <div ref={(el) => (accordionRefs.current[item.id] = el)}>
                   <Card className="overflow-hidden shadow-sm hover:shadow-md transition-all duration-300">

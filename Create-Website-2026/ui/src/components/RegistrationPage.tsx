@@ -224,7 +224,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     if (name === "ideaDescription") {
       // ✅ Only letters, numbers, hyphens (-) full stops (.) and spaces are allowed.
 
-      const ideaDescriptionRegex = /^[A-Za-z0-9-. ]+$/;
+      const ideaDescriptionRegex = /^[A-Za-z0-9-. \s]+$/;
 
       if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
         setIdeaDescriptionError(true);
@@ -334,7 +334,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
 
       if (res.ok) {
         toast.success(
-          "Thank you for registering for MOSIP Create. Stay tuned for more updates!"
+          "Thank you for registering for MOSIP Create.\nStay tuned for more updates!"
         );
         resetCaptcha();
       } else {
@@ -360,7 +360,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
       // Navigate back to homepage after successful submission
       setTimeout(() => {
         onNavigateHome();
-      }, 2000);
+      }, 12000);
     } catch (error) {
       toast.error("Registration failed. Please try again.");
     } finally {
