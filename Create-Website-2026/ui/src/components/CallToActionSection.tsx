@@ -3,6 +3,7 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
+import { useTranslation } from 'react-i18next';
 
 interface CallToActionSectionProps {
   onNavigateToRegistration?: () => void;
@@ -13,6 +14,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
   onNavigateToRegistration,
   onNavigateToSubmission,
 }) => {
+  const { t } = useTranslation();
   return (
     <section className="w-full py-16 md:py-20 lg:py-24 bg-gradient-to-br from-blue-50/80 via-slate-50/60 to-gray-50/80 relative overflow-hidden">
       {/* Subtle background pattern */}
@@ -29,12 +31,10 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
           {/* Header */}
           <div className="mb-8">
             <h2 className="text-3xl md:text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Ready to Get Started?
+              {t("cta.readyToGetStarted")}
             </h2>
             <p className="text-lg md:text-xl text-gray-600 max-w-3xl mx-auto leading-relaxed">
-              Join MOSIP Create 2025 and be part of building the future of
-              Digital Public Infrastructure. Registration opens September 4th,
-              2025.
+              {t("cta.ctaText")}
             </p>
           </div>
 
@@ -52,7 +52,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
               className="mosip-primary-button font-semibold px-8 py-3 rounded-lg min-w-[200px]"
               onClick={onNavigateToRegistration}
             >
-              Register for MOSIP Create
+              {t("navigation.registerButtonText")}
             </Button>
 
             {/* Secondary CTA - Submit */}
@@ -62,7 +62,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
               className="mosip-secondary-button font-semibold px-8 py-3 rounded-lg min-w-[200px]"
               onClick={onNavigateToSubmission}
             >
-              Submit Your Solution
+              {t("cta.submitYourSolution")}
             </Button>
           </motion.div>
 
@@ -75,10 +75,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             className="mt-8 pt-6 border-t border-gray-200"
           >
             <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-              <strong>Registration Timeline:</strong> Applications open on
-              September 4th, 2025. Don't miss your chance to be part of our
-              journey towards building innovative & inclusive digital identity
-              solutions.
+              <strong>{t("cta.registrationTimeline")}</strong>  {t("cta.timelineText")}{t("navigation.github")}
             </p>
           </motion.div>
         </motion.div>

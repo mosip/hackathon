@@ -2,6 +2,8 @@ import imgFootLogoB from "figma:asset/d01052815fad41170245fccda69e19a12bcd55fc.p
 import imgIiitbNew from "figma:asset/b12ea7d05c7f72a3ee2602703ac1cb43d900b63c.png";
 import imgYotubeN from "figma:asset/13047e71e460fe2f1874c9c6e7fc295934e73e44.png";
 import imgLinkedinN from "figma:asset/3830b0a76a7bab95fa85912a5a26575dee198f71.png";
+import { useTranslation } from 'react-i18next';
+import {t} from "i18next";
 
 function FootLogoB() {
   return <div className="absolute bg-[0%_49.99%] bg-no-repeat bg-size-[100%_100.01%] h-[108.8px] left-[21.25%] right-[71.69%] top-[50px]" data-name="foot logo b" style={{ backgroundImage: `url('${imgFootLogoB}')` }} />;
@@ -15,7 +17,7 @@ function Container() {
   return (
     <div className="absolute inset-[50px_791.52px_50px_505.48px]" data-name="Container">
       <div className="absolute flex flex-col font-['Montserrat:SemiBold',_sans-serif] h-[21px] justify-center leading-[0] left-[15px] not-italic text-[14px] text-white top-[10.5px] translate-y-[-50%] w-[95.457px]">
-        <p className="leading-[21px]">Incubated by</p>
+        <p className="leading-[21px]">{t("footer.incubatedBy")}</p>
       </div>
       <IiitbNew />
     </div>
@@ -46,7 +48,7 @@ function LinkPrivacyPolicy() {
   return (
     <div className="absolute h-[18px] left-[949.47px] top-[92px] w-[93.55px]" data-name="Link - Privacy Policy">
       <div className="absolute flex flex-col font-['Montserrat:Light',_sans-serif] h-[18px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-[9px] translate-y-[-50%] w-[93.895px]">
-        <p className="leading-[21px]">Privacy Policy</p>
+        <p className="leading-[21px]">{t("footer.privacyPolicy")}</p>
       </div>
     </div>
   );
@@ -56,7 +58,7 @@ function LinkIpPolicy() {
   return (
     <div className="absolute h-[18px] left-[949.47px] top-[123px] w-[58.61px]" data-name="Link - IP Policy">
       <div className="absolute flex flex-col font-['Montserrat:Light',_sans-serif] h-[18px] justify-center leading-[0] left-0 not-italic text-[14px] text-white top-[9px] translate-y-[-50%] w-[58.99px]">
-        <p className="leading-[21px]">IP Policy</p>
+        <p className="leading-[21px]">{t("footer.ipPolicy")}</p>
       </div>
     </div>
   );
@@ -87,6 +89,7 @@ function Link1() {
 }
 
 export default function Section() {
+  const { t } = useTranslation();
   return (
     <div className="bg-[#072cb8] relative size-full" data-name="Section">
       <FootLogoB />
@@ -95,17 +98,17 @@ export default function Section() {
       </div>
       <Container />
       <div className="absolute flex flex-col font-['Montserrat:Bold',_sans-serif] h-[21px] justify-center leading-[0] left-[734.97px] not-italic text-[14px] text-white top-[60.5px] translate-y-[-50%] w-[80.854px]">
-        <p className="leading-[21px]">Contact Us</p>
+        <p className="leading-[21px]">{t("footer.contactUs")}</p>
       </div>
       <MispelledLinkInfoMosipIo />
       <div className="absolute flex flex-col font-['Montserrat:Light',_sans-serif] h-[60px] justify-center leading-[21px] left-[734.97px] not-italic text-[14px] text-white top-[153px] translate-y-[-50%] w-[182.42px]">
-        <p className="mb-0">26/C, Electronic City,</p>
-        <p className="mb-0">Hosur</p>
+        <p className="mb-0">{t("footer.address1")}</p>
+        <p className="mb-0">{t("footer.address2")}</p>
         <p>{`Road, Bangalore - 560100. `}</p>
       </div>
       <Link918041407777 />
       <div className="absolute flex flex-col font-['Montserrat:Bold',_sans-serif] h-[21px] justify-center leading-[0] left-[949.47px] not-italic text-[14px] text-white top-[60.5px] translate-y-[-50%] w-[89.838px]">
-        <p className="leading-[21px]">Quick Links:</p>
+        <p className="leading-[21px]">{t("footer.quickLinks")}</p>
       </div>
       <LinkPrivacyPolicy />
       <LinkIpPolicy />

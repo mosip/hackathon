@@ -317,6 +317,10 @@
     padding-top: 7em;
   }
 
+  .screen_width{
+    max-width: 85rem;
+  }
+
   /* Toast container as 3-column grid: [icon][content grows][close button] */
   li[data-sonner-toast] {
     display: grid !important;

@@ -12,7 +12,7 @@ import {
   ExternalLink,
   Home,
   FileText,
-  Send,
+  Send, Check,
 } from "lucide-react";
 import {
   DropdownMenu,
@@ -23,6 +23,9 @@ import {
 import mosipCreateLogo from "figma:asset/535962d3aaea113f503698ec8d1995abc5c3dc41.png";
 import mosipLogo from "figma:asset/610c93ced2dde18c8cbe68b4af0e7f2bd130461d.png";
 import { ImageWithFallback } from "./figma/ImageWithFallback";
+import { useTranslation } from "react-i18next";
+import i18n from "i18next";
+
 
 interface NavigationProps {
   onNavigateHome?: () => void;
@@ -51,6 +54,8 @@ const Navigation = ({
     help: false,
     pastEditions: false,
   });
+  const { t, i18n } = useTranslation();
+
 
   useEffect(() => {
     const handleScroll = () => {
@@ -124,21 +129,49 @@ const Navigation = ({
     }));
   };
 
+  const handleLanguageSelect = (lang) => {
+    const currentPath = window.location.pathname.replace(/^\/|\/$/g, '');
+    const supportedLanguages = ['en', 'fr', 'pt'];
+    const pathSegments = currentPath.split('/').filter(Boolean);
+    const langInPath = pathSegments[0];
+
+    const hasSupportedLangInPath = supportedLanguages.includes(langInPath?.split('-')[0]);
+
+    let newPath = '';
+
+    if (hasSupportedLangInPath) {
+      pathSegments[0] = lang;
+      newPath = '/' + pathSegments.join('/');
+    } else {
+      pathSegments.unshift(lang);
+      newPath = '/' + pathSegments.join('/');
+    }
+
+    i18n.changeLanguage(lang);
+    window.location.replace(window.location.origin + newPath);
+  };
+
+  const langDisplayNames: { [key: string]: string } = {
+    en: 'English',
+    fr: 'French',
+    pt: 'Portuguese',
+  };
+
   const topNavItems = [
     {
-      label: "GitHub",
+      label: t("navigation.github"),
       icon: <Github className="w-4 h-4" />,
       href: "https://github.com/mosip",
       external: true,
     },
     {
-      label: "Documentation",
+      label: t("navigation.documentation"),
       icon: <BookOpen className="w-4 h-4" />,
       href: "https://docs.mosip.io/1.2.0/",
       external: true,
     },
     {
-      label: "Community",
+      label: t("navigation.community"),
       icon: <Users className="w-4 h-4" />,
       href: "https://community.mosip.io",
       external: true,
@@ -153,7 +186,7 @@ const Navigation = ({
     >
       {/* Top utility bar */}
       <div className="hidden lg:block border-b border-gray-100 bg-gray-50/50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="screen_width mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center justify-end h-10 space-x-6">
             {topNavItems.map((item, index) => (
               <a
@@ -176,7 +209,7 @@ const Navigation = ({
 
       {/* Main navigation */}
       <div className="bg-white border-b border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="screen_width mx-auto px-4 sm:px-6 lg:px-8" >
           <div className="flex items-center justify-between h-16 lg:h-18">
             {/* Logo */}
             <div className="flex-shrink-0">
@@ -194,33 +227,25 @@ const Navigation = ({
 
             {/* Desktop Navigation */}
             <div className="hidden lg:flex items-center space-x-6 xl:space-x-8">
-              <button
-                onClick={handleHomeClick}
-                className={`nav-item-hover px-3 py-2 text-sm font-medium ${
-                  currentPage === "home" ? "text-blue-600" : "text-gray-700"
-                }`}
-              >
-                Home
-              </button>
 
               <button
                 onClick={handleProgramDetailsClick}
                 className="nav-item-hover px-3 py-2 text-sm font-medium text-gray-700"
               >
-                Program Details
+                {t("navigation.programDetails")}
               </button>
 
               <button
                 onClick={handleSubmissionClick}
                 className="nav-item-hover px-3 py-2 text-sm font-medium text-gray-700"
               >
-                Submission
+                {t("navigation.submission")}
               </button>
 
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center nav-item-hover px-3 py-2 text-sm font-medium text-gray-700">
-                    Help
+                    {t("navigation.help")}
                     <ChevronDown className="ml-1 h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
@@ -233,14 +258,14 @@ const Navigation = ({
                     className="nav-dropdown-hover px-4 py-3 cursor-pointer"
                   >
                     <BookOpen className="w-4 h-4 mr-3" />
-                    FAQs
+                    {t("navigation.faqs")}
                   </DropdownMenuItem>
                   <DropdownMenuItem
                     onClick={handleContactUsClick}
                     className="nav-dropdown-hover px-4 py-3 cursor-pointer"
                   >
                     <Users className="w-4 h-4 mr-3" />
-                    Contact Us
+                    {t("navigation.contactUs")}
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
@@ -248,7 +273,7 @@ const Navigation = ({
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <button className="flex items-center nav-item-hover px-3 py-2 text-sm font-medium text-gray-700">
-                    Past Editions
+                    {t("navigation.pastEditions")}
                     <ChevronDown className="ml-1 h-4 w-4" />
                   </button>
                 </DropdownMenuTrigger>
@@ -272,6 +297,44 @@ const Navigation = ({
                   </DropdownMenuItem>
                 </DropdownMenuContent>
               </DropdownMenu>
+
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <button className="flex items-center nav-item-hover px-3 py-2 text-sm font-medium text-gray-700">
+                    {langDisplayNames[i18n.language]}
+                    <ChevronDown className="ml-1 h-4 w-4" />
+                  </button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-48 mt-2 border-gray-200 shadow-lg">
+                  <DropdownMenuItem
+                      onClick={() => handleLanguageSelect('en')}
+                      className={`nav-dropdown-hover px-4 py-3 cursor-pointer flex items-center justify-between ${
+                          i18n.language === 'en' ? 'font-medium text-blue-600 bg-blue-50' : ''
+                      }`}
+                  >
+                    English
+                    {i18n.language === 'en' && <Check className="w-4 h-4" />}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                      onClick={() => handleLanguageSelect('fr')}
+                      className={`nav-dropdown-hover px-4 py-3 cursor-pointer flex items-center justify-between ${
+                          i18n.language === 'fr' ? 'font-medium text-blue-600 bg-blue-50' : ''
+                      }`}
+                  >
+                    French
+                    {i18n.language === 'fr' && <Check className="w-4 h-4" />}
+                  </DropdownMenuItem>
+                  <DropdownMenuItem
+                      onClick={() => handleLanguageSelect('pt')}
+                      className={`nav-dropdown-hover px-4 py-3 cursor-pointer flex items-center justify-between ${
+                          i18n.language === 'pt' ? 'font-medium text-blue-600 bg-blue-50' : ''
+                      }`}
+                  >
+                    Portuguese
+                    {i18n.language === 'pt' && <Check className="w-4 h-4" />}
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </DropdownMenu>
             </div>
 
             {/* Register Now Button & MOSIP Logo */}
@@ -287,7 +350,7 @@ const Navigation = ({
                 }}
                 className="mosip-primary-button px-6 py-2 text-sm font-semibold"
               >
-                Register Now
+                {t("navigation.registerNow")}
               </Button>
 
               <button
@@ -359,24 +422,13 @@ const Navigation = ({
 
             {/* Main navigation items */}
             <div className="px-4 py-3 space-y-2">
-              <button
-                onClick={handleHomeClick}
-                className={`flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium w-full text-left rounded-md ${
-                  currentPage === "home"
-                    ? "text-blue-600 bg-blue-50"
-                    : "text-gray-700"
-                }`}
-              >
-                <Home className="w-5 h-5" />
-                <span>Home</span>
-              </button>
 
               <button
                 onClick={handleProgramDetailsClick}
                 className="flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
               >
                 <FileText className="w-5 h-5" />
-                <span>Program Details</span>
+                <span>{t("navigation.programDetails")}</span>
               </button>
 
               <button
@@ -384,7 +436,7 @@ const Navigation = ({
                 className="flex items-center space-x-3 nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
               >
                 <Send className="w-5 h-5" />
-                <span>Submission</span>
+                <span>{t("navigation.submission")}</span>
               </button>
 
               {/* Help dropdown for mobile */}
@@ -395,7 +447,7 @@ const Navigation = ({
                 >
                   <div className="flex items-center space-x-3">
                     <BookOpen className="w-5 h-5" />
-                    <span>Help</span>
+                    <span>{t("navigation.help")}</span>
                   </div>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
@@ -410,13 +462,13 @@ const Navigation = ({
                       onClick={handleFAQsClick}
                       className="block nav-mobile-item-hover px-3 py-2 text-sm text-gray-600 w-full text-left rounded-md"
                     >
-                      FAQs
+                      {t("navigation.faqs")}
                     </button>
                     <button
                       onClick={handleContactUsClick}
                       className="block nav-mobile-item-hover px-3 py-2 text-sm text-gray-600 w-full text-left rounded-md"
                     >
-                      Contact Us
+                      {t("navigation.contactUs")}
                     </button>
                   </div>
                 )}
@@ -430,7 +482,7 @@ const Navigation = ({
                 >
                   <div className="flex items-center space-x-3">
                     <Users className="w-5 h-5" />
-                    <span>Past Editions</span>
+                    <span>{t("navigation.pastEditions")}</span>
                   </div>
                   <ChevronDown
                     className={`w-4 h-4 transition-transform duration-200 ${
@@ -452,9 +504,57 @@ const Navigation = ({
                       }}
                       className="block nav-mobile-item-hover px-3 py-2 text-sm text-gray-600 w-full text-left rounded-md"
                     >
-                      MOSIP Create 2024
+                      {t("navigation.registerButtonText")}
                     </button>
                   </div>
+                )}
+              </div>
+
+              <div>
+                <button
+                    onClick={() => toggleMobileDropdown("language")}
+                    className="flex items-center justify-between nav-mobile-item-hover px-3 py-3 text-base font-medium text-gray-700 w-full text-left rounded-md"
+                >
+                  <div className="flex items-center space-x-3">
+                    <span>{langDisplayNames[i18n.language]}</span>
+                  </div>
+                  <ChevronDown
+                      className={`w-4 h-4 transition-transform duration-200 ${
+                          openDropdowns.language ? "rotate-180" : ""
+                      }`}
+                  />
+                </button>
+
+                {openDropdowns.language && (
+                    <div className="mt-2 space-y-1">
+                      <button
+                          onClick={() => handleLanguageSelect('en')}
+                          className={`nav-mobile-item-hover px-3 py-2 text-sm w-full text-left rounded-md flex items-center justify-between ${
+                              i18n.language === 'en' ? 'font-medium text-blue-600 bg-blue-50' : 'text-gray-600'
+                          }`}
+                      >
+                        <span>English</span>
+                        {i18n.language === 'en' && <Check className="w-4 h-4 text-blue-600" />}
+                      </button>
+                      <button
+                          onClick={() => handleLanguageSelect('fr')}
+                          className={`nav-mobile-item-hover px-3 py-2 text-sm w-full text-left rounded-md flex items-center justify-between ${
+                              i18n.language === 'fr' ? 'font-medium text-blue-600 bg-blue-50' : 'text-gray-600'
+                          }`}
+                      >
+                        <span>French</span>
+                        {i18n.language === 'fr' && <Check className="w-4 h-4 text-blue-600" />}
+                      </button>
+                      <button
+                          onClick={() => handleLanguageSelect('pt')}
+                          className={`nav-mobile-item-hover px-3 py-2 text-sm w-full text-left rounded-md flex items-center justify-between ${
+                              i18n.language === 'pt' ? 'font-medium text-blue-600 bg-blue-50' : 'text-gray-600'
+                          }`}
+                      >
+                        <span>Portuguese</span>
+                        {i18n.language === 'pt' && <Check className="w-4 h-4 text-blue-600" />}
+                      </button>
+                    </div>
                 )}
               </div>
 
@@ -489,7 +589,7 @@ const Navigation = ({
                     alt="MOSIP Logo"
                     className="w-6 h-6 object-contain"
                   />
-                  <span>Visit MOSIP</span>
+                  <span>{t("navigation.visitMosip")}</span>
                   <ExternalLink className="w-3 h-3 opacity-60" />
                 </button>
               </div>

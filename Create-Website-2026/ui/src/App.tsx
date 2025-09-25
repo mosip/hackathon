@@ -10,6 +10,8 @@ import Footer from "./components/Footer";
 import RegistrationPage from "./components/RegistrationPage";
 import SubmissionPage from "./components/SubmissionPage";
 import { Toaster } from "./components/ui/sonner";
+import { useTranslation } from 'react-i18next';
+import LanguageRedirect from "./utils/LanguageRedirect";
 
 export default function App() {
   const [currentPage, setCurrentPage] = useState<
@@ -19,35 +21,46 @@ export default function App() {
   const [openAccordionFn, setOpenAccordionFn] = useState<
     ((accordionId: string) => void) | null
   >(null);
+  const { t, i18n } = useTranslation();
+
+
 
   useEffect(() => {
-    const path = window.location.pathname;
+    const supportedLanguages = ['en', 'fr', 'pt'];
+    const pathSegments = window.location.pathname.split('/').filter(Boolean);
 
-    if (path === "/registration-form") {
+    const nonLangPath = pathSegments.length > 0 && supportedLanguages.includes(pathSegments[0])
+        ? pathSegments.slice(1).join('/')
+        : pathSegments.join('/');
+
+    if (nonLangPath === "registration-form") {
       setCurrentPage("registration");
-    } else if (path === "/solution-submission-form") {
+    } else if (nonLangPath === "solution-submission-form") {
       setCurrentPage("submission");
     } else {
       setCurrentPage("home");
     }
-  }, []);
+  }, [i18n.language]);
 
   // Navigation functions
   const navigateToRegistration = () => {
     setCurrentPage("registration");
-    window.history.pushState({}, "", "/registration-form");
+    const lang = i18n.language.split('-')[0];
+    window.history.pushState({}, "", `/${lang}/registration-form`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToSubmission = () => {
     setCurrentPage("submission");
-    window.history.pushState({}, "", "/solution-submission-form");
+    const lang = i18n.language.split('-')[0];
+    window.history.pushState({}, "", `/${lang}/solution-submission-form`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToHome = () => {
     setCurrentPage("home");
-    window.history.pushState({}, "", "/");
+    const lang = i18n.language.split('-')[0];
+    window.history.pushState({}, "", `/${lang}/`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
@@ -384,7 +397,8 @@ export default function App() {
 
   // Render homepage
   return (
-    <div className="min-h-screen bg-white">
+      <div className="min-h-screen bg-white">
+      <LanguageRedirect/>
       {/* Progress indicator with professional MOSIP gradient */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <div
@@ -414,7 +428,7 @@ export default function App() {
 
         {/* Accordion Sections - Consistent container pattern */}
         <section className="w-full px-4 sm:px-6 lg:px-8 py-12 md:py-16 lg:py-20">
-          <div className="max-w-7xl mx-auto">
+          <div className="screen_width mx-auto">
             <AccordionSections
               onNavigateToSubmission={navigateToSubmission}
               onNavigateToRegistration={navigateToRegistration}
