@@ -19,12 +19,14 @@ import { ExternalLink, AlertCircle, Loader2, ArrowLeft, X } from "lucide-react";
 import { toast } from "sonner@2.0.3";
 import mosipCreateLogo from "figma:asset/b6bfb4740d2a7a77a523484516cbc2e77f82379d.png";
 import ReCAPTCHA from "react-google-recaptcha";
+import { useTranslation } from 'react-i18next';
 
 interface SubmissionPageProps {
   onNavigateHome: () => void;
 }
 
 const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
+  const { t } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -280,7 +282,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
       }));
       return updated;
     });
-    toast.success("File removed successfully.");
+    toast.success(t("submission.fileRemovedSuccess"));
   };
 
   const validateForm = () => {
@@ -303,57 +305,57 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     );
 
     if (missingFields.length > 0) {
-      toast.error("Please fill in all mandatory fields");
+      toast.error(t("submission.fillAllFieldsError"));
       return false;
     }
 
     if (uploadedFiles.length === 0) {
-      toast.error("Please upload at least one attachment");
+      toast.error(t("submission.uploadAttachment"));
       return false;
     }
 
     if (!formData.consent) {
-      toast.error("Please provide consent to proceed");
+      toast.error(t("submission.provideConsent"));
       return false;
     }
 
     if (!formData.recaptchaToken) {
-      toast.error("Please complete the reCAPTCHA verification");
+      toast.error(t("submission.completeCaptcha"));
       return false;
     }
 
     if (isFullNameError) {
-      toast.error("Please enter a valid Full Name");
+      toast.error(t("submission.invalidFullName"));
       return false;
     }
 
     if (isEmailError) {
-      toast.error("Please enter a valid E-Mail address");
+      toast.error(t("submission.invalidEmail"));
       return false;
     }
 
     if (isTeamNameError) {
-      toast.error("Please enter a valid Team Name");
+      toast.error(t("submission.invalidTeamName"));
       return false;
     }
 
     if (isIdeaTitleError) {
-      toast.error("Please enter a valid Idea Title");
+      toast.error(t("submission.invalidIdeaTitle"));
       return false;
     }
 
     if (isIdeaDescriptionError) {
-      toast.error("Please enter a valid Idea Description");
+      toast.error(t("submission.invalidIdeaDescription"));
       return false;
     }
 
     if (isProblemChallengeError) {
-      toast.error("Please enter a valid Problem/ Challenge");
+      toast.error(t("submission.invalidProblemChallenge"));
       return false;
     }
 
     if (isTargetAudienceError) {
-      toast.error("Please enter a valid Target Audience");
+      toast.error(t("submission.invalidTargetAudience"));
       return false;
     }
 
@@ -382,11 +384,11 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
 
       if (res.ok) {
         toast.success(
-          "Your solution has been successfully submitted. Our team will review and get back to you soon!"
+            t("submission.submissionSuccess")
         );
         resetCaptcha();
       } else {
-        toast.error("Submission failed. Please try again.");
+        toast.error(t("submission.submissionFailure"));
       }
 
       // Reset form
@@ -441,7 +443,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     <div className="min-h-screen bg-gray-50 submission">
       {/* Header with Back Button */}
       <div className="bg-white border-b border-gray-200 sticky top-0 z-40">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-[4em] lg:pt-[7em]">
+        <div className="screen_width mx-auto px-4 sm:px-6 lg:px-8 pt-[4em] lg:pt-[7em]">
           <div className="flex items-center justify-between h-16">
             <Button
               variant="ghost"
@@ -449,7 +451,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
               className="flex items-center gap-2 text-gray-600 hover:text-white"
             >
               <ArrowLeft className="w-4 h-4" />
-              Back to Homepage
+              {t("submission.backToHomepage")}
             </Button>
 
             <div className="flex items-center gap-3"></div>
@@ -468,16 +470,15 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
             <div className="text-center mb-4">
               <div className="mb-4">
                 <h1 className="text-xl md:text-2xl lg:text-3xl font-bold leading-tight">
-                  MOSIP Create 2025
+                  {t("submission.pageTitle")}
                 </h1>
                 <div className="text-lg md:text-xl font-semibold text-white/90 mt-1">
-                  Solution Submission Form
+                  {t("submission.formTitle")}
                 </div>
               </div>
             </div>
             <p className="text-white/90 text-base md:text-lg max-w-3xl mx-auto text-center leading-relaxed">
-              Please fill in all required fields to submit your digital identity
-              solution for evaluation
+              {t("submission.formDescription")}
             </p>
           </div>
         </div>
@@ -486,8 +487,8 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-4 mb-6">
           <p className="text-sm text-blue-800 flex items-center gap-2">
             <AlertCircle className="w-4 h-4" />
-            <strong>Note:</strong> Fields with{" "}
-            <span className="text-red-600 font-bold">*</span> are mandatory.
+            <strong>{t("submission.note")}:</strong> {t("submission.mandatoryFields")}{" "}
+            <span className="text-red-600 font-bold">*</span> {t("submission.mandatoryFields2")}
           </p>
         </div>
 
@@ -496,13 +497,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Personal Information
+                {t("submission.personalInfoTitle")}
               </h3>
 
               <div className="grid md:grid-cols-2 gap-4">
                 <div className="space-y-2">
                   <Label htmlFor="fullName" className="flex items-center gap-1">
-                    Full Name<span className="text-red-600">*</span>
+                    {t("submission.fullNameLabel")}<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="fullName"
@@ -512,7 +513,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("fullName", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Enter your full name"
+                    placeholder={t("submission.fullNamePlaceholder")}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
 
@@ -522,7 +523,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         className="w-3 h-3 flex-shrink-0 "
                         style={{ marginTop: "1px" }}
                       />
-                      <span>Only letters and spaces are allowed.</span>
+                      <span>{t("submission.fullNameError")}</span>
                     </div>
                   )}
                 </div>
@@ -533,13 +534,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   </Label>
                   <Input
                     id="teamName"
-                    name="teamName"
+                    name={t("submission.teamNameLabel")}
                     value={formData.teamName}
                     onChange={(e) =>
                       handleInputChange("teamName", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Enter your team name"
+                    placeholder={t("submission.teamNamePlaceholder")}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
                   {isTeamNameError && (
@@ -549,13 +550,12 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), and spaces are
-                        allowed.
+                        {t("submission.teamNameError")}
                       </span>
                     </div>
                   )}
                   <p className="text-xs text-gray-500">
-                    Enter exactly as provided during registration.
+                    {t("submission.teamNameNote")}
                   </p>
                 </div>
               </div>
@@ -566,12 +566,12 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Organization Information
+                {t("submission.organizationInfoTitle")}
               </h3>
 
               <div className="space-y-2">
                 <Label htmlFor="email" className="flex items-center gap-1">
-                  E-Mail (Organization)<span className="text-red-600">*</span>
+                  {t("submission.emailLabel")}<span className="text-red-600">*</span>
                 </Label>
                 <Input
                   id="email"
@@ -580,7 +580,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   value={formData.email}
                   onChange={(e) => handleInputChange("email", e.target.value)}
                   onBlur={handleBlur}
-                  placeholder="youremail@organization.com"
+                  placeholder={t("submission.emailPlaceholder")}
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                 />
                 {isEmailError && (
@@ -590,8 +590,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       style={{ marginTop: "1px" }}
                     />
                     <span>
-                      Please enter a valid email address (e.g.,
-                      name@domain.com).
+                      {t("submission.emailError")}
                     </span>
                   </div>
                 )}
@@ -603,7 +602,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Solution Information
+                {t("submission.solutionInfoTitle")}
               </h3>
 
               <div className="space-y-4">
@@ -612,7 +611,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="themeChosen"
                     className="flex items-center gap-1"
                   >
-                    Theme Chosen<span className="text-red-600">*</span>
+                    {t("submission.themeChosenLabel")}<span className="text-red-600">*</span>
                   </Label>
                   <Select
                     value={formData.themeChosen}
@@ -621,7 +620,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     }
                   >
                     <SelectTrigger className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]">
-                      <SelectValue placeholder="Select a theme" />
+                      <SelectValue placeholder={t("submission.themeChosenPlaceholder")} />
                     </SelectTrigger>
                     <SelectContent>
                       {themes.map((theme) => (
@@ -638,7 +637,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="ideaTitle"
                     className="flex items-center gap-1"
                   >
-                    Idea Title<span className="text-red-600">*</span>
+                    {t("submission.ideaTitleLabel")}<span className="text-red-600">*</span>
                   </Label>
                   <Input
                     id="ideaTitle"
@@ -648,7 +647,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("ideaTitle", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Enter your solution idea title"
+                    placeholder={t("submission.ideaTitlePlaceholder")}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD]"
                   />
                   {isIdeaTitleError && (
@@ -658,8 +657,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), and spaces are
-                        allowed.
+                        {t("submission.ideaTitleError")}
                       </span>
                     </div>
                   )}
@@ -670,7 +668,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="ideaDescription"
                     className="flex items-center gap-1"
                   >
-                    Idea Description<span className="text-red-600">*</span>
+                    {t("submission.ideaDescriptionLabel")}<span className="text-red-600">*</span>
                   </Label>
                   <Textarea
                     id="ideaDescription"
@@ -680,7 +678,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("ideaDescription", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Provide a detailed description of your solution"
+                    placeholder={t("submission.ideaDescriptionPlaceholder")}
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
@@ -692,8 +690,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), full stops (.) and
-                        spaces are allowed.
+                        {t("submission.ideaDescriptionError")}
                       </span>
                     </div>
                   )}
@@ -706,7 +703,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Attachments<span className="text-red-600">*</span>
+                {t("submission.attachmentsTitle")}<span className="text-red-600">*</span>
               </h3>
 
               <div className="space-y-4">
@@ -717,9 +714,9 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                 >
                   <Label htmlFor="file-upload" className="cursor-pointer">
                     <span className="text-[#01A2FD] hover:text-[#0077CC] font-medium">
-                      Click to upload files
+                      {t("submission.fileUploadPlaceholder1")}
                     </span>
-                    <span className="text-gray-500"> or drag and drop</span>
+                    <span className="text-gray-500">{t("submission.fileUploadPlaceholder2")}</span>
                   </Label>
                   <Input
                     id="file-upload"
@@ -730,14 +727,14 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     className="hidden"
                   />
                   <p className="text-xs text-gray-500 mt-2">
-                    Supported formats: PDF, PPT, DOCX, ZIP (Max 10MB per file)
+                    {t("submission.fileFormats")}
                   </p>
                 </div>
 
                 {uploadedFiles.length > 0 && (
                   <div className="space-y-2">
                     <Label className="text-sm font-medium">
-                      Uploaded Files:
+                      {t("submission.uploadedFilesLabel")}
                     </Label>
                     {uploadedFiles.map((file, index) => (
                       <div
@@ -770,7 +767,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Problem & Target Audience
+                {t("submission.problemAudienceTitle")}
               </h3>
 
               <div className="space-y-4">
@@ -779,7 +776,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="problemChallenge"
                     className="flex items-center gap-1"
                   >
-                    What specific problem/ challenge does it address?
+                    {t("submission.problemLabel")}
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
@@ -790,7 +787,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("problemChallenge", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="Describe the specific problem or challenge your solution addresses"
+                    placeholder={t("submission.problemPlaceholder")}
                     rows={4}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
@@ -801,8 +798,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), full stops (.) and
-                        spaces are allowed.
+                        {t("submission.problemError")}
                       </span>
                     </div>
                   )}
@@ -813,7 +809,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     htmlFor="targetAudience"
                     className="flex items-center gap-1"
                   >
-                    Who is the targeted audience for this use case?
+                    {t("submission.targetAudienceLabel")}
                     <span className="text-red-600">*</span>
                   </Label>
                   <Textarea
@@ -824,7 +820,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       handleInputChange("targetAudience", e.target.value)
                     }
                     onBlur={handleBlur}
-                    placeholder="e.g., Country, Relying Party, specific user groups"
+                    placeholder={t("submission.targetAudiencePlaceholder")}
                     rows={3}
                     className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                   />
@@ -835,8 +831,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         style={{ marginTop: "1px" }}
                       />
                       <span>
-                        Only letters, numbers, hyphens (-), full stops (.) and
-                        spaces are allowed.
+                        {t("submission.targetAudienceError")}
                       </span>
                     </div>
                   )}
@@ -849,13 +844,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Additional Information
+                {t("submission.additionalInfoTitle")}
               </h3>
 
               <div className="space-y-2">
                 <Label htmlFor="additionalComments">
-                  Additional Comments{" "}
-                  <span className="text-gray-500 text-sm">- Optional</span>
+                  {t("submission.additionalCommentsLabel")}{" "}
+                  <span className="text-gray-500 text-sm">{t("submission.additionalCommentsOptional")}</span>
                 </Label>
                 <Textarea
                   id="additionalComments"
@@ -863,7 +858,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                   onChange={(e) =>
                     handleInputChange("additionalComments", e.target.value)
                   }
-                  placeholder="Any additional information you'd like to share"
+                  placeholder={t("submission.additionalCommentsPlaceholder")}
                   rows={3}
                   className="bg-gray-50 border-gray-200 focus:border-[#01A2FD] resize-none"
                 />
@@ -875,7 +870,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4 flex items-center gap-2">
-                Consent & Agreement
+                {t("submission.consentTitle")}
               </h3>
 
               <div className="space-y-4">
@@ -895,18 +890,14 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                       htmlFor="consent"
                       className="text-sm leading-relaxed cursor-pointer block"
                     >
-                      I consent to the collection of the above data for the
-                      purpose of facilitating my participation in MOSIP Create.
-                      I understand that my data will be used solely for this
-                      purpose and will not be shared with any other party. By
-                      clicking below, I also agree to the{" "}
+                      {t("submission.consentLabel")}{" "}
                       <a
                         href={`${window.location.origin}/#terms-and-conditions`}
                         className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
                         target="_blank"
                         rel="noopener noreferrer"
                       >
-                        Terms & Conditions
+                        {t("accordion.termsTitle")}
                         <ExternalLink className="w-3 h-3 inline ml-1 align-text-top" />
                       </a>
                       .
@@ -917,7 +908,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                           className="w-3 h-3 flex-shrink-0 mt-0.5"
                           style={{ marginTop: "1px" }}
                         />
-                        <span>Consent is required to proceed</span>
+                        <span>{t("submission.consentError")}</span>
                       </div>
                     )}
                   </div>
@@ -930,13 +921,13 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
           <Card>
             <CardContent className="p-6">
               <h3 className="text-lg font-semibold text-gray-900 mb-4">
-                Security Verification
+                {t("submission.securityVerificationTitle")}
               </h3>
 
               <div className="space-y-4">
                 <div className="flex flex-col gap-4">
                   <Label className="text-sm">
-                    Please complete the security verification below
+                    {t("submission.securityVerificationLabel")}
                     <span className="text-red-600">*</span>
                   </Label>
 
@@ -956,7 +947,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                         className="w-3 h-3 flex-shrink-0 "
                         style={{ marginTop: "1px" }}
                       />
-                      <span>reCAPTCHA verification is required to proceed</span>
+                      <span>{t("submission.captchaError")}</span>
                     </div>
                   )}
                 </div>
@@ -973,7 +964,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
               className="flex-1 font-semibold"
               disabled={isSubmitting}
             >
-              Clear Form
+              {t("submission.clearFormButton")}
             </Button>
 
             <Button
@@ -984,10 +975,10 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
               {isSubmitting ? (
                 <>
                   <Loader2 className="w-4 h-4 mr-2 animate-spin" />
-                  Submitting...
+                  {t("submission.submittingButton")}
                 </>
               ) : (
-                <>Submit Solution</>
+                <>{t("submission.submitButton")}</>
               )}
             </Button>
           </div>
@@ -1000,7 +991,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
             onClick={onNavigateHome}
             className="flex items-center gap-2 text-gray-600 hover:text-white mx-auto"
           >
-            Return to MOSIP Create Homepage
+            {t("submission.returnToHomepageButton")}
           </Button>
         </div>
       </div>

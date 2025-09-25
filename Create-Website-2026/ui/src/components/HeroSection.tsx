@@ -16,6 +16,7 @@ import Registration1 from "../imports/Registration1";
 import customIcon from "figma:asset/f1afe06bf45db115c7afa170686ecc0ebf300a5d.png";
 import megaphoneIcon from "figma:asset/4d7007529e1ac070a3f7d3dd7b9c4fde473a654e.png";
 import winnersIcon from "figma:asset/f4f6133b731393444669f67f6836826f7e8c19f2.png";
+import { useTranslation } from "react-i18next";
 
 interface HeroSectionProps {
   onNavigateToRegistration: () => void;
@@ -24,10 +25,11 @@ interface HeroSectionProps {
 const HeroSection: React.FC<HeroSectionProps> = ({
   onNavigateToRegistration,
 }) => {
+  const { t, i18n } = useTranslation();
   const keyDates = [
     {
       icon: <Registration1 />,
-      label: "Registration Opens",
+      label: t("hero.registrationOpens"),
       date: "Sep 4, 2025",
       bgColor: "bg-blue-50",
       borderColor: "border-blue-200",
@@ -42,7 +44,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           className="w-8 h-8 object-contain"
         />
       ),
-      label: "Registration Closes",
+      label: t("hero.registrationCloses"),
       date: "Oct 1, 2025",
       bgColor: "bg-orange-50",
       borderColor: "border-orange-200",
@@ -57,7 +59,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           className="w-6 h-6 object-contain"
         />
       ),
-      label: "Submissions Due",
+      label: t("hero.submissionsDue"),
       date: "Dec 1, 2025",
       bgColor: "bg-green-50",
       borderColor: "border-green-200",
@@ -72,7 +74,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           className="w-6 h-6 object-contain"
         />
       ),
-      label: "WINNERS TRAVEL TO MOSIP CONNECT",
+      label: t("hero.winnersTravel"),
       date: "Feb, 2026",
       bgColor: "bg-purple-50",
       borderColor: "border-purple-200",
@@ -80,6 +82,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
       textColor: "text-purple-700",
     },
   ];
+
 
   return (
     <div>
@@ -172,7 +175,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
           className="relative z-10 min-h-screen flex items-center lg:pt-24 lg:pb-12"
           style={{ paddingTop: "8em" }}
         >
-          <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 w-full">
+          <div className="screen_width mx-auto px-4 sm:px-6 lg:px-8 w-full">
             <div className="grid lg:grid-cols-2 gap-8 lg:gap-12 xl:gap-16 items-center w-full">
               {/* Left side - Content */}
               <div className="text-center lg:text-left space-y-8 sm:space-y-10 lg:space-y-12 max-w-full order-1">
@@ -196,17 +199,17 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                   style={{ animationDelay: "0.2s" }}
                 >
                   <p className="sm:text-lg md:text-xl lg:text-[24px] xl:text-[24px] font-semibold leading-tight break-words max-w-full px-2 sm:px-0 text-[20px]">
-                    <span className="text-black">Fuelling </span>
-                    <span style={{ color: "#01A2FD" }}>Integration</span>
+                    <span className="text-black">{t("hero.fuellingIntegration")}</span>
+
+                    <span style={{ color: "#01A2FD" }}>{t("hero.integration")}</span>
                     <span className="text-black">, </span>
-                    <span style={{ color: "#FA8005" }}>Innovation</span>
-                    <span className="text-black">, and </span>
-                    <span style={{ color: "#0A8754" }}>Impact</span>
+                    <span style={{ color: "#FA8005" }}>{t("hero.innovation")}</span>
+                    <span className="text-black">{t("hero.andImpact")}</span>
+                    <span style={{ color: "#0A8754" }}>{t("hero.impact")}</span>
                   </p>
 
                   <p className="sm:text-base md:text-lg lg:text-xl text-gray-600 leading-relaxed max-w-2xl mx-auto lg:mx-0 px-2 sm:px-0 text-[14px]">
-                    Building ready-for-adoption DPI solutions under the
-                    mentorship of the makers of MOSIP.
+                    {t("hero.tagline")}
                   </p>
                 </div>
 
@@ -220,7 +223,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                     size="default"
                     className="mosip-primary-button font-semibold shadow-lg hover:shadow-xl transition-all duration-300 ease-in-out h-12 lg:h-14 px-6 lg:px-8 text-sm lg:text-base w-full sm:w-auto min-h-[48px] touch-manipulation"
                   >
-                    Register Now
+                    {t("navigation.registerNow")}
                   </Button>
 
                   <Button
@@ -443,7 +446,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                       navigateToWhatIsAccordion();
                     }}
                   >
-                    Learn More
+                    {t("hero.learnMore")}
                   </Button>
                 </div>
               </div>
@@ -456,10 +459,10 @@ const HeroSection: React.FC<HeroSectionProps> = ({
                 <div className="bg-white rounded-2xl lg:rounded-3xl p-6 lg:p-8 shadow-sm border border-gray-200">
                   <div className="text-center mb-8">
                     <h3 className="text-xl lg:text-2xl text-gray-900 mb-2 font-bold">
-                      Important Dates
+                      {t("hero.importantDates")}
                     </h3>
                     <p className="text-base text-gray-600">
-                      Mark your calendar
+                      {t("hero.markYourCalendar")}
                     </p>
                   </div>
 
@@ -524,7 +527,7 @@ const HeroSection: React.FC<HeroSectionProps> = ({
 
       {/* Mobile Important Dates Section - Separate flow section for mobile */}
       <div className="block lg:hidden w-full bg-white border-t border-gray-200">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 py-6 sm:py-8">
+        <div className="screen_width mx-auto px-4 sm:px-6 py-6 sm:py-8">
           <div className="text-center mb-4 sm:mb-6">
             <h3 className="text-lg sm:text-xl font-bold text-gray-900 mb-1">
               Important Dates

@@ -3,14 +3,16 @@ import imgFootLogoB from "figma:asset/d01052815fad41170245fccda69e19a12bcd55fc.p
 import imgIiitbNew from "figma:asset/b12ea7d05c7f72a3ee2602703ac1cb43d900b63c.png";
 import imgYotubeN from "figma:asset/13047e71e460fe2f1874c9c6e7fc295934e73e44.png";
 import imgLinkedinN from "figma:asset/3830b0a76a7bab95fa85912a5a26575dee198f71.png";
+import { useTranslation } from 'react-i18next';
 
 const Footer = () => {
+  const { t } = useTranslation();
   return (
     <footer
       id="contact"
       className="bg-[#072cb8] text-white py-12 px-4 sm:px-6 lg:px-8"
     >
-      <div className="max-w-7xl mx-auto">
+      <div className="screen_width mx-auto">
         {/* Desktop Layout */}
         <div className="hidden lg:grid lg:grid-cols-5 lg:gap-8 lg:items-start">
           {/* MOSIP Logo Section */}
@@ -29,7 +31,7 @@ const Footer = () => {
 
           {/* Incubated by Section */}
           <div className="lg:col-span-1 text-center">
-            <h3 className="font-semibold mb-4 text-white">Incubated by</h3>
+            <h3 className="font-semibold mb-4 text-white">{t("footer.incubatedBy")}</h3>
             <img
               src={imgIiitbNew}
               alt="IIITB Logo"
@@ -39,7 +41,7 @@ const Footer = () => {
 
           {/* Contact Us Section */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold mb-4 text-white">Contact Us</h3>
+            <h3 className="font-bold mb-4 text-white">{t("footer.contactUs")}</h3>
             <div className="space-y-3">
               <a
                 href="mailto:info@mosip.io"
@@ -48,8 +50,8 @@ const Footer = () => {
                 info@mosip.io
               </a>
               <div className="text-sm leading-relaxed">
-                <p>26/C, Electronic City,</p>
-                <p>Hosur Road, Bangalore - 560100.</p>
+                <p>{t("footer.address1")}</p>
+                <p>{t("footer.address2")}</p>
               </div>
               <p className="text-sm">+91 8041407777</p>
             </div>
@@ -57,21 +59,21 @@ const Footer = () => {
 
           {/* Quick Links Section */}
           <div className="lg:col-span-1">
-            <h3 className="font-bold mb-4 text-white">Quick Links:</h3>
+            <h3 className="font-bold mb-4 text-white">{t("footer.quickLinks")}</h3>
             <div className="space-y-3 mb-6">
               <a
                 href="https://www.mosip.io/privacy_policy"
                 className="block text-sm hover:text-blue-200 transition-colors"
                 target="_blank"
               >
-                Privacy Policy
+                {t("footer.privacyPolicy")}
               </a>
               <a
                 href="https://www.mosip.io/ip_policy"
                 className="block text-sm hover:text-blue-200 transition-colors"
                 target="_blank"
               >
-                IP Policy
+                {t("footer.ipPolicy")}
               </a>
             </div>
 
@@ -117,7 +119,7 @@ const Footer = () => {
               />
             </div>
             <div className="text-center sm:text-right">
-              <h3 className="font-semibold mb-4 text-white">Incubated by</h3>
+              <h3 className="font-semibold mb-4 text-white">{t("footer.incubatedBy")}</h3>
               <img
                 src={imgIiitbNew}
                 alt="IIITB Logo"
@@ -130,7 +132,7 @@ const Footer = () => {
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
             {/* Contact Us */}
             <div>
-              <h3 className="font-bold mb-3 text-white">Contact Us</h3>
+              <h3 className="font-bold mb-3 text-white">{t("footer.contactUs")}</h3>
               <div className="space-y-2">
                 <a
                   href="mailto:info@mosip.io"
@@ -139,8 +141,8 @@ const Footer = () => {
                   info@mosip.io
                 </a>
                 <div className="text-xs leading-relaxed text-gray-200">
-                  <p>26/C, Electronic City,</p>
-                  <p>Hosur Road, Bangalore - 560100.</p>
+                  <p>{t("footer.address1")}</p>
+                  <p>{t("footer.address2")}</p>
                 </div>
                 <p className="text-xs">+91 8041407777</p>
               </div>
@@ -148,21 +150,21 @@ const Footer = () => {
 
             {/* Quick Links */}
             <div>
-              <h3 className="font-bold mb-3 text-white">Quick Links:</h3>
+              <h3 className="font-bold mb-3 text-white">{t("footer.quickLinks")}</h3>
               <div className="space-y-2 mb-4">
                 <a
                   href="https://www.mosip.io/privacy_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
                   target="_blank"
                 >
-                  Privacy Policy
+                  {t("footer.privacyPolicy")}
                 </a>
                 <a
                   href="https://www.mosip.io/ip_policy"
                   className="block text-sm hover:text-blue-200 transition-colors"
                   target="_blank"
                 >
-                  IP Policy
+                  {t("footer.ipPolicy")}
                 </a>
               </div>
 
@@ -200,7 +202,7 @@ const Footer = () => {
         {/* Copyright */}
         <div className="mt-8 pt-6 border-t border-white/20 text-center">
           <p className="text-sm text-gray-200">
-            © 2025 MOSIP. All rights reserved.
+            {t("footer.allRightsReserved")}
           </p>
         </div>
       </div>
