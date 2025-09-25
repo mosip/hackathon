@@ -493,7 +493,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                             <SelectValue placeholder={t("registration.countryPlaceholder")}/>
                                         </SelectTrigger>
                                         <SelectContent className="max-h-48">
-                                            {countries.map((country) => (
+                                            {t("forms.countries", { returnObjects: true }).map((country) => (
                                                 <SelectItem key={country} value={country}>
                                                     {country}
                                                 </SelectItem>
@@ -686,7 +686,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                             <SelectValue placeholder={t("registration.themeChosenPlaceholder")}/>
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {themes.map((theme) => (
+                                            {t("forms.themes", { returnObjects: true }).map((theme) => (
                                                 <SelectItem key={theme} value={theme}>
                                                     {theme}
                                                 </SelectItem>
