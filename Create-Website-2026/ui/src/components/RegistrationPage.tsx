@@ -30,7 +30,7 @@ interface RegistrationPageProps {
 const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                                                onNavigateHome,
                                                            }) => {
-    const {t} = useTranslation();
+    const {t, i18n} = useTranslation();
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [formData, setFormData] = useState({
         fullName: "",
@@ -493,7 +493,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                             <SelectValue placeholder={t("registration.countryPlaceholder")}/>
                                         </SelectTrigger>
                                         <SelectContent className="max-h-48">
-                                            {t("forms.countries", { returnObjects: true }).map((country) => (
+                                            {t("forms.countries", {returnObjects: true}).map((country) => (
                                                 <SelectItem key={country} value={country}>
                                                     {country}
                                                 </SelectItem>
@@ -686,7 +686,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                             <SelectValue placeholder={t("registration.themeChosenPlaceholder")}/>
                                         </SelectTrigger>
                                         <SelectContent>
-                                            {t("forms.themes", { returnObjects: true }).map((theme) => (
+                                            {t("forms.themes", {returnObjects: true}).map((theme) => (
                                                 <SelectItem key={theme} value={theme}>
                                                     {theme}
                                                 </SelectItem>
@@ -790,7 +790,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
                                                 components={{
                                                     termsLink: (
                                                         <a
-                                                            href={`${window.location.origin}/#terms-and-conditions`}
+                                                            href={`${window.location.origin}/${i18n.language}/#terms-and-conditions`}
                                                             className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
                                                             target="_blank"
                                                             rel="noopener noreferrer"

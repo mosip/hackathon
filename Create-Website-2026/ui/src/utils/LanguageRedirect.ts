@@ -1,8 +1,11 @@
-import { useEffect } from 'react';
-import { useTranslation } from 'react-i18next';
+import {useEffect} from 'react';
+import {useTranslation} from 'react-i18next';
+import {useLocation, useNavigate} from 'react-router-dom';
 
 const LanguageRedirect = () => {
-    const { i18n } = useTranslation();
+    const {i18n} = useTranslation();
+    const navigate = useNavigate();
+    const location = useLocation();
 
     useEffect(() => {
         const currentPath = window.location.pathname;
@@ -13,9 +16,9 @@ const LanguageRedirect = () => {
 
         if (!hasLangInPath) {
             const newPath = `/${i18n.language}${currentPath}`;
-            window.location.replace(window.location.origin + newPath);
+            navigate(newPath, {replace: true});
         }
-    }, [i18n.language]);
+    }, [i18n.language, navigate, location.pathname]);
 
     return null;
 };

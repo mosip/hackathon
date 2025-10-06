@@ -815,7 +815,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        04-Sep-2025
+                                        {t("accordion.launchAndRegistrationDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -831,7 +831,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        01-Oct-2025
+                                        {t("accordion.registrationClosureDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -847,7 +847,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        06-Oct-2025
+                                        {t("accordion.kickOffWebinarDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -863,7 +863,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        15-Oct-2025 onwards
+                                        {t("accordion.amaSessionsDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -879,7 +879,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        01-Dec-2025
+                                        {t("accordion.submissionClosureDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -895,7 +895,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        Until 20-Dec-2025
+                                        {t("accordion.evaluationDemoDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -911,9 +911,12 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        20-Dec-2025 to 24-Dec-2025 (All participants)
-                                        <br/>
-                                        10-Feb-2026 (Official announcement)
+                                        <Trans
+                                            i18nKey="accordion.winnersAnnouncementDate"
+                                            components={{
+                                                brTag: <br/>,
+                                            }}
+                                        />
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -929,7 +932,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        24-Dec-2025 onwards
+                                        {t("accordion.showcasePreparationDate")}
                                     </td>
                                 </tr>
                                 <tr className="hover:bg-gray-50">
@@ -945,7 +948,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                         </div>
                                     </td>
                                     <td className="px-6 py-4 font-medium text-[#014DAF]">
-                                        Before Connect 2026 | Continues...
+                                        {t("accordion.marketplaceListingDate")}
                                     </td>
                                 </tr>
                                 </tbody>
@@ -2032,7 +2035,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                 variant="outline"
                                 size="sm"
                                 className="w-full"
-                                style={{marginTop: "1.3em"}}
+                                style={{marginTop: "1.3em", padding: "0.5rem 0.75rem"}}
                                 disabled
                             >
                                 <Calendar className="w-3 h-3 mr-2"/>
@@ -2383,7 +2386,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             <h5 className="font-bold text-white">{t("accordion.controllerInfoTitle")}</h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.controllerInfoText")}
                             </p>
                         </div>
@@ -2394,10 +2397,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             <h5 className="font-bold text-white">{t("accordion.applicabilityTitle")}</h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.applicabilityText1")}
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.applicabilityText2")}
                             </p>
                         </div>
@@ -2408,7 +2411,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             <h5 className="font-bold text-white">{t("accordion.dataCollectionTitle")}</h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.dataCollectionIntro")}
                             </p>
                             <ul className="space-y-2 text-gray-700">
@@ -2465,7 +2468,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             </h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.whyDataCollectedIntro")}
                             </p>
                             <ul className="space-y-2 text-gray-700">
@@ -2518,10 +2521,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             </h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.howDataStoredText1")}
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.howDataStoredText2")}
                             </p>
                         </div>
@@ -2534,7 +2537,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             </h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.dataDisclosureText")}
                             </p>
                         </div>
@@ -2547,10 +2550,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             </h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.childrenDataText1")}
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.childrenDataText2")}
                             </p>
                         </div>
@@ -2563,7 +2566,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             </h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 text-base mb-4">
                                 {t("accordion.yourRightsText1")}
                             </p>
                             <ul className="space-y-2 text-gray-700">
@@ -2584,10 +2587,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                                     {t("accordion.yourRightsPoint4")}
                                 </li>
                             </ul>
-                            <p className="text-gray-700 mt-4">
+                            <p className="text-gray-700 mt-4 text-base">
                                 {t("accordion.yourRightsText2")}
                             </p>
-                            <p className="text-gray-700 mt-4">
+                            <p className="text-gray-700 mt-4 text-base">
                                 {t("accordion.yourRightsText3")}
                             </p>
                         </div>
@@ -2598,7 +2601,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             <h5 className="font-bold text-white">{t("accordion.contactInfoTitle")}</h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.contactInfoText")}
                             </p>
                         </div>
@@ -2609,10 +2612,10 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                             <h5 className="font-bold text-white">{t("accordion.updatesTitle")}</h5>
                         </div>
                         <div className="p-6">
-                            <p className="text-gray-700 mb-4">
+                            <p className="text-gray-700 mb-4 text-base">
                                 {t("accordion.updatesText1")}
                             </p>
-                            <p className="text-gray-700">
+                            <p className="text-gray-700 text-base">
                                 {t("accordion.updatesText2")}
                             </p>
                         </div>
