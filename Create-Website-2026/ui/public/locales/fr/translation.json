@@ -40,7 +40,16 @@
     "ecosystemDescription": "L'équipe de MOSIP s'engage à nourrir activement un écosystème mondial d'universitaires, de fournisseurs de technologies et de développeurs, afin de garantir que le terrain de la technologie pour les transformations numériques continue d'évoluer et de s'équiper pour les besoins en constante évolution du monde.",
     "techPartners": "Partenaires technologiques",
     "countryPartners": "Partenaires pays",
-    "researchPartners": "Partenaires de recherche"
+    "researchPartners": "Partenaires de recherche",
+    "launchAndRegistrationDate": "04-Sep-2025",
+    "registrationClosureDate": "01-Oct-2025",
+    "kickOffWebinarDate": "06-Oct-2025",
+    "amaSessionsDate": "15-Oct-2025 onwards",
+    "submissionClosureDate": "01-Dec-2025",
+    "evaluationDemoDate": "Until 20-Dec-2025",
+    "winnersAnnouncementDate": "20-Dec-2025 to 24-Dec-2025 (All participants) / 10-Feb-2026 (Official announcement)",
+    "showcasePreparationDate": "24-Dec-2025 onwards",
+    "marketplaceListingDate": "Before Connect 2026 | Continues..."
   },
   "footer": {
     "incubatedBy": "Incubé par",
@@ -355,7 +364,16 @@
     "updatesText2": "Ce document est sous licence CC-BY-SA. Il a été mis à jour pour la dernière fois le 4 septembre 2024.",
     "programDetailsTitle": "Détails du programme",
     "everythingYouNeedToKnow": "Tout ce que vous devez savoir",
-    "programDescription": "Des informations complètes sur MOSIP Create 2025, des détails du programme aux directives de soumission."
+    "programDescription": "Des informations complètes sur MOSIP Create 2025, des détails du programme aux directives de soumission.",
+    "launchAndRegistrationDate": "04-sept.-2025",
+    "registrationClosureDate": "01-oct-2025",
+    "kickOffWebinarDate": "06-oct-2025",
+    "amaSessionsDate": "À partir du 15 octobre 2025",
+    "submissionClosureDate": "01-déc.-2025",
+    "evaluationDemoDate": "Jusqu'au 20 décembre 2025",
+    "winnersAnnouncementDate": "20-déc.-2025 au 24-déc.-2025 (Tous les participants)<brTag/>10-févr.-2026 (Annonce officielle)",
+    "showcasePreparationDate": "À partir du 24 décembre 2025",
+    "marketplaceListingDate": "Avant Connect 2026 | Suite..."
   },
   "cta": {
     "readyToGetStarted": "Prêt à commencer ?",
@@ -589,7 +607,18 @@
       "Inclusion financière grâce à l'identité numérique",
       "Facilitation des identifiants pour l'autonomisation"
     ],
-    "teamSizes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "teamSizes": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "countries": [
       "Afghanistan",
       "Albanie",

@@ -328,7 +328,7 @@ export default function App() {
       window.history.replaceState(
         {},
         document.title,
-        window.location.origin + "/"
+        window.location.origin + "/" + i18n.language
       );
     }, 1);
   }

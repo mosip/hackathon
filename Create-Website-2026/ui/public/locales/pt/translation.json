@@ -355,7 +355,16 @@
     "updatesText2": "Este documento é CC-BY-SA. Foi atualizado pela última vez em 4 de setembro de 2024.",
     "programDetailsTitle": "Detalhes do Programa",
     "everythingYouNeedToKnow": "Tudo o que Você Precisa Saber",
-    "programDescription": "Informações abrangentes sobre o MOSIP Create 2025, desde detalhes do programa até diretrizes de submissão."
+    "programDescription": "Informações abrangentes sobre o MOSIP Create 2025, desde detalhes do programa até diretrizes de submissão.",
+    "launchAndRegistrationDate": "04-set-2025",
+    "registrationClosureDate": "01-out-2025",
+    "kickOffWebinarDate": "06-out-2025",
+    "amaSessionsDate": "15 de outubro de 2025 em diante",
+    "submissionClosureDate": "01-Dez-2025",
+    "evaluationDemoDate": "Até 20-Dez-2025",
+    "winnersAnnouncementDate": "20-Dez-2025 a 24-Dez-2025 (Todos os participantes)<brTag/>10-Fev-2026 (Anúncio oficial)",
+    "showcasePreparationDate": "24 de dezembro de 2025 em diante",
+    "marketplaceListingDate": "Antes do Connect 2026 | Continua..."
   },
   "cta": {
     "readyToGetStarted": "Pronto para Começar?",
@@ -589,7 +598,18 @@
       "Inclusão Financeira por Meio da Identidade Digital",
       "Facilitação de Credenciais para o Empoderamento"
     ],
-    "teamSizes": ["1", "2", "3", "4", "5", "6", "7", "8", "9", "10"],
+    "teamSizes": [
+      "1",
+      "2",
+      "3",
+      "4",
+      "5",
+      "6",
+      "7",
+      "8",
+      "9",
+      "10"
+    ],
     "countries": [
       "Afeganistão",
       "Albânia",
