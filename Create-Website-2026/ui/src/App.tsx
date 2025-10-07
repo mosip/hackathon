@@ -10,7 +10,7 @@ import Footer from "./components/Footer";
 import RegistrationPage from "./components/RegistrationPage";
 import SubmissionPage from "./components/SubmissionPage";
 import { Toaster } from "./components/ui/sonner";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 import LanguageRedirect from "./utils/LanguageRedirect";
 
 export default function App() {
@@ -23,19 +23,16 @@ export default function App() {
   >(null);
   const { t, i18n } = useTranslation();
 
-
-
   useEffect(() => {
-    const supportedLanguages = ['en', 'fr', 'pt'];
-    const pathSegments = window.location.pathname.split('/').filter(Boolean);
+    const supportedLanguages = ["en", "fr", "pt"];
+    const pathSegments = window.location.pathname.split("/").filter(Boolean);
 
-    const nonLangPath = pathSegments.length > 0 && supportedLanguages.includes(pathSegments[0])
-        ? pathSegments.slice(1).join('/')
-        : pathSegments.join('/');
+    const nonLangPath =
+      pathSegments.length > 0 && supportedLanguages.includes(pathSegments[0])
+        ? pathSegments.slice(1).join("/")
+        : pathSegments.join("/");
 
-    if (nonLangPath === "registration-form") {
-      setCurrentPage("registration");
-    } else if (nonLangPath === "solution-submission-form") {
+    if (nonLangPath === "solution-submission-form") {
       setCurrentPage("submission");
     } else {
       setCurrentPage("home");
@@ -45,21 +42,21 @@ export default function App() {
   // Navigation functions
   const navigateToRegistration = () => {
     setCurrentPage("registration");
-    const lang = i18n.language.split('-')[0];
+    const lang = i18n.language.split("-")[0];
     window.history.pushState({}, "", `/${lang}/registration-form`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToSubmission = () => {
     setCurrentPage("submission");
-    const lang = i18n.language.split('-')[0];
+    const lang = i18n.language.split("-")[0];
     window.history.pushState({}, "", `/${lang}/solution-submission-form`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
 
   const navigateToHome = () => {
     setCurrentPage("home");
-    const lang = i18n.language.split('-')[0];
+    const lang = i18n.language.split("-")[0];
     window.history.pushState({}, "", `/${lang}/`);
     window.scrollTo({ top: 0, behavior: "smooth" });
   };
@@ -397,8 +394,8 @@ export default function App() {
 
   // Render homepage
   return (
-      <div className="min-h-screen bg-white">
-      <LanguageRedirect/>
+    <div className="min-h-screen bg-white">
+      <LanguageRedirect />
       {/* Progress indicator with professional MOSIP gradient */}
       <div className="fixed top-0 left-0 right-0 z-50">
         <div

@@ -3,15 +3,13 @@
 import React from "react";
 import { motion } from "motion/react";
 import { Button } from "./ui/button";
-import { useTranslation } from 'react-i18next';
+import { useTranslation } from "react-i18next";
 
 interface CallToActionSectionProps {
-  onNavigateToRegistration?: () => void;
   onNavigateToSubmission?: () => void;
 }
 
 const CallToActionSection: React.FC<CallToActionSectionProps> = ({
-  onNavigateToRegistration,
   onNavigateToSubmission,
 }) => {
   const { t } = useTranslation();
@@ -38,7 +36,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             </p>
           </div>
 
-          {/* Action Buttons */}
+          {/* Action Button */}
           <motion.div
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
@@ -46,16 +44,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             transition={{ duration: 0.6, delay: 0.3 }}
             className="flex flex-col sm:flex-row gap-4 justify-center items-center"
           >
-            {/* Primary CTA - Register */}
-            <Button
-              size="lg"
-              className="mosip-primary-button font-semibold px-8 py-3 rounded-lg min-w-[200px]"
-              onClick={onNavigateToRegistration}
-            >
-              {t("navigation.registerButtonText")}
-            </Button>
-
-            {/* Secondary CTA - Submit */}
+            {/* CTA - Submit */}
             <Button
               variant="outline"
               size="lg"
@@ -75,7 +64,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
             className="mt-8 pt-6 border-t border-gray-200"
           >
             <p className="text-sm text-gray-500 max-w-2xl mx-auto">
-              <strong>{t("cta.registrationTimeline")}</strong>  {t("cta.timelineText")}{t("navigation.github")}
+              {t("cta.timelineText")}
             </p>
           </motion.div>
         </motion.div>
