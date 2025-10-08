@@ -26,7 +26,7 @@ interface SubmissionPageProps {
 }
 
 const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
-  const { t } = useTranslation();
+  const { t, i18n } = useTranslation();
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [uploadedFiles, setUploadedFiles] = useState<string[]>([]);
   const [formData, setFormData] = useState({
@@ -120,7 +120,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
     if (name === "ideaDescription") {
       // ✅ Only letters, numbers, hyphens (-), full stops (.), spaces, commas (,), colons (:), semicolons (;), and apostrophes (') are allowed.
 
-      const ideaDescriptionRegex = /^[A-Za-z0-9-.,:;'\s]+$/;
+      const ideaDescriptionRegex = /^[A-Za-z0-9-.,:;'\u2019\s]+$/s;
 
       if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
         setIdeaDescriptionError(true);
@@ -895,7 +895,7 @@ const SubmissionPage: React.FC<SubmissionPageProps> = ({ onNavigateHome }) => {
                     >
                       {t("submission.consentLabel")}{" "}
                       <a
-                        href={`${window.location.origin}/#terms-and-conditions`}
+                        href={`${window.location.origin}/${i18n.language}/#terms-and-conditions`}
                         className="text-[#01A2FD] hover:underline hover:text-[#0077CC] transition-colors duration-200"
                         target="_blank"
                         rel="noopener noreferrer"

@@ -227,7 +227,7 @@ const RegistrationPage: React.FC<RegistrationPageProps> = ({
     if (name === "ideaDescription") {
       // ✅ Only letters, numbers, hyphens (-), full stops (.), spaces, commas (,), colons (:), semicolons (;), and apostrophes (') are allowed.
 
-      const ideaDescriptionRegex = /^[A-Za-z0-9-.,:;'\s]+$/;
+      const ideaDescriptionRegex = /^[A-Za-z0-9-.,:;'\u2019\s]+$/s;
 
       if (value.trim() && !ideaDescriptionRegex.test(value.trim())) {
         setIdeaDescriptionError(true);
