@@ -1051,10 +1051,21 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   </div>
                   <div>
                     <h6 className="font-semibold text-gray-900">
-                      {t("accordion.step1Title")}
+                      {t("accordion.step2Title")}
                     </h6>
                     <p className="text-sm text-gray-600">
-                      {t("accordion.step1Text")}
+                      <Trans
+                        i18nKey="accordion.step2Text1"
+                        components={{
+                          formLink: (
+                            <button
+                              onClick={onNavigateToSubmission}
+                              className="text-gray-600 hover:text-gray-800 underline font-medium transition-colors duration-200"
+                              style={{ minHeight: "auto" }}
+                            />
+                          ),
+                        }}
+                      />
                     </p>
                   </div>
                 </div>
@@ -1068,29 +1079,35 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   </div>
                   <div>
                     <h6 className="font-semibold text-gray-900">
-                      {t("accordion.step2Title")}
+                      {t("accordion.step1Title")}
                     </h6>
-                    <p className="text-sm text-gray-600 mb-3">
-                      <Trans
-                        i18nKey="accordion.step2Text1"
-                        components={{
-                          formLink: (
-                            <button
-                              onClick={onNavigateToSubmission}
-                              className="text-gray-600 hover:text-gray-800 underline font-medium transition-colors duration-200"
-                              style={{ minHeight: "auto" }}
-                            />
-                          ),
+                    <p className="text-sm text-gray-600">
+                      {t("accordion.step1TextPart1")}{" "}
+                      <a
+                        href="#"
+                        onClick={(e) => {
+                          e.preventDefault();
+                          setOpenAccordionValue("submission");
+
+                          // wait for DOM update
+                          requestAnimationFrame(() => {
+                            const el = document.getElementById("submission");
+                            if (el) {
+                              const yOffset = -100; // adjust if you have a fixed header
+                              const y =
+                                el.getBoundingClientRect().top +
+                                window.pageYOffset +
+                                yOffset;
+                              window.scrollTo({ top: y, behavior: "smooth" });
+                            }
+                          });
                         }}
-                      />
-                      with the following details and any other relevant
-                      information:
+                        className="text-blue-600 underline hover:text-blue-800 cursor-pointer"
+                      >
+                        {t("accordion.step1TextPart2")}
+                      </a>{" "}
+                      {t("accordion.step1TextPart3")}
                     </p>
-                    <ul className="text-sm text-gray-600 space-y-1">
-                      <li>■ {t("accordion.teamName")}</li>
-                      <li>■ {t("accordion.themeChosen")}</li>
-                      <li>■ {t("accordion.urls")}</li>
-                    </ul>
                   </div>
                 </div>
 
@@ -1110,6 +1127,8 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                     </p>
                   </div>
                 </div>
+
+                <p>{t("accordion.step1SubText")}</p>
               </div>
 
               <div className="text-center mt-8">
