@@ -5,6 +5,11 @@ const {
 const { google } = require("googleapis");
 const secretsClient = new SecretsManagerClient();
 
+const { S3Client,CopyObjectCommand, DeleteObjectCommand, ListObjectsV2Command, PutObjectCommand } = require("@aws-sdk/client-s3");
+const { v4: uuidv4 } = require("uuid");
+const s3 = new S3Client({ region: process.env.AWS_REGION });
+
+
 // CORS headers
 const headers = {
   "Access-Control-Allow-Origin": "https://create.mosip.io", // or your frontend domain
@@ -54,6 +59,31 @@ function formatDateForSheet() {
     hour12: true, // AM/PM format
   };
   return now.toLocaleString("en-US", options);
+}
+
+function moveSubmittedFilesToDestination(files = [], baseFolderName) {
+    const SOURCE_BUCKET = process.env.BUCKET_NAME;
+    const DEST_BUCKET = process.env.SUBMISSION_BUCKET;
+
+    for (const fileKey of files) {
+      const destKey = `${baseFolderName}/${fileKey}`;
+      // Copy
+      await s3.send(
+        new CopyObjectCommand({
+          Bucket: DEST_BUCKET,
+          CopySource: `${SOURCE_BUCKET}/${fileKey}`,
+          Key: destKey,
+        })
+      );
+
+      // Optional: delete from source
+      await s3.send(
+        new DeleteObjectCommand({
+          Bucket: SOURCE_BUCKET,
+          Key: fileKey,
+        })
+      );
+    }
 }
 
 // Main Lambda handler
@@ -257,9 +287,13 @@ exports.handler = async (event) => {
         consent,
       } = data;
       try {
+
+        let baseFolderName = `${teamName || "submission"}-${uuidv4()}`.replace(/\s+/g, "_");
+        moveSubmittedFilesToDestination(uploadedFiles, baseFolderName);
+
         await sheets.spreadsheets.values.append({
           spreadsheetId,
-          range: "Sheet2!A1",
+          range: "Submissions!A1",
           valueInputOption: "RAW",
           requestBody: {
             values: [
@@ -273,7 +307,7 @@ exports.handler = async (event) => {
                 problemChallenge,
                 targetAudience,
                 additionalComments || "",
-                (uploadedFiles || []).join("; "),
+                baseFolderName,
                 consent,
                 formatDateForSheet(),
               ],
