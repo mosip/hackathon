@@ -61,7 +61,7 @@ function formatDateForSheet() {
   return now.toLocaleString("en-US", options);
 }
 
-function moveSubmittedFilesToDestination(files = [], baseFolderName) {
+async function moveSubmittedFilesToDestination(files = [], baseFolderName) {
     const SOURCE_BUCKET = process.env.BUCKET_NAME;
     const DEST_BUCKET = process.env.SUBMISSION_BUCKET;
 
@@ -289,7 +289,7 @@ exports.handler = async (event) => {
       try {
 
         let baseFolderName = `${teamName || "submission"}-${uuidv4()}`.replace(/\s+/g, "_");
-        moveSubmittedFilesToDestination(uploadedFiles, baseFolderName);
+        await moveSubmittedFilesToDestination(uploadedFiles, baseFolderName);
 
         await sheets.spreadsheets.values.append({
           spreadsheetId,
