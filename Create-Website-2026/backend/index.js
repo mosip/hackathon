@@ -62,27 +62,36 @@ function formatDateForSheet() {
 }
 
 async function moveSubmittedFilesToDestination(files = [], baseFolderName) {
+    console.log(`Moving ${files.length} files to folder: ${baseFolderName}`);
+
     const SOURCE_BUCKET = process.env.BUCKET_NAME;
     const DEST_BUCKET = process.env.SUBMISSION_BUCKET;
 
     for (const fileKey of files) {
       const destKey = `${baseFolderName}/${fileKey}`;
-      // Copy
-      await s3.send(
-        new CopyObjectCommand({
-          Bucket: DEST_BUCKET,
-          CopySource: `${SOURCE_BUCKET}/${fileKey}`,
-          Key: destKey,
-        })
-      );
+          try {
+              console.log(`Copying ${fileKey} -> ${destKey}`);
+              // Copy
+              await s3.send(
+                new CopyObjectCommand({
+                  Bucket: DEST_BUCKET,
+                  CopySource: `${SOURCE_BUCKET}/${fileKey}`,
+                  Key: destKey,
+                })
+              );
 
-      // Optional: delete from source
-      await s3.send(
-        new DeleteObjectCommand({
-          Bucket: SOURCE_BUCKET,
-          Key: fileKey,
-        })
-      );
+              console.log(`Deleting ${fileKey} from source`);
+              // Optional: delete from source
+              await s3.send(
+                new DeleteObjectCommand({
+                  Bucket: SOURCE_BUCKET,
+                  Key: fileKey,
+                })
+              );
+
+          } catch (err) {
+              console.error(`Error moving file ${fileKey}:`, err);
+          }
     }
 }
 
@@ -289,6 +298,8 @@ exports.handler = async (event) => {
       try {
 
         let baseFolderName = `${teamName || "submission"}-${uuidv4()}`.replace(/\s+/g, "_");
+        console.log("Starting with the file movement :", baseFolderName);
+
         await moveSubmittedFilesToDestination(uploadedFiles, baseFolderName);
 
         await sheets.spreadsheets.values.append({
