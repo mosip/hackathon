@@ -240,6 +240,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                 size="lg"
                 className="mosip-primary-button font-semibold"
                 onClick={onNavigateToSubmission}
+                disabled
               >
                 {t("accordion.submitYourSolution")}
               </Button>
@@ -1062,6 +1063,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                               onClick={onNavigateToSubmission}
                               className="text-gray-600 hover:text-gray-800 underline font-medium transition-colors duration-200"
                               style={{ minHeight: "auto" }}
+                              disabled
                             />
                           ),
                         }}
@@ -1136,6 +1138,7 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
                   onClick={onNavigateToSubmission}
                   className="mosip-primary-button-orange font-semibold px-8 py-3"
                   size="lg"
+                  disabled
                 >
                   {t("accordion.submitYourSolution")}
                 </Button>

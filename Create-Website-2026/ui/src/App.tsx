@@ -33,7 +33,9 @@ export default function App() {
         : pathSegments.join("/");
 
     if (nonLangPath === "solution-submission-form") {
-      setCurrentPage("submission");
+      // disabled the submission page navigation
+      // setCurrentPage("submission");
+      setCurrentPage("home");
     } else {
       setCurrentPage("home");
     }
