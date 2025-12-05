@@ -50,6 +50,7 @@ const CallToActionSection: React.FC<CallToActionSectionProps> = ({
               size="lg"
               className="mosip-secondary-button font-semibold px-8 py-3 rounded-lg min-w-[200px]"
               onClick={onNavigateToSubmission}
+              disabled
             >
               {t("cta.submitYourSolution")}
             </Button>

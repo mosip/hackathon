@@ -309,7 +309,7 @@
 
   a:disabled:hover,
   button:disabled:hover {
-    cursor: not-allowed;
+    cursor: not-allowed !important;
   }
 
   .register,
@@ -317,7 +317,7 @@
     padding-top: 7em;
   }
 
-  .screen_width{
+  .screen_width {
     max-width: 85rem;
   }
 
@@ -9263,6 +9263,13 @@
     transition: background-color 0.25s ease-in-out;
     color: #fff !important;
     background-color: #f58020 !important;
+  }
+
+  button:disabled,
+  button[disabled] {
+    &:hover {
+      cursor: not-allowed !important;
+    }
   }
 
   .mosip-primary-button-orange:hover {
