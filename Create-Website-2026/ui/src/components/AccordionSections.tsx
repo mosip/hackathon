@@ -26,6 +26,7 @@ import networkIcon from "../assets/7100cbf2bdd2edf857b1756b0e7a3e017056d5d3.png"
 import ekycIcon from "../assets/3cbf525c4ed461404eed76541658d2ca2685726c.png";
 import financialIcon from "../assets/4a90e15aa62cda3b74c6a98b571e5a25425ea5ef.png";
 import credentialIcon from "../assets/0cabc3e0a8a5beb5dd7faa4d916036fcfd8f9a2b.png";
+import createEvalPanelImage from "../assets/create_eval_panel.jpg";
 import { useTranslation } from "react-i18next";
 import { Trans } from "react-i18next";
 
@@ -1167,6 +1168,13 @@ const AccordionSections: React.FC<AccordionSectionsProps> = ({
             </p>
           </div>
 
+          <div>
+            <img
+              src={createEvalPanelImage}
+              alt="Evaluation Panel"
+              className="mb-4 rounded-lg shadow-md"
+            />
+          </div>
           {/* Evaluation Criteria Table */}
           <div className="bg-white rounded-lg border border-gray-200 shadow-sm overflow-hidden">
             <div className="overflow-x-auto">
