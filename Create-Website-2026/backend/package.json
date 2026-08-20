@@ -12,7 +12,7 @@
   "license": "MPL",
   "description": "",
   "dependencies": {
-    "@aws-sdk/client-secrets-manager": "^3.879.0",
+    "@aws-sdk/client-secrets-manager": "^3.995.0",
     "googleapis": "^159.0.0"
   }
 }
